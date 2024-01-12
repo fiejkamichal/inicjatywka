@@ -13,14 +13,22 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import org.mechanika.inicjatywkaprototyp02.game.domain.model.Phase
 
 @Composable
 fun InitialPhaseScreen(
     component: InitialPhaseViewModel
 ) {
+
+    LaunchedEffect(true) {
+        delay(10)
+        if(component.state.value.currentPhase == Phase.Phases.Initiative) component.onEvent(InitialPhaseEvent.StartInitiative)
+    }
 
     Scaffold(
         floatingActionButton = {
