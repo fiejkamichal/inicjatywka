@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS PhaseEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    value TEXT NOT NULL
+);
+
+getPhaseEntity:
+SELECT * FROM PhaseEntity WHERE id = 0;
+
+setPhaseEntity:
+INSERT OR REPLACE INTO PhaseEntity VALUES (0, :value);
