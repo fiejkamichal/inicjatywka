@@ -3,8 +3,13 @@ CREATE TABLE IF NOT EXISTS PhaseEntity (
     value TEXT NOT NULL
 );
 
+
 getPhaseEntity:
 SELECT * FROM PhaseEntity WHERE id = 0;
 
 setPhaseEntity:
 INSERT OR REPLACE INTO PhaseEntity VALUES (0, :value);
+
+getPhaseEntities:
+SELECT * FROM PhaseEntity;
+

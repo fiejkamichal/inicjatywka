@@ -1,8 +1,7 @@
-package org.mechanika.inicjatywkaprototyp02.game.domain.model
+package org.mechanika.inicjatywkaprototyp02.game.domain.model.phase
 
 data class Phase(
-    val value: Phases,
-    val id: Long? = null
+    val value: Phases
 ) {
     companion object {
         val phases = listOf(Phases.Initial, Phases.Initiative)

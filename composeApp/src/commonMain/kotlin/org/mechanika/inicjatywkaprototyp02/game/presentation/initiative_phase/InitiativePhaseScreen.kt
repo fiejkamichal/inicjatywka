@@ -13,14 +13,19 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.mechanika.inicjatywkaprototyp02.game.domain.model.phase.Phase
+import org.mechanika.inicjatywkaprototyp02.game.presentation.components.debug.Debug
 
 @Composable
 fun InitiativePhaseScreen(
     component: InitiativePhaseViewModel
 ) {
+    val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initiative)
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
@@ -46,12 +51,15 @@ fun InitiativePhaseScreen(
             }
             item {
                 Text(
-                    text = component.state.value.currentPhase.toString(),
+                    text = currentPhase.value.toString(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                     fontWeight = FontWeight.Bold
                 )
+            }
+            item {
+                Debug(component.debugViewModel)
             }
         }
     }

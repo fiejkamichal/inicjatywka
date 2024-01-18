@@ -14,20 +14,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import org.mechanika.inicjatywkaprototyp02.game.domain.model.Phase
+import org.mechanika.inicjatywkaprototyp02.game.domain.model.phase.Phase
+import org.mechanika.inicjatywkaprototyp02.game.presentation.components.debug.Debug
+import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo.Undo
+import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo.UndoRedoEvent
 
 @Composable
 fun InitialPhaseScreen(
     component: InitialPhaseViewModel
 ) {
+    val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initial)
 
     LaunchedEffect(true) {
-        delay(10)
-        if(component.state.value.currentPhase == Phase.Phases.Initiative) component.onEvent(InitialPhaseEvent.StartInitiative)
+        delay(1000)
+        if (currentPhase.value == Phase.Phases.Initiative) component.onEvent(InitialPhaseEvent.SwitchToInitiative)
     }
 
     Scaffold(
@@ -35,15 +40,21 @@ fun InitialPhaseScreen(
             FloatingActionButton(onClick = {
                 component.onEvent(InitialPhaseEvent.StartInitiative)
             }) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Start Inicjatywy")
+                Icon(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = "Start Inicjatywy"
+                )
             }
         }
     ) {
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
-        ){
+        ) {
+            item {
+                Undo { component.undoRedoViewModel.onEvent(UndoRedoEvent.Undo) }
+            }
             item {
                 Text(
                     text = "Ekran startowy",
@@ -55,12 +66,15 @@ fun InitialPhaseScreen(
             }
             item {
                 Text(
-                    text = component.state.value.currentPhase.toString(),
+                    text = currentPhase.value.toString(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                     fontWeight = FontWeight.Bold
                 )
+            }
+            item {
+                Debug(component.debugViewModel)
             }
         }
     }

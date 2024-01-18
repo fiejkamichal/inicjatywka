@@ -1,18 +1,23 @@
 package org.mechanika.inicjatywkaprototyp02.game.data.repository
 
-import org.mechanika.inicjatywkaprototyp02.game.data.data_source.PhaseDao
-import org.mechanika.inicjatywkaprototyp02.game.domain.model.Phase
+import kotlinx.coroutines.flow.Flow
+import org.mechanika.inicjatywkaprototyp02.game.data.data_source.phase.PhaseDao
+import org.mechanika.inicjatywkaprototyp02.game.domain.model.phase.Phase
 import org.mechanika.inicjatywkaprototyp02.game.domain.repository.PhaseRepository
 
 class PhaseRepositoryImpl(
     private val dao: PhaseDao
 ) : PhaseRepository {
-    override suspend fun getPhase(): Phase? {
+    override fun getPhase(): Flow<Phase?> {
         return dao.getPhase()
     }
 
-    override suspend fun setPhase(phase: Phase): Phase {
+    override fun setPhase(phase: Phase): Phase {
         dao.setPhase(phase)
         return phase
+    }
+
+    override fun getPhases(): Flow<List<Phase>> {
+        return dao.getPhases()
     }
 }

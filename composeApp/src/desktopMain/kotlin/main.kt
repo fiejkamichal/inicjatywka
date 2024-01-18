@@ -12,10 +12,12 @@ fun main() = application {
 
     val lifecycle = LifecycleRegistry()
 
+    val appModulePlatform = AppModulePlatform()
+
     val root = runOnUiThread {
         RootComponent(
             componentContext = DefaultComponentContext(lifecycle = lifecycle),
-            appModulePlatform = AppModulePlatform()
+            appModulePlatform = appModulePlatform
         )
     }
 

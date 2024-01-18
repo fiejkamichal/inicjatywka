@@ -3,7 +3,6 @@ package org.mechanika.inicjatywkaprototyp02.navigation
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.stack.StackNavigation
-import com.arkivanov.decompose.router.stack.active
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
@@ -39,7 +38,7 @@ class RootComponent(
         return when(config) {
             Configuration.InitialPhase -> Child.InitialPhase(
                 InitialPhaseViewModel(
-                    appModule.phaseUseCases,
+                    appModule.inicjatywkaUseCases,
                     componentContext = context,
                     onNavigateToInitiativePhaseViewModel = {
                         navigation.pushNew(
@@ -50,12 +49,10 @@ class RootComponent(
             )
             is Configuration.InitiativePhase -> Child.InitiativePhase(
                 InitiativePhaseViewModel(
-                    appModule.phaseUseCases,
+                    appModule.inicjatywkaUseCases,
                     componentContext = context,
                     onNavigateToInitialPhaseViewModel = {
-                        navigation.pop() {
-                            (childStack.active.instance as? Child.InitialPhase)?.component?.onResume()
-                        }
+                        navigation.pop()
                     }
                 )
             )

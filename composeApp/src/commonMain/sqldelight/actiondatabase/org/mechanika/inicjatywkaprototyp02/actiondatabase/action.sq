@@ -1,0 +1,61 @@
+CREATE TABLE IF NOT EXISTS ActionStackEntryEntity (
+    position INTEGER PRIMARY KEY NOT NULL,
+    actionType TEXT NOT NULL,
+    actionId INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ActionStackPositionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    actionStackEntryPosition INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fromPhase TEXT NOT NULL,
+    toPhase TEXT NOT NULL,
+    type TEXT NOT NULL
+);
+
+
+
+getActionStackEntry:
+SELECT * FROM ActionStackEntryEntity WHERE position = :position;
+
+setActionStackEntry:
+INSERT OR REPLACE INTO ActionStackEntryEntity VALUES (:position, :actionType, :actionId);
+
+deleteActionStackEntry:
+DELETE FROM ActionStackEntryEntity WHERE position = :position;
+
+getNumOfActionStackEntries:
+SELECT COUNT(*) FROM ActionStackEntryEntity;
+
+getActionStackEntries:
+SELECT * FROM ActionStackEntryEntity ORDER BY position ASC;
+
+
+
+getActionStackPositionEntity:
+SELECT * FROM ActionStackPositionEntity WHERE id = 0;
+
+setActionStackPositionEntity:
+INSERT OR REPLACE INTO ActionStackPositionEntity VALUES (0, :value);
+
+
+
+insertPhaseChangeAction:
+INSERT OR REPLACE INTO PhaseChangeActionEntity (fromPhase, toPhase, type) VALUES (:fromPhase, :toPhase, :type);
+
+deletePhaseChangeAction:
+DELETE FROM PhaseChangeActionEntity WHERE id = :actionId;
+
+getPhaseChangeAction:
+SELECT * FROM PhaseChangeActionEntity WHERE id = :actionId;
+
+getPhaseChangeActions:
+SELECT * FROM PhaseChangeActionEntity ORDER BY id ASC;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+
