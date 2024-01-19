@@ -4,7 +4,5 @@ import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo
 
 sealed interface InitialPhaseEvent {
     data object StartInitiative: InitialPhaseEvent
-    data object SwitchToInitiative: InitialPhaseEvent
-
     data class UndoRedo(val event: UndoRedoEvent): InitialPhaseEvent
 }
