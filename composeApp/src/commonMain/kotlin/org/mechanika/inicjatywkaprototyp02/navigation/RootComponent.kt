@@ -4,8 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
-import com.arkivanov.decompose.router.stack.pop
-import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.router.stack.replaceAll
 import kotlinx.serialization.Serializable
 import org.mechanika.inicjatywkaprototyp02.di.AppModule
 import org.mechanika.inicjatywkaprototyp02.di.AppModulePlatform
@@ -41,7 +40,7 @@ class RootComponent(
                     appModule.inicjatywkaUseCases,
                     componentContext = context,
                     onNavigateToInitiativePhaseViewModel = {
-                        navigation.pushNew(
+                        navigation.replaceAll(
                             Configuration.InitiativePhase
                         )
                     }
@@ -52,7 +51,9 @@ class RootComponent(
                     appModule.inicjatywkaUseCases,
                     componentContext = context,
                     onNavigateToInitialPhaseViewModel = {
-                        navigation.pop()
+                        navigation.replaceAll(
+                            Configuration.InitialPhase
+                        )
                     }
                 )
             )

@@ -19,4 +19,8 @@ class Debug(
     fun getPhases(): Flow<List<Phase>> {
         return phaseRepository.getPhases()
     }
+
+    fun getCurrentStackPosition():Long? {
+        return actionRepository.getActionStackPosition()
+    }
 }

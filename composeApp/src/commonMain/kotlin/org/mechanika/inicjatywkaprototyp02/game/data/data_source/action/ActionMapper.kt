@@ -23,6 +23,7 @@ fun ActionStackPositionEntity.toLong(): Long? {
 
 fun PhaseChangeActionEntity.toPhaseChangeAction(): PhaseChangeAction {
     return PhaseChangeAction(
+        id = this.id,
         from = Phase.Phases.valueOf(this.fromPhase),
         to = Phase.Phases.valueOf(this.toPhase),
         type = ActionStackEntry.ActionTypes.valueOf(this.type)

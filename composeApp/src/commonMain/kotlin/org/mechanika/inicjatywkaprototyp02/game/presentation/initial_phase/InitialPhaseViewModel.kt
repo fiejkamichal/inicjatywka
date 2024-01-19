@@ -18,7 +18,8 @@ class InitialPhaseViewModel(
 
     val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,
-        redo = inicjatywkaUseCases.redoAction
+        redo = inicjatywkaUseCases.redoAction,
+        stack = inicjatywkaUseCases.stack
     )
 
     val debugViewModel = DebugViewModel(

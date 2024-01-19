@@ -6,16 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 
 @Composable
-fun Undo(
+fun Redo(
     undoRedoViewModel: UndoRedoViewModel
 ) {
     val enabled = remember {undoRedoViewModel.state}
     Button (
-        onClick = { undoRedoViewModel.onEvent(UndoRedoEvent.Undo) },
-        enabled = enabled.value.undoEnabled
+        onClick = { undoRedoViewModel.onEvent(UndoRedoEvent.Redo) },
+        enabled = enabled.value.redoEnabled
     ) {
         Text (
-            text = "Undo"
+            text = "Redo"
         )
     }
 }

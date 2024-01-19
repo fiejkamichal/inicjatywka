@@ -8,6 +8,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -19,6 +20,7 @@ fun Debug(
     val currentPhase = component.state.currentPhase.collectAsState(null)
     val phaseChanges = component.state.phaseChanges.collectAsState(emptyList())
     val phases = component.state.phases.collectAsState(emptyList())
+    val currentStackPosition = remember { component.state.currentStackPosition }
     Column {
         Button(
             onClick = {component.updateState()}
@@ -34,6 +36,14 @@ fun Debug(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 16.dp)
 
+            )
+        }
+
+        Row {
+            Text(
+                text = "Obecna Pozycja na Stosie (${currentStackPosition.value})",
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 16.dp)
             )
         }
 

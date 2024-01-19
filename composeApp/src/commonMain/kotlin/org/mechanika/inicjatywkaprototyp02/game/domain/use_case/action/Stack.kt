@@ -22,7 +22,7 @@ class Stack(
     private fun cleanStackAbovePosition(position: Long)
     {
         var pos = position + 1
-        val entry = repository.getActionStackEntry(pos)
+        var entry = repository.getActionStackEntry(pos)
         while(entry != null)
         {
             repository.deleteActionStackEntry(pos)
@@ -31,6 +31,7 @@ class Stack(
                     repository.deletePhaseChangeAction(entry.actionId)
             }
             pos++
+            entry = repository.getActionStackEntry(pos)
         }
     }
 
@@ -76,6 +77,15 @@ class Stack(
         }
     }
 
+    fun canMovePositionDown():Boolean {
+        return getActionStackPosition()>0
+    }
+
+    fun canMovePositionUp():Boolean {
+        val position = getActionStackPosition()
+        val stackHeight = getActionStackHeight()
+        return (position < stackHeight)
+    }
     fun getActions(): Flow<List<ActionStackEntry>> {
         return repository.getActionStackEntries()
     }

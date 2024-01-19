@@ -19,8 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywkaprototyp02.game.domain.model.phase.Phase
 import org.mechanika.inicjatywkaprototyp02.game.presentation.components.debug.Debug
+import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo.Undo
-import org.mechanika.inicjatywkaprototyp02.game.presentation.components.undoredo.UndoRedoEvent
 
 @Composable
 fun InitialPhaseScreen(
@@ -46,7 +46,10 @@ fun InitialPhaseScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                Undo { component.undoRedoViewModel.onEvent(UndoRedoEvent.Undo) }
+                Undo (
+                    undoRedoViewModel =  component.undoRedoViewModel
+                )
+                Redo ( component.undoRedoViewModel )
             }
             item {
                 Text(
