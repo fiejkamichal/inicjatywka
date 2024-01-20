@@ -1,4 +1,4 @@
-rootProject.name = "InicjatywkaPrototyp02"
+rootProject.name = "Inicjatywka"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

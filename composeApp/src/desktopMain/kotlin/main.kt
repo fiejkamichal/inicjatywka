@@ -2,9 +2,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import org.mechanika.inicjatywkaprototyp02.App
-import org.mechanika.inicjatywkaprototyp02.di.AppModulePlatform
-import org.mechanika.inicjatywkaprototyp02.navigation.RootComponent
+import org.mechanika.inicjatywka.App
+import org.mechanika.inicjatywka.di.AppModulePlatform
+import org.mechanika.inicjatywka.navigation.RootComponent
 import javax.swing.SwingUtilities
 
 fun main() = application {
@@ -22,7 +22,7 @@ fun main() = application {
     }
 
 
-    Window(onCloseRequest = ::exitApplication, title = "InicjatywkaPrototyp02") {
+    Window(onCloseRequest = ::exitApplication, title = "Inicjatywka") {
         App(
             root = root
         )

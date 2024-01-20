@@ -14,11 +14,11 @@ kotlin {
     sqldelight {
         databases {
             create("PhaseDatabase") {
-                packageName = "org.mechanika.inicjatywkaprototyp02.phasedatabase"
+                packageName = "org.mechanika.inicjatywka.phasedatabase"
                 srcDirs("src/commonMain/sqldelight/phasedatabase")
             }
             create("ActionDatabase") {
-                packageName = "org.mechanika.inicjatywkaprototyp02.actiondatabase"
+                packageName = "org.mechanika.inicjatywka.actiondatabase"
                 srcDirs("src/commonMain/sqldelight/actiondatabase")
             }
         }
@@ -65,7 +65,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.mechanika.inicjatywkaprototyp02"
+    namespace = "org.mechanika.inicjatywka"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -73,11 +73,11 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "org.mechanika.inicjatywkaprototyp02"
+        applicationId = "org.mechanika.inicjatywka"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.2.0"
     }
     packaging {
         resources {
@@ -105,8 +105,8 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
-            packageName = "org.mechanika.inicjatywkaprototyp02"
-            packageVersion = "1.0.0"
+            packageName = "org.mechanika.inicjatywka"
+            packageVersion = "1.2.0"
             modules("java.sql")
         }
     }
