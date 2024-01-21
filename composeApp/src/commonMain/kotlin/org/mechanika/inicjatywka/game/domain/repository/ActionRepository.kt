@@ -2,6 +2,8 @@ package org.mechanika.inicjatywka.game.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 interface ActionRepository {
@@ -20,4 +22,16 @@ interface ActionRepository {
     fun deletePhaseChangeAction(actionId: Long)
     fun getPhaseChangeAction(actionId: Long): PhaseChangeAction?
     fun getPhaseChangeActions(): Flow<List<PhaseChangeAction>>
+
+
+    fun insertCharacterCardAddAction(characterCardAdd: CharacterCardAddAction): Long
+    fun deleteCharacterCardAddAction(actionId: Long)
+    fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction?
+    fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>>
+
+
+    fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long
+    fun deleteCharacterCardDeleteAction(actionId: Long)
+    fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction?
+    fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>>
 }

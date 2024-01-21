@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.actiondatabase.ActionDatabase
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 
@@ -76,6 +78,59 @@ class ActionDaoImpl(
             .map { list ->
                 list.map {
                     it.toPhaseChangeAction()
+                }
+            }
+    }
+
+    override fun insertCharacterCardAddAction(cardId: Long): Long {
+        return queries.transactionWithResult {
+            queries.insertCharacterCardAddAction(cardId = cardId)
+            queries.lastInsertRowId().executeAsOne()
+        }
+    }
+
+    override fun deleteCharacterCardAddAction(actionId: Long) {
+        queries.deleteCharacterCardAddAction(actionId)
+    }
+
+    override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
+        return queries.getCharacterCardAddAction(actionId).executeAsOneOrNull()?.toCharacterCardAddAction()
+    }
+
+    override fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>> {
+        return queries.getCharacterCardAddActions()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toCharacterCardAddAction()
+                }
+            }
+    }
+
+
+    override fun insertCharacterCardDeleteAction(cardId: Long): Long {
+        return queries.transactionWithResult {
+            queries.insertCharacterCardDeleteAction(cardId = cardId)
+            queries.lastInsertRowId().executeAsOne()
+        }
+    }
+
+    override fun deleteCharacterCardDeleteAction(actionId: Long) {
+        queries.deleteCharacterCardDeleteAction(actionId)
+    }
+
+    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? {
+        return queries.getCharacterCardDeleteAction(actionId).executeAsOneOrNull()?.toCharacterCardDeleteAction()
+    }
+
+    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> {
+        return queries.getCharacterCardDeleteActions()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toCharacterCardDeleteAction()
                 }
             }
     }

@@ -3,6 +3,8 @@ package org.mechanika.inicjatywka.game.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.data.data_source.action.ActionDao
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
@@ -62,5 +64,27 @@ class ActionRepositoryImpl(
     override fun getPhaseChangeActions(): Flow<List<PhaseChangeAction>> {
         return dao.getPhaseChangeActions()
     }
+
+    override fun insertCharacterCardAddAction(characterCardAdd: CharacterCardAddAction): Long {
+        return dao.insertCharacterCardAddAction(characterCardAdd.cardId)
+    }
+
+    override fun deleteCharacterCardAddAction(actionId: Long) {
+        dao.deleteCharacterCardAddAction(actionId)
+    }
+
+    override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
+        return dao.getCharacterCardAddAction(actionId)
+    }
+
+    override fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>> {
+        return dao.getCharacterCardAddActions()
+    }
+
+
+    override fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long = dao.insertCharacterCardDeleteAction(characterCardDelete.cardId)
+    override fun deleteCharacterCardDeleteAction(actionId: Long) = dao.deleteCharacterCardDeleteAction(actionId)
+    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? = dao.getCharacterCardDeleteAction(actionId)
+    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> = dao.getCharacterCardDeleteActions()
 
 }

@@ -16,6 +16,8 @@ class EmptyActionUseCase: ActionUseCase {
 fun getActionUseCase(actions: Actions, action: Action?): ActionUseCase {
     return when(action?.type) {
         ActionStackEntry.ActionTypes.PhaseChange -> actions.phaseChangeActionUseCase
+        ActionStackEntry.ActionTypes.CharacterCardAdd -> actions.characterCardAddActionUseCase
+        ActionStackEntry.ActionTypes.CharacterCardDelete -> actions.characterCardDeleteActionUseCase
         null -> actions.emptyActionUseCase
     }
 }

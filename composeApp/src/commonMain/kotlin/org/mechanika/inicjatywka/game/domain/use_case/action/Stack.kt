@@ -3,6 +3,8 @@ package org.mechanika.inicjatywka.game.domain.use_case.action
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
@@ -29,6 +31,10 @@ class Stack(
             when(entry.actionType) {
                 ActionStackEntry.ActionTypes.PhaseChange ->
                     repository.deletePhaseChangeAction(entry.actionId)
+                ActionStackEntry.ActionTypes.CharacterCardAdd ->
+                    repository.deleteCharacterCardAddAction(entry.actionId)
+                ActionStackEntry.ActionTypes.CharacterCardDelete ->
+                    repository.deleteCharacterCardDeleteAction(entry.actionId)
             }
             pos++
             entry = repository.getActionStackEntry(pos)
@@ -57,9 +63,12 @@ class Stack(
         val position = getActionStackPosition()
         cleanStackAbovePosition(position)
         val actionId = when(action.type) {
-            ActionStackEntry.ActionTypes.PhaseChange -> {
+            ActionStackEntry.ActionTypes.PhaseChange ->
                 repository.insertPhaseChangeAction(action as PhaseChangeAction)
-            }
+            ActionStackEntry.ActionTypes.CharacterCardAdd ->
+                repository.insertCharacterCardAddAction(action as CharacterCardAddAction)
+            ActionStackEntry.ActionTypes.CharacterCardDelete ->
+                repository.insertCharacterCardDeleteAction(action as CharacterCardDeleteAction)
         }
         repository.setActionStackEntry(position+1, action.type, actionId)
         repository.setActionStackPosition(position+1)
@@ -70,9 +79,12 @@ class Stack(
         if(position == 0L) return null
         val entry = repository.getActionStackEntry(position)
         return when(entry?.actionType) {
-            ActionStackEntry.ActionTypes.PhaseChange -> {
+            ActionStackEntry.ActionTypes.PhaseChange ->
                 repository.getPhaseChangeAction(entry.actionId)
-            }
+            ActionStackEntry.ActionTypes.CharacterCardAdd ->
+                repository.getCharacterCardAddAction(entry.actionId)
+            ActionStackEntry.ActionTypes.CharacterCardDelete ->
+                repository.getCharacterCardDeleteAction(entry.actionId)
             null -> null
         }
     }

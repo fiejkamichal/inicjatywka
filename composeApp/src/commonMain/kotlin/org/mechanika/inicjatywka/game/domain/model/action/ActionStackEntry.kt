@@ -6,6 +6,8 @@ data class ActionStackEntry(
     val actionId: Long
 ) {
     enum class ActionTypes {
-        PhaseChange
+        PhaseChange,
+        CharacterCardAdd,
+        CharacterCardDelete
     }
 }

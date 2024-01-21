@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS CharacterCardEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    deleted INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    initiative INTEGER NOT NULL
+);
+
+insertCharacterCard:
+INSERT OR REPLACE INTO CharacterCardEntity (name, initiative, deleted)
+VALUES (:name, :initiative, 0);
+
+deleteCharacterCard:
+DELETE FROM CharacterCardEntity WHERE id = :id;
+
+markCharacterCardAsDeleted:
+UPDATE CharacterCardEntity SET deleted = 1 WHERE id = :id;
+
+unmarkCharacterCardAsDeleted:
+UPDATE CharacterCardEntity SET deleted = 0 WHERE id = :id;
+
+getCharacterCard:
+SELECT * FROM CharacterCardEntity WHERE id = :id;
+
+getCharacterCards:
+SELECT * FROM CharacterCardEntity WHERE deleted = 0;
+
+getDeletedCharacterCards:
+SELECT * FROM CharacterCardEntity WHERE deleted = 1;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

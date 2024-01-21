@@ -16,6 +16,15 @@ CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
     type TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS CharacterCardAddActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    characterCardId INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS CharacterCardDeleteActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    characterCardId INTEGER NOT NULL
+);
 
 
 getActionStackEntry:
@@ -55,7 +64,32 @@ SELECT * FROM PhaseChangeActionEntity WHERE id = :actionId;
 getPhaseChangeActions:
 SELECT * FROM PhaseChangeActionEntity ORDER BY id ASC;
 
+
+insertCharacterCardAddAction:
+INSERT OR REPLACE INTO CharacterCardAddActionEntity (characterCardId) VALUES (:cardId);
+
+deleteCharacterCardAddAction:
+DELETE FROM CharacterCardAddActionEntity WHERE id = :actionId;
+
+getCharacterCardAddAction:
+SELECT * FROM CharacterCardAddActionEntity WHERE id = :actionId;
+
+getCharacterCardAddActions:
+SELECT * FROM CharacterCardAddActionEntity ORDER BY id ASC;
+
+
+insertCharacterCardDeleteAction:
+INSERT OR REPLACE INTO CharacterCardDeleteActionEntity (characterCardId) VALUES (:cardId);
+
+deleteCharacterCardDeleteAction:
+DELETE FROM CharacterCardDeleteActionEntity WHERE id = :actionId;
+
+getCharacterCardDeleteAction:
+SELECT * FROM CharacterCardDeleteActionEntity WHERE id = :actionId;
+
+getCharacterCardDeleteActions:
+SELECT * FROM CharacterCardDeleteActionEntity ORDER BY id ASC;
+
+
 lastInsertRowId:
 SELECT last_insert_rowid();
-
-

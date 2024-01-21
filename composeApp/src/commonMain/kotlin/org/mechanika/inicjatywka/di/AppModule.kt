@@ -1,11 +1,15 @@
 package org.mechanika.inicjatywka.di
 
 import org.mechanika.inicjatywka.game.data.repository.ActionRepositoryImpl
+import org.mechanika.inicjatywka.game.data.repository.CharacterRepositoryImpl
 import org.mechanika.inicjatywka.game.data.repository.PhaseRepositoryImpl
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
+import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
+import org.mechanika.inicjatywka.game.domain.use_case.action.CharacterCardAddActionUseCase
+import org.mechanika.inicjatywka.game.domain.use_case.action.CharacterCardDeleteActionUseCase
 import org.mechanika.inicjatywka.game.domain.use_case.action.EmptyActionUseCase
 import org.mechanika.inicjatywka.game.domain.use_case.action.PhaseChangeActionUseCase
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
@@ -28,16 +32,23 @@ class AppModule (
         dao = appModulePlatform.actionDao
     )
 
+    private val characterRepository: CharacterRepository = CharacterRepositoryImpl(
+        dao = appModulePlatform.characterDao
+    )
+
     private val stack: Stack = Stack(actionRepository)
 
     private val actions: Actions = Actions (
         emptyActionUseCase = EmptyActionUseCase(),
-        phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository)
+        phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository),
+        characterCardAddActionUseCase = CharacterCardAddActionUseCase(characterRepository),
+        characterCardDeleteActionUseCase = CharacterCardDeleteActionUseCase(characterRepository)
     )
 
     private val debug: Debug = Debug(
         actionRepository = actionRepository,
-        phaseRepository = phaseRepository
+        phaseRepository = phaseRepository,
+        characterRepository = characterRepository
     )
 
     val inicjatywkaUseCases = InicjatywkaUseCases(
