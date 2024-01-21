@@ -6,6 +6,6 @@ import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 fun changePhase(
     to: Phase.Phases,
     repository: PhaseRepository,
-){
+) {
     repository.setPhase(Phase(to))
 }

@@ -9,11 +9,11 @@ import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
-class InitiativePhaseViewModel (
+class InitiativePhaseViewModel(
     private val inicjatywkaUseCases: InicjatywkaUseCases,
     componentContext: ComponentContext,
     private val onNavigateToInitialPhaseViewModel: () -> Unit
-): ViewModel(), ComponentContext by componentContext {
+) : ViewModel(), ComponentContext by componentContext {
 
     val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,
@@ -35,8 +35,8 @@ class InitiativePhaseViewModel (
             }
     )
 
-    fun onEvent(event: InitiativePhaseEvent){
-        when(event) {
+    fun onEvent(event: InitiativePhaseEvent) {
+        when (event) {
             InitiativePhaseEvent.StopInitiative -> {
                 runBlocking { inicjatywkaUseCases.stopInitiative() }
                 onNavigateToInitialPhaseViewModel()

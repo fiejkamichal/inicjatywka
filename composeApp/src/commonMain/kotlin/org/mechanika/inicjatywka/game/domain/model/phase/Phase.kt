@@ -6,6 +6,7 @@ data class Phase(
     companion object {
         val phases = listOf(Phases.Initial, Phases.Initiative)
     }
+
     enum class Phases {
         Initial,
         Initiative

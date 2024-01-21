@@ -13,10 +13,12 @@ interface ActionDao {
         actionType: ActionStackEntry.ActionTypes,
         actionId: Long
     )
+
     fun deleteActionStackEntry(position: Long)
     fun getNumOfActionStackEntries(): Long
     fun getActionStackEntries(): Flow<List<ActionStackEntry>>
     fun getActionStackPosition(): Long?
+    fun getActionStackPositionFlow(): Flow<Long>
     fun setActionStackPosition(position: Long)
     fun insertPhaseChangeAction(phaseChange: PhaseChangeAction): Long
     fun deletePhaseChangeAction(actionId: Long)
@@ -32,4 +34,5 @@ interface ActionDao {
     fun deleteCharacterCardDeleteAction(actionId: Long)
     fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction?
     fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>>
+    fun getNumOfActionStackEntriesFlow(): Flow<Long>
 }

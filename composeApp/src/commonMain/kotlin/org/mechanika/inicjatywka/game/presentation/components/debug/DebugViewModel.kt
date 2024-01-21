@@ -12,6 +12,7 @@ class DebugViewModel(
         currentPhase = inicjatywkaUseCases.debug.getPhase(),
         phases = inicjatywkaUseCases.debug.getPhases(),
         cards = inicjatywkaUseCases.debug.getCharacterCards(),
+        deletedCards = inicjatywkaUseCases.debug.getDeletedCharacterCards(),
         currentStackPosition = mutableStateOf(inicjatywkaUseCases.debug.getCurrentStackPosition())
     )
 

@@ -15,16 +15,20 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.PhaseChangeActionUs
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
+import org.mechanika.inicjatywka.game.domain.use_case.character.AddCharacterCard
+import org.mechanika.inicjatywka.game.domain.use_case.character.DeleteCharacterCard
+import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCard
+import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCards
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StopInitiative
 
 
-class AppModule (
+class AppModule(
     appModulePlatform: AppModulePlatform
 ) {
-    private val phaseRepository:PhaseRepository = PhaseRepositoryImpl(
+    private val phaseRepository: PhaseRepository = PhaseRepositoryImpl(
         dao = appModulePlatform.phaseDao
     )
 
@@ -36,14 +40,14 @@ class AppModule (
         dao = appModulePlatform.characterDao
     )
 
-    private val stack: Stack = Stack(actionRepository)
-
-    private val actions: Actions = Actions (
+    private val actions: Actions = Actions(
         emptyActionUseCase = EmptyActionUseCase(),
         phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository),
         characterCardAddActionUseCase = CharacterCardAddActionUseCase(characterRepository),
         characterCardDeleteActionUseCase = CharacterCardDeleteActionUseCase(characterRepository)
     )
+
+    private val stack: Stack = Stack(actionRepository, actions)
 
     private val debug: Debug = Debug(
         actionRepository = actionRepository,
@@ -59,6 +63,10 @@ class AppModule (
         undoAction = Undo(stack, actions),
         redoAction = Redo(stack, actions),
         stack = stack,
-        debug = debug
+        debug = debug,
+        addCharacterCard = AddCharacterCard(characterRepository, stack),
+        deleteCharacterCard = DeleteCharacterCard(characterRepository, stack),
+        getCharacterCard = GetCharacterCard(characterRepository),
+        getCharacterCards = GetCharacterCards(characterRepository)
     )
 }

@@ -9,7 +9,7 @@ class StartInitiative(
     private val repository: PhaseRepository,
     private val stack: Stack
 ) {
-    operator fun invoke(){
+    operator fun invoke() {
         changePhase(
             to = Phase.Phases.Initiative,
             repository = repository,

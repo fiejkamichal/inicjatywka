@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 import org.mechanika.inicjatywka.phasedatabase.PhaseDatabase
 
-class PhaseDaoImpl (
+class PhaseDaoImpl(
     db: PhaseDatabase
 ) : PhaseDao {
     val queries = db.phaseQueries

@@ -37,7 +37,7 @@ actual class AppModulePlatform(
     }
 
     actual val characterDao: CharacterDao by lazy {
-        CharacterDaoImpl (
+        CharacterDaoImpl(
             db = CharacterDatabase(
                 driver = CharacterDatabaseDriverFactory(context).create()
             )

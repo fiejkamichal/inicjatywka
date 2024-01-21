@@ -37,10 +37,10 @@ kotlin {
     }
 
     jvm("desktop")
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -80,8 +80,8 @@ android {
         applicationId = "org.mechanika.inicjatywka"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2
-        versionName = "1.2.0"
+        versionCode = 3
+        versionName = "1.3.0"
     }
     packaging {
         resources {
@@ -110,7 +110,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "org.mechanika.inicjatywka"
-            packageVersion = "1.2.0"
+            packageVersion = "1.3.0"
             modules("java.sql")
         }
     }

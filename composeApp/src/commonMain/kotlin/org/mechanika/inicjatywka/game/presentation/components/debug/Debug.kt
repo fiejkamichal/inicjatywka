@@ -21,10 +21,11 @@ fun Debug(
     val phaseChanges = component.state.phaseChanges.collectAsState(emptyList())
     val phases = component.state.phases.collectAsState(emptyList())
     val cards = component.state.cards.collectAsState(emptyList())
+    val deletedCards = component.state.deletedCards.collectAsState(emptyList())
     val currentStackPosition = remember { component.state.currentStackPosition }
     Column {
         Button(
-            onClick = {component.updateState()}
+            onClick = { component.updateState() }
         ) {
             Text(
                 "Update"
@@ -48,6 +49,7 @@ fun Debug(
             )
         }
 
+        DebugList(deletedCards.value, "deleted cards")
         DebugList(cards.value, "cards")
         DebugList(phases.value, "phases")
         DebugList(actions.value, "actions")

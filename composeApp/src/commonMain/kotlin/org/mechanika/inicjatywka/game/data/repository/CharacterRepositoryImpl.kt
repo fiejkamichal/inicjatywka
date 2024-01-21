@@ -7,7 +7,7 @@ import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 
 class CharacterRepositoryImpl(
     private val dao: CharacterDao
-): CharacterRepository {
+) : CharacterRepository {
     override fun insertCharacterCard(card: CharacterCard): Long {
         return dao.insertCharacterCard(card)
     }

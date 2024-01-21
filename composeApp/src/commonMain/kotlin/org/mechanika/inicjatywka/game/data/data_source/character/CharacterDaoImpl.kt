@@ -13,7 +13,7 @@ class CharacterDaoImpl(
     db: CharacterDatabase
 ) : CharacterDao {
     private val queries = db.characterQueries
-    override fun insertCharacterCard(card: CharacterCard):Long {
+    override fun insertCharacterCard(card: CharacterCard): Long {
         return queries.transactionWithResult {
             queries.insertCharacterCard(
                 name = card.name,
@@ -59,7 +59,7 @@ class CharacterDaoImpl(
         return queries.getDeletedCharacterCards()
             .asFlow()
             .mapToList(Dispatchers.IO)
-            .map {list ->
+            .map { list ->
                 list.map {
                     it.toCharacterCard()
                 }

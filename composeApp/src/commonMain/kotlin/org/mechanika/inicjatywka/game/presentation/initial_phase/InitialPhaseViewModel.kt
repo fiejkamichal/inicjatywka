@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
+import org.mechanika.inicjatywka.game.presentation.components.character.CharacterViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -14,7 +15,7 @@ class InitialPhaseViewModel(
     private val inicjatywkaUseCases: InicjatywkaUseCases,
     componentContext: ComponentContext,
     private val onNavigateToInitiativePhaseViewModel: () -> Unit
-): ViewModel(), ComponentContext by componentContext {
+) : ViewModel(), ComponentContext by componentContext {
 
     val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,
@@ -24,6 +25,12 @@ class InitialPhaseViewModel(
 
     val debugViewModel = DebugViewModel(
         inicjatywkaUseCases
+    )
+
+    val characterViewModel = CharacterViewModel(
+        addCharacterCard = inicjatywkaUseCases.addCharacterCard,
+        deleteCharacterCard = inicjatywkaUseCases.deleteCharacterCard,
+        getCharacterCards = inicjatywkaUseCases.getCharacterCards
     )
 
     val state = InitialPhaseState(
@@ -37,14 +44,10 @@ class InitialPhaseViewModel(
     )
 
     fun onEvent(event: InitialPhaseEvent) {
-        when(event) {
+        when (event) {
             InitialPhaseEvent.StartInitiative -> {
-                runBlocking { inicjatywkaUseCases.startInitiative()}
+                runBlocking { inicjatywkaUseCases.startInitiative() }
                 onNavigateToInitiativePhaseViewModel()
-            }
-
-            is InitialPhaseEvent.UndoRedo -> {
-                undoRedoViewModel.onEvent(event.event)
             }
         }
     }

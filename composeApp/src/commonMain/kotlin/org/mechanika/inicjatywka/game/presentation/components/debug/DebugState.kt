@@ -13,5 +13,6 @@ data class DebugState(
     val currentPhase: Flow<Phase?>,
     val phases: Flow<List<Phase>>,
     val cards: Flow<List<CharacterCard>>,
+    val deletedCards: Flow<List<CharacterCard>>,
     val currentStackPosition: MutableState<Long?>
 )

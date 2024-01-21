@@ -28,6 +28,7 @@ fun App(
                     InitialPhaseScreen(
                         instance.component
                     )
+
                 is RootComponent.Child.InitiativePhase ->
                     InitiativePhaseScreen(
                         instance.component

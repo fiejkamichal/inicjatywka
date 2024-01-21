@@ -4,7 +4,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAct
 import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 
-class DeleteCharacterCard (
+class DeleteCharacterCard(
     private val repository: CharacterRepository,
     private val stack: Stack
 ) {

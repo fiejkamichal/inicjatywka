@@ -10,7 +10,7 @@ import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
 class ActionRepositoryImpl(
     val dao: ActionDao
-): ActionRepository {
+) : ActionRepository {
     override fun getActionStackEntry(position: Long): ActionStackEntry? {
         return dao.getActionStackEntry(position)
     }
@@ -36,12 +36,20 @@ class ActionRepositoryImpl(
         return dao.getNumOfActionStackEntries()
     }
 
+    override fun getNumOfActionStackEntriesFlow(): Flow<Long> {
+        return dao.getNumOfActionStackEntriesFlow()
+    }
+
     override fun getActionStackEntries(): Flow<List<ActionStackEntry>> {
         return dao.getActionStackEntries()
     }
 
     override fun getActionStackPosition(): Long? {
         return dao.getActionStackPosition()
+    }
+
+    override fun getActionStackPositionFlow(): Flow<Long> {
+        return dao.getActionStackPositionFlow()
     }
 
     override fun setActionStackPosition(position: Long): Long {
@@ -69,8 +77,13 @@ class ActionRepositoryImpl(
         return dao.insertCharacterCardAddAction(characterCardAdd.cardId)
     }
 
-    override fun deleteCharacterCardAddAction(actionId: Long) {
-        dao.deleteCharacterCardAddAction(actionId)
+    override fun deleteCharacterCardAddAction(actionId: Long): Long {
+        val card = dao.getCharacterCardAddAction(actionId)
+        if(card!=null){
+            dao.deleteCharacterCardAddAction(actionId)
+            return card.cardId
+        }
+        return 0
     }
 
     override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
@@ -82,9 +95,16 @@ class ActionRepositoryImpl(
     }
 
 
-    override fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long = dao.insertCharacterCardDeleteAction(characterCardDelete.cardId)
-    override fun deleteCharacterCardDeleteAction(actionId: Long) = dao.deleteCharacterCardDeleteAction(actionId)
-    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? = dao.getCharacterCardDeleteAction(actionId)
-    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> = dao.getCharacterCardDeleteActions()
+    override fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long =
+        dao.insertCharacterCardDeleteAction(characterCardDelete.cardId)
+
+    override fun deleteCharacterCardDeleteAction(actionId: Long) =
+        dao.deleteCharacterCardDeleteAction(actionId)
+
+    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? =
+        dao.getCharacterCardDeleteAction(actionId)
+
+    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> =
+        dao.getCharacterCardDeleteActions()
 
 }

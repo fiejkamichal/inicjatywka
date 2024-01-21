@@ -12,6 +12,7 @@ actual class PhaseDatabaseDriverFactory(
         return AndroidSqliteDriver(
             PhaseDatabase.Schema,
             context = context,
-            "phase.db")
+            "phase.db"
+        )
     }
 }

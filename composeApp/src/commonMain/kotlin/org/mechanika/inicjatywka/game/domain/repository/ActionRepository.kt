@@ -8,13 +8,19 @@ import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 interface ActionRepository {
     fun getActionStackEntry(position: Long): ActionStackEntry?
-    fun setActionStackEntry(position: Long, actionType: ActionStackEntry.ActionTypes, actionId: Long)
+    fun setActionStackEntry(
+        position: Long,
+        actionType: ActionStackEntry.ActionTypes,
+        actionId: Long
+    )
+
     fun deleteActionStackEntry(position: Long)
     fun getNumOfActionStackEntries(): Long
     fun getActionStackEntries(): Flow<List<ActionStackEntry>>
 
 
     fun getActionStackPosition(): Long?
+    fun getActionStackPositionFlow(): Flow<Long>
     fun setActionStackPosition(position: Long): Long
 
 
@@ -25,7 +31,7 @@ interface ActionRepository {
 
 
     fun insertCharacterCardAddAction(characterCardAdd: CharacterCardAddAction): Long
-    fun deleteCharacterCardAddAction(actionId: Long)
+    fun deleteCharacterCardAddAction(actionId: Long): Long
     fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction?
     fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>>
 
@@ -34,4 +40,5 @@ interface ActionRepository {
     fun deleteCharacterCardDeleteAction(actionId: Long)
     fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction?
     fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>>
+    fun getNumOfActionStackEntriesFlow(): Flow<Long>
 }

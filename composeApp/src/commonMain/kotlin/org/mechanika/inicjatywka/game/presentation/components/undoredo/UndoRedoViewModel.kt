@@ -1,6 +1,5 @@
 package org.mechanika.inicjatywka.game.presentation.components.undoredo
 
-import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
@@ -9,28 +8,21 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
 class UndoRedoViewModel(
     private val undo: Undo,
     private val redo: Redo,
-    private val stack: Stack
+    stack: Stack
 ) {
-    val state = mutableStateOf(UndoRedoState(
+    val state = UndoRedoState(
         undoEnabled = stack.canMovePositionDown(),
         redoEnabled = stack.canMovePositionUp()
-    ))
+    )
 
     fun onEvent(event: UndoRedoEvent) {
         when (event) {
             UndoRedoEvent.Redo -> runBlocking {
                 redo()
-                state.value.copy(
-                    undoEnabled = stack.canMovePositionDown(),
-                    redoEnabled = stack.canMovePositionUp()
-                )
             }
+
             UndoRedoEvent.Undo -> runBlocking {
                 undo()
-                state.value.copy(
-                    undoEnabled = stack.canMovePositionDown(),
-                    redoEnabled = stack.canMovePositionUp()
-                )
             }
         }
     }

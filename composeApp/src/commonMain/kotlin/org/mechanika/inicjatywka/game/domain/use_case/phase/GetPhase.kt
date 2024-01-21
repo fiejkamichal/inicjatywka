@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 
-class GetPhase (
+class GetPhase(
     private val repository: PhaseRepository
 ) {
     operator fun invoke(): Flow<Phase.Phases> {

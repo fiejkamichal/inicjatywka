@@ -33,20 +33,23 @@ fun InitiativePhaseScreen(
             FloatingActionButton(onClick = {
                 component.onEvent(InitiativePhaseEvent.StopInitiative)
             }) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Koniec Inicjatywy")
+                Icon(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = "Koniec Inicjatywy"
+                )
             }
         }
     ) {
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
-        ){
+        ) {
             item {
-                Undo (
-                    undoRedoViewModel =  component.undoRedoViewModel
+                Undo(
+                    undoRedoViewModel = component.undoRedoViewModel
                 )
-                Redo ( component.undoRedoViewModel )
+                Redo(component.undoRedoViewModel)
             }
             item {
                 Text(

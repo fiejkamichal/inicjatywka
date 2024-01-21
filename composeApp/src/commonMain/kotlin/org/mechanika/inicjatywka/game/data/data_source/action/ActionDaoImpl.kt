@@ -2,6 +2,8 @@ package org.mechanika.inicjatywka.game.data.data_source.action
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,7 +17,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 class ActionDaoImpl(
     db: ActionDatabase
 ) : ActionDao {
-      val queries = db.actionQueries
+    val queries = db.actionQueries
     override fun getActionStackEntry(position: Long): ActionStackEntry? {
         return queries.getActionStackEntry(position).executeAsOneOrNull()?.toActionStackEntry()
     }
@@ -33,7 +35,12 @@ class ActionDaoImpl(
     }
 
     override fun getNumOfActionStackEntries(): Long {
-        return queries.getNumOfActionStackEntries().executeAsOne()
+        return queries.getNumOfActionStackEntries().executeAsOneOrNull() ?:0
+    }
+    override fun getNumOfActionStackEntriesFlow(): Flow<Long> {
+        return queries.getNumOfActionStackEntries()
+            .asFlow()
+            .mapToOne(Dispatchers.IO)
     }
 
     override fun getActionStackEntries(): Flow<List<ActionStackEntry>> {
@@ -52,13 +59,26 @@ class ActionDaoImpl(
         return queries.getActionStackPositionEntity().executeAsOneOrNull()?.toLong()
     }
 
+    override fun getActionStackPositionFlow(): Flow<Long> {
+        return queries.getActionStackPositionEntity()
+            .asFlow()
+            .mapToOneOrNull(Dispatchers.IO)
+            .map {
+                it?.toLong() ?: 0
+            }
+    }
+
     override fun setActionStackPosition(position: Long) {
         return queries.setActionStackPositionEntity(position)
     }
 
     override fun insertPhaseChangeAction(phaseChange: PhaseChangeAction): Long {
         return queries.transactionWithResult {
-            queries.insertPhaseChangeAction(phaseChange.from.toString(), phaseChange.to.toString(), phaseChange.type.toString())
+            queries.insertPhaseChangeAction(
+                phaseChange.from.toString(),
+                phaseChange.to.toString(),
+                phaseChange.type.toString()
+            )
             queries.lastInsertRowId().executeAsOne()
         }
     }
@@ -94,7 +114,8 @@ class ActionDaoImpl(
     }
 
     override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
-        return queries.getCharacterCardAddAction(actionId).executeAsOneOrNull()?.toCharacterCardAddAction()
+        return queries.getCharacterCardAddAction(actionId).executeAsOneOrNull()
+            ?.toCharacterCardAddAction()
     }
 
     override fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>> {
@@ -121,7 +142,8 @@ class ActionDaoImpl(
     }
 
     override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? {
-        return queries.getCharacterCardDeleteAction(actionId).executeAsOneOrNull()?.toCharacterCardDeleteAction()
+        return queries.getCharacterCardDeleteAction(actionId).executeAsOneOrNull()
+            ?.toCharacterCardDeleteAction()
     }
 
     override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> {

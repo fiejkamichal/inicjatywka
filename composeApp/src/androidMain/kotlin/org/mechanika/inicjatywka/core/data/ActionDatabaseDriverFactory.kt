@@ -13,6 +13,7 @@ actual class ActionDatabaseDriverFactory(
         return AndroidSqliteDriver(
             ActionDatabase.Schema,
             context = context,
-            "action.db")
+            "action.db"
+        )
     }
 }

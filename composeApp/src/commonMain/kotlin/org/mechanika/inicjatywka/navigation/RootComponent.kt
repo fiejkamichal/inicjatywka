@@ -16,7 +16,7 @@ class RootComponent(
     componentContext: ComponentContext,
     appModulePlatform: AppModulePlatform
     //getAppModulePlatform: () -> AppModulePlatform
-): ComponentContext  by componentContext {
+) : ComponentContext by componentContext {
 
     private val appModule = AppModule(appModulePlatform)
 
@@ -34,7 +34,7 @@ class RootComponent(
         config: Configuration,
         context: ComponentContext
     ): Child {
-        return when(config) {
+        return when (config) {
             Configuration.InitialPhase -> Child.InitialPhase(
                 InitialPhaseViewModel(
                     appModule.inicjatywkaUseCases,
@@ -46,6 +46,7 @@ class RootComponent(
                     }
                 )
             )
+
             is Configuration.InitiativePhase -> Child.InitiativePhase(
                 InitiativePhaseViewModel(
                     appModule.inicjatywkaUseCases,
@@ -61,15 +62,16 @@ class RootComponent(
     }
 
     sealed class Child {
-        data class InitialPhase(val component: InitialPhaseViewModel): Child()
-        data class InitiativePhase(val component: InitiativePhaseViewModel): Child()
+        data class InitialPhase(val component: InitialPhaseViewModel) : Child()
+        data class InitiativePhase(val component: InitiativePhaseViewModel) : Child()
     }
 
     @Serializable
     sealed class Configuration {
         @Serializable
-        data object InitialPhase: Configuration()
+        data object InitialPhase : Configuration()
+
         @Serializable
-        data object InitiativePhase: Configuration()
+        data object InitiativePhase : Configuration()
     }
 }

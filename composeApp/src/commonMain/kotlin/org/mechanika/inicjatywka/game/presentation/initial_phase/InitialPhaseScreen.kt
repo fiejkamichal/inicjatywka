@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
+import org.mechanika.inicjatywka.game.presentation.components.character.CharacterList
+import org.mechanika.inicjatywka.game.presentation.components.character.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.Debug
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
@@ -46,10 +48,10 @@ fun InitialPhaseScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                Undo (
-                    undoRedoViewModel =  component.undoRedoViewModel
+                Undo(
+                    undoRedoViewModel = component.undoRedoViewModel
                 )
-                Redo ( component.undoRedoViewModel )
+                Redo(component.undoRedoViewModel)
             }
             item {
                 Text(
@@ -68,6 +70,12 @@ fun InitialPhaseScreen(
                         .padding(horizontal = 16.dp),
                     fontWeight = FontWeight.Bold
                 )
+            }
+            item {
+                New(component.characterViewModel)
+            }
+            item {
+                CharacterList(component.characterViewModel)
             }
             item {
                 Debug(component.debugViewModel)

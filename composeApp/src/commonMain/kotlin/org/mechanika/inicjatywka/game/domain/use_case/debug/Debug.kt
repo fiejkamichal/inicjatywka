@@ -16,17 +16,24 @@ class Debug(
     fun getCharacterCards(): Flow<List<CharacterCard>> {
         return characterRepository.getCharacterCards()
     }
+
+    fun getDeletedCharacterCards(): Flow<List<CharacterCard>> {
+        return characterRepository.getDeletedCharacterCards()
+    }
+
     fun getChangePhases(): Flow<List<PhaseChangeAction>> {
         return actionRepository.getPhaseChangeActions()
     }
+
     fun getPhase(): Flow<Phase?> {
         return phaseRepository.getPhase()
     }
+
     fun getPhases(): Flow<List<Phase>> {
         return phaseRepository.getPhases()
     }
 
-    fun getCurrentStackPosition():Long? {
+    fun getCurrentStackPosition(): Long? {
         return actionRepository.getActionStackPosition()
     }
 }
