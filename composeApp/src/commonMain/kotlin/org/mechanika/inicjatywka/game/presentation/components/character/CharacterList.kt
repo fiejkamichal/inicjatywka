@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CharacterList (
+fun CharacterList(
     viewModel: CharacterViewModel
 ) {
     val cards = viewModel.state.cards.collectAsState(emptyList())

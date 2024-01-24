@@ -17,7 +17,15 @@ class CharacterDaoImpl(
         return queries.transactionWithResult {
             queries.insertCharacterCard(
                 name = card.name,
-                initiative = card.initiative
+                initiative = card.initiative,
+                ally = if (card.ally) 1L else 0L,
+                hitPoints = card.hitPoints,
+                resilience = card.resilience,
+                mana = card.mana,
+                concentration = card.concentration,
+                movePoints = card.movePoints,
+                steps = card.steps,
+                states = card.states
             )
             queries.lastInsertRowId().executeAsOne()
         }

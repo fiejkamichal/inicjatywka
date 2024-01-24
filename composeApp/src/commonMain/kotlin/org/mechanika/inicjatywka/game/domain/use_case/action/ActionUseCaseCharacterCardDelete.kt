@@ -27,6 +27,7 @@ class ActionUseCaseCharacterCardDelete(
 
     override fun insertToSubRepository(action: Action): Long =
         actionRepository.insertCharacterCardDeleteAction(action as CharacterCardDeleteAction)
+
     override fun get(id: Long): Action? =
         actionRepository.getCharacterCardDeleteAction(id)
 }

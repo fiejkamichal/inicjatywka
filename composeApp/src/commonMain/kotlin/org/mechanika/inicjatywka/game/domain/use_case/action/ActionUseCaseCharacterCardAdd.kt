@@ -25,8 +25,9 @@ class ActionUseCaseCharacterCardAdd(
         if (a != null) characterRepository.deleteCharacterCard(a.cardId)
     }
 
-    override fun insertToSubRepository(action: Action):Long =
+    override fun insertToSubRepository(action: Action): Long =
         actionRepository.insertCharacterCardAddAction(action as CharacterCardAddAction)
+
     override fun get(id: Long): Action? =
         actionRepository.getCharacterCardAddAction(id)
 }

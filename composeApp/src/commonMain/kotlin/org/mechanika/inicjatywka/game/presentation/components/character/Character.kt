@@ -25,8 +25,7 @@ fun Character(
             .border(BorderStroke(4.dp, Color.Black)),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-        ) {
+        Column {
             Text("Karta postaci (${card.id}):")
             card.getStats().forEach {
                 Stat(it)

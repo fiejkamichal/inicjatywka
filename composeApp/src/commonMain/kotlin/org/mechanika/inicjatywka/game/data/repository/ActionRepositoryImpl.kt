@@ -79,7 +79,7 @@ class ActionRepositoryImpl(
 
     override fun deleteCharacterCardAddAction(actionId: Long): Long {
         val card = dao.getCharacterCardAddAction(actionId)
-        if(card!=null){
+        if (card != null) {
             dao.deleteCharacterCardAddAction(actionId)
             return card.cardId
         }

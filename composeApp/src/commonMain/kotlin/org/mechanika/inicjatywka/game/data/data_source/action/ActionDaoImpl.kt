@@ -35,8 +35,9 @@ class ActionDaoImpl(
     }
 
     override fun getNumOfActionStackEntries(): Long {
-        return queries.getNumOfActionStackEntries().executeAsOneOrNull() ?:0
+        return queries.getNumOfActionStackEntries().executeAsOneOrNull() ?: 0
     }
+
     override fun getNumOfActionStackEntriesFlow(): Flow<Long> {
         return queries.getNumOfActionStackEntries()
             .asFlow()

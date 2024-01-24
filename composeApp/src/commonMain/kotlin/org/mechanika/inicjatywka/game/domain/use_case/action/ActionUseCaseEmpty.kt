@@ -9,5 +9,8 @@ class ActionUseCaseEmpty : ActionUseCase() {
     override fun insertToSubRepository(action: Action): Long {
         return 0
     }
-    override fun get(id: Long): Action? {return null}
+
+    override fun get(id: Long): Action? {
+        return null
+    }
 }

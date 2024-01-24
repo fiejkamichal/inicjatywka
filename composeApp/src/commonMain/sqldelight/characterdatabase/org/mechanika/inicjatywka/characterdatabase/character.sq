@@ -2,12 +2,29 @@ CREATE TABLE IF NOT EXISTS CharacterCardEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     deleted INTEGER NOT NULL,
     name TEXT NOT NULL,
-    initiative INTEGER NOT NULL
+    initiative INTEGER NOT NULL,
+    ally INTEGER NOT NULL,
+    hitPoints INTEGER NOT NULL,
+    resilience INTEGER NOT NULL,
+    mana INTEGER NOT NULL,
+    concentration INTEGER NOT NULL,
+    movePoints INTEGER NOT NULL,
+    steps INTEGER NOT NULL,
+    states TEXT NOT NULL,
+    waits INTEGER NOT NULL
 );
 
 insertCharacterCard:
-INSERT OR REPLACE INTO CharacterCardEntity (name, initiative, deleted)
-VALUES (:name, :initiative, 0);
+INSERT OR REPLACE INTO CharacterCardEntity
+(name, initiative, deleted,
+ally, hitPoints, resilience,
+mana, concentration, movePoints,
+steps, states, waits
+)
+VALUES (:name, :initiative, 0,
+:ally, :hitPoints, :resilience,
+:mana,:concentration,:movePoints,
+:steps,:states,0);
 
 deleteCharacterCard:
 DELETE FROM CharacterCardEntity WHERE id = :id;

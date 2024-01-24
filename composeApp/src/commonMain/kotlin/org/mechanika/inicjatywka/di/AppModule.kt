@@ -7,11 +7,11 @@ import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
-import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardAdd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardDelete
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
+import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
@@ -43,8 +43,14 @@ class AppModule(
     private val actions: Actions = Actions(
         actionUseCaseEmpty = ActionUseCaseEmpty(),
         actionUseCasePhaseChange = ActionUseCasePhaseChange(phaseRepository, actionRepository),
-        actionUseCaseCharacterCardAdd = ActionUseCaseCharacterCardAdd(characterRepository, actionRepository),
-        actionUseCaseCharacterCardDelete = ActionUseCaseCharacterCardDelete(characterRepository, actionRepository)
+        actionUseCaseCharacterCardAdd = ActionUseCaseCharacterCardAdd(
+            characterRepository,
+            actionRepository
+        ),
+        actionUseCaseCharacterCardDelete = ActionUseCaseCharacterCardDelete(
+            characterRepository,
+            actionRepository
+        )
     )
 
     private val stack: Stack = Stack(actionRepository, actions)

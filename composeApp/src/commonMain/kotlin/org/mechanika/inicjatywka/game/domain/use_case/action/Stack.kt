@@ -26,7 +26,7 @@ class Stack(
         var entry = repository.getActionStackEntry(pos)
         while (entry != null) {
             val action = getActionOnPosition(pos)
-            if (action!=null) ActionUseCase
+            if (action != null) ActionUseCase
                 .getActionUseCase(actions, action.type)
                 .delete(action)
             repository.deleteActionStackEntry(pos)
@@ -70,6 +70,7 @@ class Stack(
         val position = getActionStackPosition()
         return getActionOnPosition(position)
     }
+
     private fun getActionOnPosition(position: Long): Action? {
         if (position == 0L) return null
         val entry = repository.getActionStackEntry(position) ?: return null
