@@ -5,7 +5,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 
-class CharacterCardAddActionUseCase(
+class ActionUseCaseCharacterCardAdd(
     private val characterRepository: CharacterRepository,
     private val actionRepository: ActionRepository
 ) : ActionUseCase() {

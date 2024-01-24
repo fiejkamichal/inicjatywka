@@ -20,10 +20,10 @@ abstract class ActionUseCase {
     companion object {
         fun getActionUseCase(actions: Actions, type: ActionStackEntry.ActionTypes?): ActionUseCase {
             return when (type) {
-                ActionStackEntry.ActionTypes.PhaseChange -> actions.phaseChangeActionUseCase
-                ActionStackEntry.ActionTypes.CharacterCardAdd -> actions.characterCardAddActionUseCase
-                ActionStackEntry.ActionTypes.CharacterCardDelete -> actions.characterCardDeleteActionUseCase
-                null -> actions.emptyActionUseCase
+                ActionStackEntry.ActionTypes.PhaseChange -> actions.actionUseCasePhaseChange
+                ActionStackEntry.ActionTypes.CharacterCardAdd -> actions.actionUseCaseCharacterCardAdd
+                ActionStackEntry.ActionTypes.CharacterCardDelete -> actions.actionUseCaseCharacterCardDelete
+                null -> actions.actionUseCaseEmpty
             }
         }
     }

@@ -6,7 +6,7 @@ import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.phase.changePhase
 
-class PhaseChangeActionUseCase(
+class ActionUseCasePhaseChange(
     private val phaseRepository: PhaseRepository,
     private val actionRepository: ActionRepository
 ) : ActionUseCase() {

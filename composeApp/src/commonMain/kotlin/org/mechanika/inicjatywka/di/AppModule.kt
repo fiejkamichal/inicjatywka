@@ -8,10 +8,10 @@ import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
-import org.mechanika.inicjatywka.game.domain.use_case.action.CharacterCardAddActionUseCase
-import org.mechanika.inicjatywka.game.domain.use_case.action.CharacterCardDeleteActionUseCase
-import org.mechanika.inicjatywka.game.domain.use_case.action.EmptyActionUseCase
-import org.mechanika.inicjatywka.game.domain.use_case.action.PhaseChangeActionUseCase
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardAdd
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardDelete
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
@@ -41,10 +41,10 @@ class AppModule(
     )
 
     private val actions: Actions = Actions(
-        emptyActionUseCase = EmptyActionUseCase(),
-        phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository, actionRepository),
-        characterCardAddActionUseCase = CharacterCardAddActionUseCase(characterRepository, actionRepository),
-        characterCardDeleteActionUseCase = CharacterCardDeleteActionUseCase(characterRepository, actionRepository)
+        actionUseCaseEmpty = ActionUseCaseEmpty(),
+        actionUseCasePhaseChange = ActionUseCasePhaseChange(phaseRepository, actionRepository),
+        actionUseCaseCharacterCardAdd = ActionUseCaseCharacterCardAdd(characterRepository, actionRepository),
+        actionUseCaseCharacterCardDelete = ActionUseCaseCharacterCardDelete(characterRepository, actionRepository)
     )
 
     private val stack: Stack = Stack(actionRepository, actions)

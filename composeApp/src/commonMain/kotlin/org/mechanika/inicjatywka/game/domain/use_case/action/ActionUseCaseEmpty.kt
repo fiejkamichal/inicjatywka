@@ -2,7 +2,7 @@ package org.mechanika.inicjatywka.game.domain.use_case.action
 
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 
-class EmptyActionUseCase : ActionUseCase() {
+class ActionUseCaseEmpty : ActionUseCase() {
     override fun undo(action: Action) {}
     override fun redo(action: Action) {}
     override fun deleteFromSubRepository(action: Action) {}

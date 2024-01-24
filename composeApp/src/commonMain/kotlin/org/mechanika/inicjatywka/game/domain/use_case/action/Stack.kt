@@ -8,7 +8,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
 class Stack(
-    val repository: ActionRepository,
+    private val repository: ActionRepository,
     private val actions: Actions
 ) {
 
