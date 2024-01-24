@@ -8,7 +8,7 @@ import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
 class CharacterCardAddActionUseCase(
     private val characterRepository: CharacterRepository,
     private val actionRepository: ActionRepository
-) : ActionUseCase {
+) : ActionUseCase() {
     override fun undo(action: Action) {
         val a = action as? CharacterCardAddAction
         if (a != null) characterRepository.markCharacterCardAsDeleted(a.cardId)
@@ -19,20 +19,14 @@ class CharacterCardAddActionUseCase(
         if (a != null) characterRepository.unmarkCharacterCardAsDeleted(a.cardId)
     }
 
-    override fun delete(action: Action) {
-        val actionId = action.id
+    override fun deleteFromSubRepository(action: Action) {
+        actionRepository.deleteCharacterCardAddAction(action.id!!)
         val a = action as? CharacterCardAddAction
         if (a != null) characterRepository.deleteCharacterCard(a.cardId)
-        if (actionId != null) actionRepository.deleteCharacterCardAddAction(actionId)
     }
 
-    override fun insert(action: Action):Long {
-        val actionId = actionRepository.insertCharacterCardAddAction(action as CharacterCardAddAction)
-        action.id = actionId
-        return actionId
-    }
-
-    override fun get(id: Long): Action? {
-        return actionRepository.getCharacterCardAddAction(id)
-    }
+    override fun insertToSubRepository(action: Action):Long =
+        actionRepository.insertCharacterCardAddAction(action as CharacterCardAddAction)
+    override fun get(id: Long): Action? =
+        actionRepository.getCharacterCardAddAction(id)
 }

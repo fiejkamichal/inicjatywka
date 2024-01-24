@@ -26,8 +26,9 @@ class Stack(
         var entry = repository.getActionStackEntry(pos)
         while (entry != null) {
             val action = getActionOnPosition(pos)
-            val actionUseCase = getActionUseCase(actions, action?.type)
-            if(action!=null)actionUseCase.delete(action)
+            if (action!=null) ActionUseCase
+                .getActionUseCase(actions, action.type)
+                .delete(action)
             repository.deleteActionStackEntry(pos)
             pos++
             entry = repository.getActionStackEntry(pos)
@@ -58,8 +59,9 @@ class Stack(
     ) {
         val position = getActionStackPosition()
         cleanStackAbovePosition(position)
-        val actionUseCase = getActionUseCase(actions, action.type)
-        actionUseCase.insert(action)
+        ActionUseCase
+            .getActionUseCase(actions, action.type)
+            .insert(action)
         repository.setActionStackEntry(position + 1, action.type, action.id!!)
         repository.setActionStackPosition(position + 1)
     }
@@ -71,8 +73,9 @@ class Stack(
     private fun getActionOnPosition(position: Long): Action? {
         if (position == 0L) return null
         val entry = repository.getActionStackEntry(position) ?: return null
-        val actionUseCase = getActionUseCase(actions, entry.actionType)
-        return actionUseCase.get(entry.actionId)
+        return ActionUseCase
+            .getActionUseCase(actions, entry.actionType)
+            .get(entry.actionId)
     }
 
     fun canMovePositionDown(): Flow<Boolean> {

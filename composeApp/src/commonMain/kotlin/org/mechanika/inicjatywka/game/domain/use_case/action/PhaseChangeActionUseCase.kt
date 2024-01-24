@@ -9,7 +9,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.phase.changePhase
 class PhaseChangeActionUseCase(
     private val phaseRepository: PhaseRepository,
     private val actionRepository: ActionRepository
-) : ActionUseCase {
+) : ActionUseCase() {
     override fun undo(action: Action) {
         val a = action as? PhaseChangeAction
         if (a != null) changePhase(
@@ -26,20 +26,12 @@ class PhaseChangeActionUseCase(
         )
     }
 
-    override fun delete(action: Action) {
-        val actionId = action.id
-        if (actionId != null) actionRepository.deletePhaseChangeAction(actionId)
-    }
+    override fun deleteFromSubRepository(action: Action) =
+        actionRepository.deletePhaseChangeAction(action.id!!)
 
-    override fun insert(action: Action): Long {
-        val actionId = actionRepository.insertPhaseChangeAction(action as PhaseChangeAction)
-        action.id = actionId
-        return actionId
-    }
+    override fun insertToSubRepository(action: Action): Long =
+        actionRepository.insertPhaseChangeAction(action as PhaseChangeAction)
 
-    override fun get(id: Long): Action? {
-        return actionRepository.getPhaseChangeAction(id)
-    }
-
-
+    override fun get(id: Long): Action? =
+        actionRepository.getPhaseChangeAction(id)
 }
