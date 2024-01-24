@@ -81,7 +81,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 3
-        versionName = "1.3.0"
+        versionName = "1.4.0"
     }
     packaging {
         resources {
@@ -110,7 +110,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "org.mechanika.inicjatywka"
-            packageVersion = "1.3.0"
+            packageVersion = "1.4.0"
             modules("java.sql")
         }
     }

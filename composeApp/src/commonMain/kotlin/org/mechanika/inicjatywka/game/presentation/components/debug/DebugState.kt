@@ -1,6 +1,5 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
-import androidx.compose.runtime.MutableState
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
@@ -14,5 +13,5 @@ data class DebugState(
     val phases: Flow<List<Phase>>,
     val cards: Flow<List<CharacterCard>>,
     val deletedCards: Flow<List<CharacterCard>>,
-    val currentStackPosition: MutableState<Long?>
+    val currentStackPosition: Flow<Long?>
 )

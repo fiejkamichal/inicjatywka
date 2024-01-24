@@ -33,7 +33,7 @@ class Debug(
         return phaseRepository.getPhases()
     }
 
-    fun getCurrentStackPosition(): Long? {
-        return actionRepository.getActionStackPosition()
+    fun getCurrentStackPosition(): Flow<Long?> {
+        return actionRepository.getActionStackPositionFlow()
     }
 }

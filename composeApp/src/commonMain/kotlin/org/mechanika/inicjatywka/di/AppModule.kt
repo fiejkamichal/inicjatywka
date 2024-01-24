@@ -42,9 +42,9 @@ class AppModule(
 
     private val actions: Actions = Actions(
         emptyActionUseCase = EmptyActionUseCase(),
-        phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository),
-        characterCardAddActionUseCase = CharacterCardAddActionUseCase(characterRepository),
-        characterCardDeleteActionUseCase = CharacterCardDeleteActionUseCase(characterRepository)
+        phaseChangeActionUseCase = PhaseChangeActionUseCase(phaseRepository, actionRepository),
+        characterCardAddActionUseCase = CharacterCardAddActionUseCase(characterRepository, actionRepository),
+        characterCardDeleteActionUseCase = CharacterCardDeleteActionUseCase(characterRepository, actionRepository)
     )
 
     private val stack: Stack = Stack(actionRepository, actions)

@@ -1,6 +1,5 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
-import androidx.compose.runtime.mutableStateOf
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 
 class DebugViewModel(
@@ -13,7 +12,7 @@ class DebugViewModel(
         phases = inicjatywkaUseCases.debug.getPhases(),
         cards = inicjatywkaUseCases.debug.getCharacterCards(),
         deletedCards = inicjatywkaUseCases.debug.getDeletedCharacterCards(),
-        currentStackPosition = mutableStateOf(inicjatywkaUseCases.debug.getCurrentStackPosition())
+        currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition()
     )
 
     fun updateState() {

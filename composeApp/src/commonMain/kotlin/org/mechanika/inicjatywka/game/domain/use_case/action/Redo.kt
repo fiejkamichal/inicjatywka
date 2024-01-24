@@ -7,6 +7,6 @@ class Redo(
     operator fun invoke() {
         stack.movePositionUp()
         val action = stack.getActionOnCurrentPosition()
-        if (action != null) getActionUseCase(actions, action).redo(action)
+        if (action != null) getActionUseCase(actions, action.type).redo(action)
     }
 }

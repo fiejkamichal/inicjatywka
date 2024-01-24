@@ -7,7 +7,7 @@ class Undo(
     operator fun invoke() {
         val action = stack.getActionOnCurrentPosition()
         if (action != null) {
-            getActionUseCase(actions, action).undo(action)
+            getActionUseCase(actions, action.type).undo(action)
             stack.movePositionDown()
         }
     }

@@ -8,7 +8,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -22,7 +21,7 @@ fun Debug(
     val phases = component.state.phases.collectAsState(emptyList())
     val cards = component.state.cards.collectAsState(emptyList())
     val deletedCards = component.state.deletedCards.collectAsState(emptyList())
-    val currentStackPosition = remember { component.state.currentStackPosition }
+    val currentStackPosition = component.state.currentStackPosition.collectAsState(null)
     Column {
         Button(
             onClick = { component.updateState() }
