@@ -8,6 +8,7 @@ data class ActionStackEntry(
     enum class ActionTypes {
         PhaseChange,
         CharacterCardAdd,
-        CharacterCardDelete
+        CharacterCardDelete,
+        CharacterCardUpdate
     }
 }

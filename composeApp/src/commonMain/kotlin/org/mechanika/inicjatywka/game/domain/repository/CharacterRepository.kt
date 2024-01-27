@@ -8,7 +8,10 @@ interface CharacterRepository {
     fun deleteCharacterCard(id: Long)
     fun markCharacterCardAsDeleted(id: Long)
     fun unmarkCharacterCardAsDeleted(id: Long)
-    fun getCharacterCard(id: Long): Flow<CharacterCard?>
+    fun getCharacterCardAsFlow(id: Long): Flow<CharacterCard?>
     fun getCharacterCards(): Flow<List<CharacterCard>>
     fun getDeletedCharacterCards(): Flow<List<CharacterCard>>
+    fun insertDeletedCharacterCard(card: CharacterCard): Long
+    fun updateCharacterCard(id: Long, card: CharacterCard)
+    fun getCharacterCard(id: Long): CharacterCard?
 }

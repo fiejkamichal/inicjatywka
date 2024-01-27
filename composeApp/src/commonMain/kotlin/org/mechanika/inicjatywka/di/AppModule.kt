@@ -9,6 +9,7 @@ import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardAdd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardDelete
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardUpdate
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
@@ -19,6 +20,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.character.AddCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.DeleteCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCards
+import org.mechanika.inicjatywka.game.domain.use_case.character.UpdateCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
@@ -50,6 +52,10 @@ class AppModule(
         actionUseCaseCharacterCardDelete = ActionUseCaseCharacterCardDelete(
             characterRepository,
             actionRepository
+        ),
+        actionUseCaseCharacterCardUpdate = ActionUseCaseCharacterCardUpdate(
+            characterRepository,
+            actionRepository
         )
     )
 
@@ -73,6 +79,7 @@ class AppModule(
         addCharacterCard = AddCharacterCard(characterRepository, stack),
         deleteCharacterCard = DeleteCharacterCard(characterRepository, stack),
         getCharacterCard = GetCharacterCard(characterRepository),
-        getCharacterCards = GetCharacterCards(characterRepository)
+        getCharacterCards = GetCharacterCards(characterRepository),
+        updateCharacterCard = UpdateCharacterCard(characterRepository, stack)
     )
 }

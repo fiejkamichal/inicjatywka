@@ -5,6 +5,7 @@ import org.mechanika.inicjatywka.game.data.data_source.action.ActionDao
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
@@ -107,4 +108,18 @@ class ActionRepositoryImpl(
     override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> =
         dao.getCharacterCardDeleteActions()
 
+    override fun insertCharacterCardUpdateAction(characterCardUpdate: CharacterCardUpdateAction): Long =
+        dao.insertCharacterCardUpdateAction(
+            characterCardUpdate.cardId,
+            characterCardUpdate.prevCardId
+        )
+
+    override fun deleteCharacterCardUpdateAction(actionId: Long) =
+        dao.deleteCharacterCardUpdateAction(actionId)
+
+    override fun getCharacterCardUpdateAction(actionId: Long): CharacterCardUpdateAction? =
+        dao.getCharacterCardUpdateAction(actionId)
+
+    override fun getCharacterCardUpdateActions(): Flow<List<CharacterCardUpdateAction>> =
+        dao.getCharacterCardUpdateActions()
 }

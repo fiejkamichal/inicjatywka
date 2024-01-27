@@ -26,6 +26,7 @@ abstract class ActionUseCase {
                 ActionStackEntry.ActionTypes.CharacterCardAdd -> actions.actionUseCaseCharacterCardAdd
                 ActionStackEntry.ActionTypes.CharacterCardDelete -> actions.actionUseCaseCharacterCardDelete
                 null -> actions.actionUseCaseEmpty
+                ActionStackEntry.ActionTypes.CharacterCardUpdate -> actions.actionUseCaseCharacterCardUpdate
             }
         }
     }

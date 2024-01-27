@@ -8,6 +8,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.character.AddCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.DeleteCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCards
+import org.mechanika.inicjatywka.game.domain.use_case.character.UpdateCharacterCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
@@ -25,5 +26,6 @@ data class InicjatywkaUseCases(
     val addCharacterCard: AddCharacterCard,
     val deleteCharacterCard: DeleteCharacterCard,
     val getCharacterCard: GetCharacterCard,
-    val getCharacterCards: GetCharacterCards
+    val getCharacterCards: GetCharacterCards,
+    val updateCharacterCard: UpdateCharacterCard
 )

@@ -4,10 +4,12 @@ import org.mechanika.inicjatywka.actiondatabase.ActionStackEntryEntity
 import org.mechanika.inicjatywka.actiondatabase.ActionStackPositionEntity
 import org.mechanika.inicjatywka.actiondatabase.CharacterCardAddActionEntity
 import org.mechanika.inicjatywka.actiondatabase.CharacterCardDeleteActionEntity
+import org.mechanika.inicjatywka.actiondatabase.CharacterCardUpdateActionEntity
 import org.mechanika.inicjatywka.actiondatabase.PhaseChangeActionEntity
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 
@@ -45,5 +47,13 @@ fun CharacterCardDeleteActionEntity.toCharacterCardDeleteAction(): CharacterCard
     return CharacterCardDeleteAction(
         id = this.id,
         cardId = this.characterCardId
+    )
+}
+
+fun CharacterCardUpdateActionEntity.toCharacterCardUpdateAction(): CharacterCardUpdateAction {
+    return CharacterCardUpdateAction(
+        id = this.id,
+        cardId = this.cardId,
+        prevCardId = this.prevCardId
     )
 }

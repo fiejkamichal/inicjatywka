@@ -26,6 +26,18 @@ VALUES (:name, :initiative, 0,
 :mana,:concentration,:movePoints,
 :steps,:states,0);
 
+insertDeletedCharacterCard:
+INSERT OR REPLACE INTO CharacterCardEntity
+(name, initiative, deleted,
+ally, hitPoints, resilience,
+mana, concentration, movePoints,
+steps, states, waits
+)
+VALUES (:name, :initiative, 1,
+:ally, :hitPoints, :resilience,
+:mana,:concentration,:movePoints,
+:steps,:states,0);
+
 deleteCharacterCard:
 DELETE FROM CharacterCardEntity WHERE id = :id;
 
@@ -34,6 +46,14 @@ UPDATE CharacterCardEntity SET deleted = 1 WHERE id = :id;
 
 unmarkCharacterCardAsDeleted:
 UPDATE CharacterCardEntity SET deleted = 0 WHERE id = :id;
+
+updateCharacterCard:
+UPDATE CharacterCardEntity SET
+name = :name, initiative = :initiative,
+ally = :ally, hitPoints = :hitPoints, resilience = :resilience,
+mana = :mana, concentration = :concentration, movePoints = :movePoints,
+steps = :steps, states = :states, waits = :waits
+WHERE id = :id;
 
 getCharacterCard:
 SELECT * FROM CharacterCardEntity WHERE id = :id;

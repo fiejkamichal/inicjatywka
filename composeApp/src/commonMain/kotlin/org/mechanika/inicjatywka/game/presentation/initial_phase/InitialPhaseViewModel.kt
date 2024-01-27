@@ -30,7 +30,8 @@ class InitialPhaseViewModel(
     val characterViewModel = CharacterViewModel(
         addCharacterCard = inicjatywkaUseCases.addCharacterCard,
         deleteCharacterCard = inicjatywkaUseCases.deleteCharacterCard,
-        getCharacterCards = inicjatywkaUseCases.getCharacterCards
+        getCharacterCards = inicjatywkaUseCases.getCharacterCards,
+        updateCharacterCard = inicjatywkaUseCases.updateCharacterCard
     )
 
     val state = InitialPhaseState(

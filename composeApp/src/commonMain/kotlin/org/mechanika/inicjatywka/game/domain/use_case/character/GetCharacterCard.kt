@@ -8,6 +8,6 @@ class GetCharacterCard(
     private val repository: CharacterRepository
 ) {
     operator fun invoke(id: Long): Flow<CharacterCard?> {
-        return repository.getCharacterCard(id)
+        return repository.getCharacterCardAsFlow(id)
     }
 }

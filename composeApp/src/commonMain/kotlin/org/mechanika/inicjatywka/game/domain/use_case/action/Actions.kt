@@ -4,5 +4,6 @@ data class Actions(
     val actionUseCaseEmpty: ActionUseCaseEmpty,
     val actionUseCasePhaseChange: ActionUseCasePhaseChange,
     val actionUseCaseCharacterCardAdd: ActionUseCaseCharacterCardAdd,
-    val actionUseCaseCharacterCardDelete: ActionUseCaseCharacterCardDelete
+    val actionUseCaseCharacterCardDelete: ActionUseCaseCharacterCardDelete,
+    val actionUseCaseCharacterCardUpdate: ActionUseCaseCharacterCardUpdate
 )

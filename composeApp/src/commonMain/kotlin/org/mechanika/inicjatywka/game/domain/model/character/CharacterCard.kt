@@ -1,8 +1,8 @@
 package org.mechanika.inicjatywka.game.domain.model.character
 
-class CharacterCard(
+data class CharacterCard(
     var id: Long?,
-    val name: String = "",
+    var name: String = "",
     val initiative: Long = 50,
     val deleted: Boolean = false,
     val ally: Boolean = true,
@@ -22,9 +22,15 @@ class CharacterCard(
         )
     }
 
+    fun setStat(stat: Stat) {
+        when (stat.name) {
+            "nazwa" -> this.name = stat.value
+        }
+    }
+
     class Stat(
         val name: String,
-        val value: String
+        var value: String
     ) {
         override fun toString(): String {
             return "$name $value"

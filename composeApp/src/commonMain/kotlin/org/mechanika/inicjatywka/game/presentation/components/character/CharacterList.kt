@@ -1,5 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.components.character
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ fun CharacterList(
     viewModel: CharacterViewModel
 ) {
     val cards = viewModel.state.cards.collectAsState(emptyList())
+    val characterCardEdit = viewModel.characterCardEdit
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -30,7 +32,19 @@ fun CharacterList(
             )
         }
         cards.value.forEach {
-            Character(it, viewModel)
+            if (characterCardEdit != null && it.id == characterCardEdit.id)
+                CharacterEdit(viewModel)
+            else
+                Character(
+                    card = it,
+                    viewModel = viewModel,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .clickable {
+                            viewModel.onEvent(CharacterEvent.EditCharacter(it))
+                        }
+                )
         }
     }
 }

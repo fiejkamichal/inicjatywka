@@ -12,6 +12,14 @@ class CharacterRepositoryImpl(
         return dao.insertCharacterCard(card)
     }
 
+    override fun insertDeletedCharacterCard(card: CharacterCard): Long {
+        return dao.insertDeletedCharacterCard(card)
+    }
+
+    override fun updateCharacterCard(id: Long, card: CharacterCard) {
+        return dao.updateCharacterCard(id, card)
+    }
+
     override fun deleteCharacterCard(id: Long) {
         dao.deleteCharacterCard(id)
     }
@@ -24,7 +32,11 @@ class CharacterRepositoryImpl(
         dao.unmarkCharacterCardAsDeleted(id)
     }
 
-    override fun getCharacterCard(id: Long): Flow<CharacterCard?> {
+    override fun getCharacterCardAsFlow(id: Long): Flow<CharacterCard?> {
+        return dao.getCharacterCardAsFlow(id)
+    }
+
+    override fun getCharacterCard(id: Long): CharacterCard? {
         return dao.getCharacterCard(id)
     }
 

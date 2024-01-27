@@ -11,6 +11,7 @@ import org.mechanika.inicjatywka.actiondatabase.ActionDatabase
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 
@@ -158,4 +159,31 @@ class ActionDaoImpl(
             }
     }
 
+
+    override fun insertCharacterCardUpdateAction(cardId: Long, prevCardId: Long): Long {
+        return queries.transactionWithResult {
+            queries.insertCharacterCardUpdateAction(cardId = cardId, prevCardId = prevCardId)
+            queries.lastInsertRowId().executeAsOne()
+        }
+    }
+
+    override fun deleteCharacterCardUpdateAction(actionId: Long) {
+        queries.deleteCharacterCardUpdateAction(actionId)
+    }
+
+    override fun getCharacterCardUpdateAction(actionId: Long): CharacterCardUpdateAction? {
+        return queries.getCharacterCardUpdateAction(actionId).executeAsOneOrNull()
+            ?.toCharacterCardUpdateAction()
+    }
+
+    override fun getCharacterCardUpdateActions(): Flow<List<CharacterCardUpdateAction>> {
+        return queries.getCharacterCardUpdateActions()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toCharacterCardUpdateAction()
+                }
+            }
+    }
 }

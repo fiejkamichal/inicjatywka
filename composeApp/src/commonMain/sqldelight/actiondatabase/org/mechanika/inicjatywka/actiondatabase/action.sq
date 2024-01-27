@@ -26,6 +26,12 @@ CREATE TABLE IF NOT EXISTS CharacterCardDeleteActionEntity (
     characterCardId INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS CharacterCardUpdateActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    cardId INTEGER NOT NULL,
+    prevCardId INTEGER NOT NULL
+);
+
 
 getActionStackEntry:
 SELECT * FROM ActionStackEntryEntity WHERE position = :position;
@@ -89,6 +95,21 @@ SELECT * FROM CharacterCardDeleteActionEntity WHERE id = :actionId;
 
 getCharacterCardDeleteActions:
 SELECT * FROM CharacterCardDeleteActionEntity ORDER BY id ASC;
+
+
+insertCharacterCardUpdateAction:
+INSERT OR REPLACE INTO CharacterCardUpdateActionEntity
+(cardId, prevCardId)
+VALUES (:cardId, :prevCardId);
+
+deleteCharacterCardUpdateAction:
+DELETE FROM CharacterCardUpdateActionEntity WHERE id = :actionId;
+
+getCharacterCardUpdateAction:
+SELECT * FROM CharacterCardUpdateActionEntity WHERE id = :actionId;
+
+getCharacterCardUpdateActions:
+SELECT * FROM CharacterCardUpdateActionEntity ORDER BY id ASC;
 
 
 lastInsertRowId:
