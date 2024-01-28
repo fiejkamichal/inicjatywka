@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 import org.mechanika.inicjatywka.game.presentation.components.character.CharacterList
 import org.mechanika.inicjatywka.game.presentation.components.character.New
-import org.mechanika.inicjatywka.game.presentation.components.debug.Debug
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
 
@@ -48,6 +49,7 @@ fun InitialPhaseScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
+                DebugButton(component.debugViewModel)
                 Undo(
                     undoRedoViewModel = component.undoRedoViewModel
                 )
@@ -77,9 +79,11 @@ fun InitialPhaseScreen(
             item {
                 CharacterList(component.characterViewModel)
             }
-            item {
-                Debug(component.debugViewModel)
-            }
         }
     }
+    DebugBottomSheet(
+        isOpen = component.debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
+        viewModel = component.debugViewModel,
+        modifier = Modifier
+    )
 }

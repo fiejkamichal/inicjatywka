@@ -1,5 +1,8 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 
 class DebugViewModel(
@@ -15,6 +18,17 @@ class DebugViewModel(
         currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition()
     )
 
+    var isDebugSheetOpen by mutableStateOf(DebugSheetState())
+        private set
+
     fun updateState() {
+    }
+
+    fun onEvent(event: DebugEvent) {
+        isDebugSheetOpen = when (event) {
+            DebugEvent.onDebugButtonClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = true)
+
+            DebugEvent.onDebugCloseClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = false)
+        }
     }
 }

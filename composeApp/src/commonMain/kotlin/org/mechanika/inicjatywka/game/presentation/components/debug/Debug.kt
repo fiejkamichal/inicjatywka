@@ -22,6 +22,7 @@ fun Debug(
     val cards = component.state.cards.collectAsState(emptyList())
     val deletedCards = component.state.deletedCards.collectAsState(emptyList())
     val currentStackPosition = component.state.currentStackPosition.collectAsState(null)
+
     Column {
         Button(
             onClick = { component.updateState() }

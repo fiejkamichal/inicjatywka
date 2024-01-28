@@ -11,7 +11,7 @@ class UpdateCharacterCard(
 ) {
     operator fun invoke(cardId: Long, newCard: CharacterCard) {
         val card = repository.getCharacterCard(cardId)
-        if (card != null) {
+        if (card != null && !card.sameStats(newCard)) {
             val prevId = repository.insertDeletedCharacterCard(card)
             repository.updateCharacterCard(cardId, newCard)
             stack.pushActionAboveCurrentPosition(

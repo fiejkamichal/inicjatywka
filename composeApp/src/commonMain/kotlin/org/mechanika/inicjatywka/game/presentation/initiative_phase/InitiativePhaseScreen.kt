@@ -18,7 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.game.presentation.components.debug.Debug
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
 
@@ -46,6 +47,7 @@ fun InitiativePhaseScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
+                DebugButton(component.debugViewModel)
                 Undo(
                     undoRedoViewModel = component.undoRedoViewModel
                 )
@@ -69,9 +71,11 @@ fun InitiativePhaseScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            item {
-                Debug(component.debugViewModel)
-            }
         }
     }
+    DebugBottomSheet(
+        isOpen = component.debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
+        viewModel = component.debugViewModel,
+        modifier = Modifier
+    )
 }

@@ -15,3 +15,7 @@ data class DebugState(
     val deletedCards: Flow<List<CharacterCard>>,
     val currentStackPosition: Flow<Long?>
 )
+
+data class DebugSheetState(
+    val isDebugSheetOpen: Boolean = false
+)

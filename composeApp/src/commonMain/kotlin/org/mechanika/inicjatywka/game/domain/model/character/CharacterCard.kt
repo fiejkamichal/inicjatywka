@@ -81,6 +81,12 @@ data class CharacterCard(
     override fun toString(): String {
         return id.toString() + " " + getStats().toString()
     }
+
+    fun sameStats(card: CharacterCard): Boolean {
+        return card.getStats().all {
+            stats[it.id]?.value == it.value
+        }
+    }
 }
 
 
