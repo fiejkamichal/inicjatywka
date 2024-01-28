@@ -47,9 +47,21 @@ class CharacterViewModel(
             }
 
             is CharacterEvent.UpdateCharacterStat -> {
-                characterCardEdit = characterCardEdit?.copy(
-                    name = event.stat.value
-                )
+                characterCardEdit =
+                    when (event.id) {
+                        CharacterCard.Stat.Id.Null -> characterCardEdit
+                        CharacterCard.Stat.Id.Name -> characterCardEdit?.copy(name = event.value)
+                        CharacterCard.Stat.Id.Initiative -> characterCardEdit?.copy(initiative = event.value.toLong())
+                        CharacterCard.Stat.Id.Ally -> characterCardEdit?.copy(ally = event.value.toBoolean())
+                        CharacterCard.Stat.Id.HitPoints -> characterCardEdit?.copy(hitPoints = event.value.toLong())
+                        CharacterCard.Stat.Id.Resilience -> characterCardEdit?.copy(resilience = event.value.toLong())
+                        CharacterCard.Stat.Id.Mana -> characterCardEdit?.copy(mana = event.value.toLong())
+                        CharacterCard.Stat.Id.Concentration -> characterCardEdit?.copy(concentration = event.value.toLong())
+                        CharacterCard.Stat.Id.MovePoints -> characterCardEdit?.copy(movePoints = event.value.toLong())
+                        CharacterCard.Stat.Id.Steps -> characterCardEdit?.copy(steps = event.value.toLong())
+                        CharacterCard.Stat.Id.States -> characterCardEdit?.copy(states = event.value)
+                        CharacterCard.Stat.Id.Waits -> characterCardEdit?.copy(waits = event.value.toBoolean())
+                    }
             }
         }
     }

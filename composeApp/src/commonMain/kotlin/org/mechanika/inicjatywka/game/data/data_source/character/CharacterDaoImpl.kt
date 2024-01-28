@@ -16,16 +16,16 @@ class CharacterDaoImpl(
     override fun insertCharacterCard(card: CharacterCard): Long {
         return queries.transactionWithResult {
             queries.insertCharacterCard(
-                name = card.name,
-                initiative = card.initiative,
-                ally = if (card.ally) 1L else 0L,
-                hitPoints = card.hitPoints,
-                resilience = card.resilience,
-                mana = card.mana,
-                concentration = card.concentration,
-                movePoints = card.movePoints,
-                steps = card.steps,
-                states = card.states
+                name = card.getStat(CharacterCard.Stat.Id.Name).value,
+                initiative = card.getStat(CharacterCard.Stat.Id.Initiative).value.toLong(),
+                ally = if (card.getStat(CharacterCard.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
+                hitPoints = card.getStat(CharacterCard.Stat.Id.HitPoints).value.toLong(),
+                resilience = card.getStat(CharacterCard.Stat.Id.Resilience).value.toLong(),
+                mana = card.getStat(CharacterCard.Stat.Id.Mana).value.toLong(),
+                concentration = card.getStat(CharacterCard.Stat.Id.Concentration).value.toLong(),
+                movePoints = card.getStat(CharacterCard.Stat.Id.MovePoints).value.toLong(),
+                steps = card.getStat(CharacterCard.Stat.Id.Steps).value.toLong(),
+                states = card.getStat(CharacterCard.Stat.Id.States).value
             )
             queries.lastInsertRowId().executeAsOne()
         }
@@ -34,16 +34,16 @@ class CharacterDaoImpl(
     override fun insertDeletedCharacterCard(card: CharacterCard): Long {
         return queries.transactionWithResult {
             queries.insertDeletedCharacterCard(
-                name = card.name,
-                initiative = card.initiative,
-                ally = if (card.ally) 1L else 0L,
-                hitPoints = card.hitPoints,
-                resilience = card.resilience,
-                mana = card.mana,
-                concentration = card.concentration,
-                movePoints = card.movePoints,
-                steps = card.steps,
-                states = card.states
+                name = card.getStat(CharacterCard.Stat.Id.Name).value,
+                initiative = card.getStat(CharacterCard.Stat.Id.Initiative).value.toLong(),
+                ally = if (card.getStat(CharacterCard.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
+                hitPoints = card.getStat(CharacterCard.Stat.Id.HitPoints).value.toLong(),
+                resilience = card.getStat(CharacterCard.Stat.Id.Resilience).value.toLong(),
+                mana = card.getStat(CharacterCard.Stat.Id.Mana).value.toLong(),
+                concentration = card.getStat(CharacterCard.Stat.Id.Concentration).value.toLong(),
+                movePoints = card.getStat(CharacterCard.Stat.Id.MovePoints).value.toLong(),
+                steps = card.getStat(CharacterCard.Stat.Id.Steps).value.toLong(),
+                states = card.getStat(CharacterCard.Stat.Id.States).value
             )
             queries.lastInsertRowId().executeAsOne()
         }
@@ -52,17 +52,17 @@ class CharacterDaoImpl(
     override fun updateCharacterCard(id: Long, card: CharacterCard) {
         queries.updateCharacterCard(
             id = id,
-            name = card.name,
-            initiative = card.initiative,
-            ally = if (card.ally) 1L else 0L,
-            hitPoints = card.hitPoints,
-            resilience = card.resilience,
-            mana = card.mana,
-            concentration = card.concentration,
-            movePoints = card.movePoints,
-            steps = card.steps,
-            states = card.states,
-            waits = if (card.waits) 1L else 0L
+            name = card.getStat(CharacterCard.Stat.Id.Name).value,
+            initiative = card.getStat(CharacterCard.Stat.Id.Initiative).value.toLong(),
+            ally = if (card.getStat(CharacterCard.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
+            hitPoints = card.getStat(CharacterCard.Stat.Id.HitPoints).value.toLong(),
+            resilience = card.getStat(CharacterCard.Stat.Id.Resilience).value.toLong(),
+            mana = card.getStat(CharacterCard.Stat.Id.Mana).value.toLong(),
+            concentration = card.getStat(CharacterCard.Stat.Id.Concentration).value.toLong(),
+            movePoints = card.getStat(CharacterCard.Stat.Id.MovePoints).value.toLong(),
+            steps = card.getStat(CharacterCard.Stat.Id.Steps).value.toLong(),
+            states = card.getStat(CharacterCard.Stat.Id.States).value,
+            waits = if (card.getStat(CharacterCard.Stat.Id.Waits).value.toBoolean()) 1L else 0L
         )
     }
 

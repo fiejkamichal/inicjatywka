@@ -7,5 +7,6 @@ sealed interface CharacterEvent {
     data class DeleteCharacter(val id: Long) : CharacterEvent
     data class EditCharacter(val character: CharacterCard) : CharacterEvent
     data class SaveCharacter(val character: CharacterCard) : CharacterEvent
-    data class UpdateCharacterStat(val stat: CharacterCard.Stat) : CharacterEvent
+    data class UpdateCharacterStat(val id: CharacterCard.Stat.Id, val value: String) :
+        CharacterEvent
 }
