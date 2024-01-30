@@ -17,13 +17,8 @@ class UndoRedoViewModel(
 
     fun onEvent(event: UndoRedoEvent) {
         when (event) {
-            UndoRedoEvent.Redo -> runBlocking {
-                redo()
-            }
-
-            UndoRedoEvent.Undo -> runBlocking {
-                undo()
-            }
+            UndoRedoEvent.Redo -> redo()
+            UndoRedoEvent.Undo -> undo()
         }
     }
 }

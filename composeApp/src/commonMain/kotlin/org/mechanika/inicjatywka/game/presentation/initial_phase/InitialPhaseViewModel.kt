@@ -14,31 +14,17 @@ import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoV
 class InitialPhaseViewModel(
     private val inicjatywkaUseCases: InicjatywkaUseCases,
     componentContext: ComponentContext,
-    private val onNavigateToInitiativePhaseViewModel: () -> Unit
+    val undoRedoViewModel: UndoRedoViewModel,
+    val debugViewModel: DebugViewModel,
+    val characterViewModel: CharacterViewModel,
+    private val onNavigateToInitiativePhase: () -> Unit
 ) : ViewModel(), ComponentContext by componentContext {
-
-    val undoRedoViewModel = UndoRedoViewModel(
-        undo = inicjatywkaUseCases.undoAction,
-        redo = inicjatywkaUseCases.redoAction,
-        stack = inicjatywkaUseCases.stack
-    )
-
-    val debugViewModel = DebugViewModel(
-        inicjatywkaUseCases
-    )
-
-    val characterViewModel = CharacterViewModel(
-        addCharacterCard = inicjatywkaUseCases.addCharacterCard,
-        deleteCharacterCard = inicjatywkaUseCases.deleteCharacterCard,
-        getCharacterCards = inicjatywkaUseCases.getCharacterCards,
-        updateCharacterCard = inicjatywkaUseCases.updateCharacterCard
-    )
 
     val state = InitialPhaseState(
         currentPhase = inicjatywkaUseCases.getPhase()
             .map {
                 if (it == Phase.Phases.Initiative) {
-                    onNavigateToInitiativePhaseViewModel()
+                    onNavigateToInitiativePhase()
                 }
                 it
             }
@@ -48,7 +34,7 @@ class InitialPhaseViewModel(
         when (event) {
             InitialPhaseEvent.StartInitiative -> {
                 runBlocking { inicjatywkaUseCases.startInitiative() }
-                onNavigateToInitiativePhaseViewModel()
+                onNavigateToInitiativePhase()
             }
         }
     }

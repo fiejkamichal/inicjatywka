@@ -25,6 +25,9 @@ import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StopInitiative
+import org.mechanika.inicjatywka.game.presentation.components.character.CharacterViewModel
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
+import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
 
 class AppModule(
@@ -82,4 +85,29 @@ class AppModule(
         getCharacterCards = GetCharacterCards(characterRepository),
         updateCharacterCard = UpdateCharacterCard(characterRepository, stack)
     )
+
+    private val undoRedoViewModel = UndoRedoViewModel(
+        undo = inicjatywkaUseCases.undoAction,
+        redo = inicjatywkaUseCases.redoAction,
+        stack = stack
+    )
+
+    private val debugViewModel = DebugViewModel(inicjatywkaUseCases)
+
+    fun getUndoRedoViewModel(): UndoRedoViewModel {
+        return undoRedoViewModel
+    }
+
+    fun getDebugViewModel(): DebugViewModel {
+        return debugViewModel
+    }
+
+    fun getCharacterViewModel(): CharacterViewModel {
+        return CharacterViewModel(
+            addCharacterCard = inicjatywkaUseCases.addCharacterCard,
+            deleteCharacterCard = inicjatywkaUseCases.deleteCharacterCard,
+            getCharacterCards = inicjatywkaUseCases.getCharacterCards,
+            updateCharacterCard = inicjatywkaUseCases.updateCharacterCard
+        )
+    }
 }

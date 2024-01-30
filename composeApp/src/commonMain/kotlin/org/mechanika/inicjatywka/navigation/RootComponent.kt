@@ -37,9 +37,12 @@ class RootComponent(
         return when (config) {
             Configuration.InitialPhase -> Child.InitialPhase(
                 InitialPhaseViewModel(
-                    appModule.inicjatywkaUseCases,
+                    inicjatywkaUseCases = appModule.inicjatywkaUseCases,
+                    undoRedoViewModel = appModule.getUndoRedoViewModel(),
+                    debugViewModel = appModule.getDebugViewModel(),
+                    characterViewModel = appModule.getCharacterViewModel(),
                     componentContext = context,
-                    onNavigateToInitiativePhaseViewModel = {
+                    onNavigateToInitiativePhase = {
                         navigation.replaceAll(
                             Configuration.InitiativePhase
                         )
@@ -49,9 +52,11 @@ class RootComponent(
 
             is Configuration.InitiativePhase -> Child.InitiativePhase(
                 InitiativePhaseViewModel(
-                    appModule.inicjatywkaUseCases,
+                    inicjatywkaUseCases = appModule.inicjatywkaUseCases,
+                    undoRedoViewModel = appModule.getUndoRedoViewModel(),
+                    debugViewModel = appModule.getDebugViewModel(),
                     componentContext = context,
-                    onNavigateToInitialPhaseViewModel = {
+                    onNavigateToInitialPhase = {
                         navigation.replaceAll(
                             Configuration.InitialPhase
                         )

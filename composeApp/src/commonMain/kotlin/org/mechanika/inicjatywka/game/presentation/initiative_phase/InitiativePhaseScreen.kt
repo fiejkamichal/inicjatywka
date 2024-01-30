@@ -48,9 +48,7 @@ fun InitiativePhaseScreen(
         ) {
             item {
                 DebugButton(component.debugViewModel)
-                Undo(
-                    undoRedoViewModel = component.undoRedoViewModel
-                )
+                Undo(component.undoRedoViewModel)
                 Redo(component.undoRedoViewModel)
             }
             item {
