@@ -4,11 +4,11 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
-import org.mechanika.inicjatywka.game.domain.use_case.character.AddCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.DeleteCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCards
-import org.mechanika.inicjatywka.game.domain.use_case.character.UpdateCharacterCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.AddCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.DeleteCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
+import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
@@ -23,9 +23,9 @@ data class InicjatywkaUseCases(
     val redoAction: Redo,
     val stack: Stack,
     val debug: Debug,
-    val addCharacterCard: AddCharacterCard,
-    val deleteCharacterCard: DeleteCharacterCard,
-    val getCharacterCard: GetCharacterCard,
-    val getCharacterCards: GetCharacterCards,
-    val updateCharacterCard: UpdateCharacterCard
+    val addCard: AddCard,
+    val deleteCard: DeleteCard,
+    val getCard: GetCard,
+    val getCards: GetCards,
+    val updateCard: UpdateCard
 )

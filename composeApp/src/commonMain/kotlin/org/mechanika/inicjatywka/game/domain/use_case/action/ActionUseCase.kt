@@ -23,10 +23,10 @@ abstract class ActionUseCase {
         fun getActionUseCase(actions: Actions, type: ActionStackEntry.ActionTypes?): ActionUseCase {
             return when (type) {
                 ActionStackEntry.ActionTypes.PhaseChange -> actions.actionUseCasePhaseChange
-                ActionStackEntry.ActionTypes.CharacterCardAdd -> actions.actionUseCaseCharacterCardAdd
-                ActionStackEntry.ActionTypes.CharacterCardDelete -> actions.actionUseCaseCharacterCardDelete
+                ActionStackEntry.ActionTypes.CardAdd -> actions.actionUseCaseCardAdd
+                ActionStackEntry.ActionTypes.CardDelete -> actions.actionUseCaseCardDelete
                 null -> actions.actionUseCaseEmpty
-                ActionStackEntry.ActionTypes.CharacterCardUpdate -> actions.actionUseCaseCharacterCardUpdate
+                ActionStackEntry.ActionTypes.CardUpdate -> actions.actionUseCaseCardUpdate
             }
         }
     }

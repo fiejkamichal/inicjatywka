@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS ActionStackEntryEntity (
     position INTEGER PRIMARY KEY NOT NULL,
-    actionType TEXT NOT NULL,
+    actionType INTEGER NOT NULL,
     actionId INTEGER NOT NULL
 );
 
@@ -16,17 +16,17 @@ CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
     type TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS CharacterCardAddActionEntity (
+CREATE TABLE IF NOT EXISTS CardAddActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    characterCardId INTEGER NOT NULL
+    cardId INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS CharacterCardDeleteActionEntity (
+CREATE TABLE IF NOT EXISTS CardDeleteActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    characterCardId INTEGER NOT NULL
+    cardId INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS CharacterCardUpdateActionEntity (
+CREATE TABLE IF NOT EXISTS CardUpdateActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     cardId INTEGER NOT NULL,
     prevCardId INTEGER NOT NULL
@@ -71,45 +71,45 @@ getPhaseChangeActions:
 SELECT * FROM PhaseChangeActionEntity ORDER BY id ASC;
 
 
-insertCharacterCardAddAction:
-INSERT OR REPLACE INTO CharacterCardAddActionEntity (characterCardId) VALUES (:cardId);
+insertCardAddAction:
+INSERT OR REPLACE INTO CardAddActionEntity (cardId) VALUES (:cardId);
 
-deleteCharacterCardAddAction:
-DELETE FROM CharacterCardAddActionEntity WHERE id = :actionId;
+deleteCardAddAction:
+DELETE FROM CardAddActionEntity WHERE id = :actionId;
 
-getCharacterCardAddAction:
-SELECT * FROM CharacterCardAddActionEntity WHERE id = :actionId;
+getCardAddAction:
+SELECT * FROM CardAddActionEntity WHERE id = :actionId;
 
-getCharacterCardAddActions:
-SELECT * FROM CharacterCardAddActionEntity ORDER BY id ASC;
-
-
-insertCharacterCardDeleteAction:
-INSERT OR REPLACE INTO CharacterCardDeleteActionEntity (characterCardId) VALUES (:cardId);
-
-deleteCharacterCardDeleteAction:
-DELETE FROM CharacterCardDeleteActionEntity WHERE id = :actionId;
-
-getCharacterCardDeleteAction:
-SELECT * FROM CharacterCardDeleteActionEntity WHERE id = :actionId;
-
-getCharacterCardDeleteActions:
-SELECT * FROM CharacterCardDeleteActionEntity ORDER BY id ASC;
+getCardAddActions:
+SELECT * FROM CardAddActionEntity ORDER BY id ASC;
 
 
-insertCharacterCardUpdateAction:
-INSERT OR REPLACE INTO CharacterCardUpdateActionEntity
+insertCardDeleteAction:
+INSERT OR REPLACE INTO CardDeleteActionEntity (cardId) VALUES (:cardId);
+
+deleteCardDeleteAction:
+DELETE FROM CardDeleteActionEntity WHERE id = :actionId;
+
+getCardDeleteAction:
+SELECT * FROM CardDeleteActionEntity WHERE id = :actionId;
+
+getCardDeleteActions:
+SELECT * FROM CardDeleteActionEntity ORDER BY id ASC;
+
+
+insertCardUpdateAction:
+INSERT OR REPLACE INTO CardUpdateActionEntity
 (cardId, prevCardId)
 VALUES (:cardId, :prevCardId);
 
-deleteCharacterCardUpdateAction:
-DELETE FROM CharacterCardUpdateActionEntity WHERE id = :actionId;
+deleteCardUpdateAction:
+DELETE FROM CardUpdateActionEntity WHERE id = :actionId;
 
-getCharacterCardUpdateAction:
-SELECT * FROM CharacterCardUpdateActionEntity WHERE id = :actionId;
+getCardUpdateAction:
+SELECT * FROM CardUpdateActionEntity WHERE id = :actionId;
 
-getCharacterCardUpdateActions:
-SELECT * FROM CharacterCardUpdateActionEntity ORDER BY id ASC;
+getCardUpdateActions:
+SELECT * FROM CardUpdateActionEntity ORDER BY id ASC;
 
 
 lastInsertRowId:

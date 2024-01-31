@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.actiondatabase.ActionDatabase
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 
@@ -28,7 +28,7 @@ class ActionDaoImpl(
         actionType: ActionStackEntry.ActionTypes,
         actionId: Long
     ) {
-        queries.setActionStackEntry(position, actionType.toString(), actionId)
+        queries.setActionStackEntry(position, actionType.value, actionId)
     }
 
     override fun deleteActionStackEntry(position: Long) {
@@ -104,85 +104,85 @@ class ActionDaoImpl(
             }
     }
 
-    override fun insertCharacterCardAddAction(cardId: Long): Long {
+    override fun insertCardAddAction(cardId: Long): Long {
         return queries.transactionWithResult {
-            queries.insertCharacterCardAddAction(cardId = cardId)
+            queries.insertCardAddAction(cardId = cardId)
             queries.lastInsertRowId().executeAsOne()
         }
     }
 
-    override fun deleteCharacterCardAddAction(actionId: Long) {
-        queries.deleteCharacterCardAddAction(actionId)
+    override fun deleteCardAddAction(actionId: Long) {
+        queries.deleteCardAddAction(actionId)
     }
 
-    override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
-        return queries.getCharacterCardAddAction(actionId).executeAsOneOrNull()
-            ?.toCharacterCardAddAction()
+    override fun getCardAddAction(actionId: Long): CardAddAction? {
+        return queries.getCardAddAction(actionId).executeAsOneOrNull()
+            ?.toCardAddAction()
     }
 
-    override fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>> {
-        return queries.getCharacterCardAddActions()
+    override fun getCardAddActions(): Flow<List<CardAddAction>> {
+        return queries.getCardAddActions()
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { list ->
                 list.map {
-                    it.toCharacterCardAddAction()
+                    it.toCardAddAction()
                 }
             }
     }
 
 
-    override fun insertCharacterCardDeleteAction(cardId: Long): Long {
+    override fun insertCardDeleteAction(cardId: Long): Long {
         return queries.transactionWithResult {
-            queries.insertCharacterCardDeleteAction(cardId = cardId)
+            queries.insertCardDeleteAction(cardId = cardId)
             queries.lastInsertRowId().executeAsOne()
         }
     }
 
-    override fun deleteCharacterCardDeleteAction(actionId: Long) {
-        queries.deleteCharacterCardDeleteAction(actionId)
+    override fun deleteCardDeleteAction(actionId: Long) {
+        queries.deleteCardDeleteAction(actionId)
     }
 
-    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? {
-        return queries.getCharacterCardDeleteAction(actionId).executeAsOneOrNull()
-            ?.toCharacterCardDeleteAction()
+    override fun getCardDeleteAction(actionId: Long): CardDeleteAction? {
+        return queries.getCardDeleteAction(actionId).executeAsOneOrNull()
+            ?.toCardDeleteAction()
     }
 
-    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> {
-        return queries.getCharacterCardDeleteActions()
+    override fun getCardDeleteActions(): Flow<List<CardDeleteAction>> {
+        return queries.getCardDeleteActions()
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { list ->
                 list.map {
-                    it.toCharacterCardDeleteAction()
+                    it.toCardDeleteAction()
                 }
             }
     }
 
 
-    override fun insertCharacterCardUpdateAction(cardId: Long, prevCardId: Long): Long {
+    override fun insertCardUpdateAction(cardId: Long, prevCardId: Long): Long {
         return queries.transactionWithResult {
-            queries.insertCharacterCardUpdateAction(cardId = cardId, prevCardId = prevCardId)
+            queries.insertCardUpdateAction(cardId = cardId, prevCardId = prevCardId)
             queries.lastInsertRowId().executeAsOne()
         }
     }
 
-    override fun deleteCharacterCardUpdateAction(actionId: Long) {
-        queries.deleteCharacterCardUpdateAction(actionId)
+    override fun deleteCardUpdateAction(actionId: Long) {
+        queries.deleteCardUpdateAction(actionId)
     }
 
-    override fun getCharacterCardUpdateAction(actionId: Long): CharacterCardUpdateAction? {
-        return queries.getCharacterCardUpdateAction(actionId).executeAsOneOrNull()
-            ?.toCharacterCardUpdateAction()
+    override fun getCardUpdateAction(actionId: Long): CardUpdateAction? {
+        return queries.getCardUpdateAction(actionId).executeAsOneOrNull()
+            ?.toCardUpdateAction()
     }
 
-    override fun getCharacterCardUpdateActions(): Flow<List<CharacterCardUpdateAction>> {
-        return queries.getCharacterCardUpdateActions()
+    override fun getCardUpdateActions(): Flow<List<CardUpdateAction>> {
+        return queries.getCardUpdateActions()
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { list ->
                 list.map {
-                    it.toCharacterCardUpdateAction()
+                    it.toCardUpdateAction()
                 }
             }
     }

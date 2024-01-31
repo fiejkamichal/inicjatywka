@@ -2,9 +2,9 @@ package org.mechanika.inicjatywka.game.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 interface ActionRepository {
@@ -31,19 +31,19 @@ interface ActionRepository {
     fun getPhaseChangeActions(): Flow<List<PhaseChangeAction>>
 
 
-    fun insertCharacterCardAddAction(characterCardAdd: CharacterCardAddAction): Long
-    fun deleteCharacterCardAddAction(actionId: Long): Long
-    fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction?
-    fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>>
+    fun insertCardAddAction(cardAdd: CardAddAction): Long
+    fun deleteCardAddAction(actionId: Long): Long
+    fun getCardAddAction(actionId: Long): CardAddAction?
+    fun getCardAddActions(): Flow<List<CardAddAction>>
 
 
-    fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long
-    fun deleteCharacterCardDeleteAction(actionId: Long)
-    fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction?
-    fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>>
+    fun insertCardDeleteAction(cardDelete: CardDeleteAction): Long
+    fun deleteCardDeleteAction(actionId: Long)
+    fun getCardDeleteAction(actionId: Long): CardDeleteAction?
+    fun getCardDeleteActions(): Flow<List<CardDeleteAction>>
     fun getNumOfActionStackEntriesFlow(): Flow<Long>
-    fun insertCharacterCardUpdateAction(characterCardUpdate: CharacterCardUpdateAction): Long
-    fun deleteCharacterCardUpdateAction(actionId: Long)
-    fun getCharacterCardUpdateAction(actionId: Long): CharacterCardUpdateAction?
-    fun getCharacterCardUpdateActions(): Flow<List<CharacterCardUpdateAction>>
+    fun insertCardUpdateAction(cardUpdate: CardUpdateAction): Long
+    fun deleteCardUpdateAction(actionId: Long)
+    fun getCardUpdateAction(actionId: Long): CardUpdateAction?
+    fun getCardUpdateActions(): Flow<List<CardUpdateAction>>
 }

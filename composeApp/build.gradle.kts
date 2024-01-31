@@ -21,9 +21,9 @@ kotlin {
                 packageName = "org.mechanika.inicjatywka.actiondatabase"
                 srcDirs("src/commonMain/sqldelight/actiondatabase")
             }
-            create("CharacterDatabase") {
-                packageName = "org.mechanika.inicjatywka.characterdatabase"
-                srcDirs("src/commonMain/sqldelight/characterdatabase")
+            create("CardDatabase") {
+                packageName = "org.mechanika.inicjatywka.carddatabase"
+                srcDirs("src/commonMain/sqldelight/carddatabase")
             }
         }
     }

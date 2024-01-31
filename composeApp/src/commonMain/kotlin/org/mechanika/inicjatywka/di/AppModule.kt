@@ -1,31 +1,31 @@
 package org.mechanika.inicjatywka.di
 
 import org.mechanika.inicjatywka.game.data.repository.ActionRepositoryImpl
-import org.mechanika.inicjatywka.game.data.repository.CharacterRepositoryImpl
+import org.mechanika.inicjatywka.game.data.repository.CardRepositoryImpl
 import org.mechanika.inicjatywka.game.data.repository.PhaseRepositoryImpl
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
-import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
+import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
-import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardAdd
-import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardDelete
-import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCharacterCardUpdate
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardAdd
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardDelete
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardUpdate
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
-import org.mechanika.inicjatywka.game.domain.use_case.character.AddCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.DeleteCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCard
-import org.mechanika.inicjatywka.game.domain.use_case.character.GetCharacterCards
-import org.mechanika.inicjatywka.game.domain.use_case.character.UpdateCharacterCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.AddCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.DeleteCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
+import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.phase.StopInitiative
-import org.mechanika.inicjatywka.game.presentation.components.character.CharacterViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -41,23 +41,23 @@ class AppModule(
         dao = appModulePlatform.actionDao
     )
 
-    private val characterRepository: CharacterRepository = CharacterRepositoryImpl(
-        dao = appModulePlatform.characterDao
+    private val cardRepository: CardRepository = CardRepositoryImpl(
+        dao = appModulePlatform.cardDao
     )
 
     private val actions: Actions = Actions(
         actionUseCaseEmpty = ActionUseCaseEmpty(),
         actionUseCasePhaseChange = ActionUseCasePhaseChange(phaseRepository, actionRepository),
-        actionUseCaseCharacterCardAdd = ActionUseCaseCharacterCardAdd(
-            characterRepository,
+        actionUseCaseCardAdd = ActionUseCaseCardAdd(
+            cardRepository,
             actionRepository
         ),
-        actionUseCaseCharacterCardDelete = ActionUseCaseCharacterCardDelete(
-            characterRepository,
+        actionUseCaseCardDelete = ActionUseCaseCardDelete(
+            cardRepository,
             actionRepository
         ),
-        actionUseCaseCharacterCardUpdate = ActionUseCaseCharacterCardUpdate(
-            characterRepository,
+        actionUseCaseCardUpdate = ActionUseCaseCardUpdate(
+            cardRepository,
             actionRepository
         )
     )
@@ -67,7 +67,7 @@ class AppModule(
     private val debug: Debug = Debug(
         actionRepository = actionRepository,
         phaseRepository = phaseRepository,
-        characterRepository = characterRepository
+        cardRepository = cardRepository
     )
 
     val inicjatywkaUseCases = InicjatywkaUseCases(
@@ -79,11 +79,11 @@ class AppModule(
         redoAction = Redo(stack, actions),
         stack = stack,
         debug = debug,
-        addCharacterCard = AddCharacterCard(characterRepository, stack),
-        deleteCharacterCard = DeleteCharacterCard(characterRepository, stack),
-        getCharacterCard = GetCharacterCard(characterRepository),
-        getCharacterCards = GetCharacterCards(characterRepository),
-        updateCharacterCard = UpdateCharacterCard(characterRepository, stack)
+        addCard = AddCard(cardRepository, stack),
+        deleteCard = DeleteCard(cardRepository, stack),
+        getCard = GetCard(cardRepository),
+        getCards = GetCards(cardRepository),
+        updateCard = UpdateCard(cardRepository, stack)
     )
 
     private val undoRedoViewModel = UndoRedoViewModel(
@@ -102,12 +102,12 @@ class AppModule(
         return debugViewModel
     }
 
-    fun getCharacterViewModel(): CharacterViewModel {
-        return CharacterViewModel(
-            addCharacterCard = inicjatywkaUseCases.addCharacterCard,
-            deleteCharacterCard = inicjatywkaUseCases.deleteCharacterCard,
-            getCharacterCards = inicjatywkaUseCases.getCharacterCards,
-            updateCharacterCard = inicjatywkaUseCases.updateCharacterCard
+    fun getCardViewModel(): CardViewModel {
+        return CardViewModel(
+            addCard = inicjatywkaUseCases.addCard,
+            deleteCard = inicjatywkaUseCases.deleteCard,
+            getCards = inicjatywkaUseCases.getCards,
+            updateCard = inicjatywkaUseCases.updateCard
         )
     }
 }

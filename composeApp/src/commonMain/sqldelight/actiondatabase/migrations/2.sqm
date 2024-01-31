@@ -1,0 +1,5 @@
+ALTER TABLE CharacterCardAddActionEntity RENAME COLUMN characterCardId TO cardId;
+ALTER TABLE CharacterCardDeleteActionEntity RENAME COLUMN characterCardId TO cardId;
+ALTER TABLE CharacterCardAddActionEntity RENAME TO CardAddActionEntity;
+ALTER TABLE CharacterCardDeleteActionEntity RENAME TO CardDeleteActionEntity;
+ALTER TABLE CharacterCardUpdateActionEntity RENAME TO CardUpdateActionEntity;

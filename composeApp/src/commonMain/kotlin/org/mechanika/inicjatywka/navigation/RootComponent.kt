@@ -40,7 +40,7 @@ class RootComponent(
                     inicjatywkaUseCases = appModule.inicjatywkaUseCases,
                     undoRedoViewModel = appModule.getUndoRedoViewModel(),
                     debugViewModel = appModule.getDebugViewModel(),
-                    characterViewModel = appModule.getCharacterViewModel(),
+                    cardViewModel = appModule.getCardViewModel(),
                     componentContext = context,
                     onNavigateToInitiativePhase = {
                         navigation.replaceAll(

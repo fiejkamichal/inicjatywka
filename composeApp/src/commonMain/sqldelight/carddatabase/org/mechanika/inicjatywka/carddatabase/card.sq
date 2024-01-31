@@ -1,0 +1,68 @@
+CREATE TABLE IF NOT EXISTS CardEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    deleted INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    initiative INTEGER NOT NULL,
+    ally INTEGER NOT NULL,
+    hitPoints INTEGER NOT NULL,
+    resilience INTEGER NOT NULL,
+    mana INTEGER NOT NULL,
+    concentration INTEGER NOT NULL,
+    movePoints INTEGER NOT NULL,
+    steps INTEGER NOT NULL,
+    states TEXT NOT NULL,
+    waits INTEGER NOT NULL
+);
+
+insertCard:
+INSERT OR REPLACE INTO CardEntity
+(name, initiative, deleted,
+ally, hitPoints, resilience,
+mana, concentration, movePoints,
+steps, states, waits
+)
+VALUES (:name, :initiative, 0,
+:ally, :hitPoints, :resilience,
+:mana,:concentration,:movePoints,
+:steps,:states,0);
+
+insertDeletedCard:
+INSERT OR REPLACE INTO CardEntity
+(name, initiative, deleted,
+ally, hitPoints, resilience,
+mana, concentration, movePoints,
+steps, states, waits
+)
+VALUES (:name, :initiative, 1,
+:ally, :hitPoints, :resilience,
+:mana,:concentration,:movePoints,
+:steps,:states,0);
+
+deleteCard:
+DELETE FROM CardEntity WHERE id = :id;
+
+markCardAsDeleted:
+UPDATE CardEntity SET deleted = 1 WHERE id = :id;
+
+unmarkCardAsDeleted:
+UPDATE CardEntity SET deleted = 0 WHERE id = :id;
+
+updateCard:
+UPDATE CardEntity SET
+name = :name, initiative = :initiative,
+ally = :ally, hitPoints = :hitPoints, resilience = :resilience,
+mana = :mana, concentration = :concentration, movePoints = :movePoints,
+steps = :steps, states = :states, waits = :waits
+WHERE id = :id;
+
+getCard:
+SELECT * FROM CardEntity WHERE id = :id;
+
+getCards:
+SELECT * FROM CardEntity WHERE deleted = 0;
+
+getDeletedCards:
+SELECT * FROM CardEntity WHERE deleted = 1;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

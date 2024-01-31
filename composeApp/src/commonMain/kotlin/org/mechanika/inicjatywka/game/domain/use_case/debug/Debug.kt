@@ -2,23 +2,23 @@ package org.mechanika.inicjatywka.game.domain.use_case.debug
 
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
-import org.mechanika.inicjatywka.game.domain.model.character.CharacterCard
+import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
-import org.mechanika.inicjatywka.game.domain.repository.CharacterRepository
+import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
 
 class Debug(
     val actionRepository: ActionRepository,
     val phaseRepository: PhaseRepository,
-    val characterRepository: CharacterRepository
+    val cardRepository: CardRepository
 ) {
-    fun getCharacterCards(): Flow<List<CharacterCard>> {
-        return characterRepository.getCharacterCards()
+    fun getCards(): Flow<List<Card>> {
+        return cardRepository.getCards()
     }
 
-    fun getDeletedCharacterCards(): Flow<List<CharacterCard>> {
-        return characterRepository.getDeletedCharacterCards()
+    fun getDeletedCards(): Flow<List<Card>> {
+        return cardRepository.getDeletedCards()
     }
 
     fun getChangePhases(): Flow<List<PhaseChangeAction>> {

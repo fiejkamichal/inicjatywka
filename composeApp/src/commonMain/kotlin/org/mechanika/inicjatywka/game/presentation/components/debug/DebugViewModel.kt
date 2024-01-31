@@ -13,8 +13,8 @@ class DebugViewModel(
         phaseChanges = inicjatywkaUseCases.debug.getChangePhases(),
         currentPhase = inicjatywkaUseCases.debug.getPhase(),
         phases = inicjatywkaUseCases.debug.getPhases(),
-        cards = inicjatywkaUseCases.debug.getCharacterCards(),
-        deletedCards = inicjatywkaUseCases.debug.getDeletedCharacterCards(),
+        cards = inicjatywkaUseCases.debug.getCards(),
+        deletedCards = inicjatywkaUseCases.debug.getDeletedCards(),
         currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition()
     )
 

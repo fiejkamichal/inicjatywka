@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.game.presentation.components.character.CharacterList
-import org.mechanika.inicjatywka.game.presentation.components.character.New
+import org.mechanika.inicjatywka.game.presentation.components.card.CardList
+import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
@@ -72,10 +72,10 @@ fun InitialPhaseScreen(
                 )
             }
             item {
-                New(component.characterViewModel)
+                New(component.cardViewModel)
             }
             item {
-                CharacterList(component.characterViewModel)
+                CardList(component.cardViewModel)
             }
         }
     }

@@ -2,21 +2,21 @@ package org.mechanika.inicjatywka.game.data.data_source.action
 
 import org.mechanika.inicjatywka.actiondatabase.ActionStackEntryEntity
 import org.mechanika.inicjatywka.actiondatabase.ActionStackPositionEntity
-import org.mechanika.inicjatywka.actiondatabase.CharacterCardAddActionEntity
-import org.mechanika.inicjatywka.actiondatabase.CharacterCardDeleteActionEntity
-import org.mechanika.inicjatywka.actiondatabase.CharacterCardUpdateActionEntity
+import org.mechanika.inicjatywka.actiondatabase.CardAddActionEntity
+import org.mechanika.inicjatywka.actiondatabase.CardDeleteActionEntity
+import org.mechanika.inicjatywka.actiondatabase.CardUpdateActionEntity
 import org.mechanika.inicjatywka.actiondatabase.PhaseChangeActionEntity
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.phase.Phase
 
 fun ActionStackEntryEntity.toActionStackEntry(): ActionStackEntry {
     return ActionStackEntry(
         position = position,
-        actionType = ActionStackEntry.ActionTypes.valueOf(this.actionType),
+        actionType = ActionStackEntry.ActionTypes.entries.find { it.value == this.actionType } ?: error("Invalid actionType ${this.actionType}"),
         actionId = actionId
     )
 }
@@ -36,22 +36,22 @@ fun PhaseChangeActionEntity.toPhaseChangeAction(): PhaseChangeAction {
     )
 }
 
-fun CharacterCardAddActionEntity.toCharacterCardAddAction(): CharacterCardAddAction {
-    return CharacterCardAddAction(
+fun CardAddActionEntity.toCardAddAction(): CardAddAction {
+    return CardAddAction(
         id = this.id,
-        cardId = this.characterCardId
+        cardId = this.cardId
     )
 }
 
-fun CharacterCardDeleteActionEntity.toCharacterCardDeleteAction(): CharacterCardDeleteAction {
-    return CharacterCardDeleteAction(
+fun CardDeleteActionEntity.toCardDeleteAction(): CardDeleteAction {
+    return CardDeleteAction(
         id = this.id,
-        cardId = this.characterCardId
+        cardId = this.cardId
     )
 }
 
-fun CharacterCardUpdateActionEntity.toCharacterCardUpdateAction(): CharacterCardUpdateAction {
-    return CharacterCardUpdateAction(
+fun CardUpdateActionEntity.toCardUpdateAction(): CardUpdateAction {
+    return CardUpdateAction(
         id = this.id,
         cardId = this.cardId,
         prevCardId = this.prevCardId

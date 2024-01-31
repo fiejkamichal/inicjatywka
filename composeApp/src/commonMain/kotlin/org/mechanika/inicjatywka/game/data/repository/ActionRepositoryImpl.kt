@@ -3,9 +3,9 @@ package org.mechanika.inicjatywka.game.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.data.data_source.action.ActionDao
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardAddAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardDeleteAction
-import org.mechanika.inicjatywka.game.domain.model.action.CharacterCardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
+import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
@@ -74,52 +74,52 @@ class ActionRepositoryImpl(
         return dao.getPhaseChangeActions()
     }
 
-    override fun insertCharacterCardAddAction(characterCardAdd: CharacterCardAddAction): Long {
-        return dao.insertCharacterCardAddAction(characterCardAdd.cardId)
+    override fun insertCardAddAction(cardAdd: CardAddAction): Long {
+        return dao.insertCardAddAction(cardAdd.cardId)
     }
 
-    override fun deleteCharacterCardAddAction(actionId: Long): Long {
-        val card = dao.getCharacterCardAddAction(actionId)
+    override fun deleteCardAddAction(actionId: Long): Long {
+        val card = dao.getCardAddAction(actionId)
         if (card != null) {
-            dao.deleteCharacterCardAddAction(actionId)
+            dao.deleteCardAddAction(actionId)
             return card.cardId
         }
         return 0
     }
 
-    override fun getCharacterCardAddAction(actionId: Long): CharacterCardAddAction? {
-        return dao.getCharacterCardAddAction(actionId)
+    override fun getCardAddAction(actionId: Long): CardAddAction? {
+        return dao.getCardAddAction(actionId)
     }
 
-    override fun getCharacterCardAddActions(): Flow<List<CharacterCardAddAction>> {
-        return dao.getCharacterCardAddActions()
+    override fun getCardAddActions(): Flow<List<CardAddAction>> {
+        return dao.getCardAddActions()
     }
 
 
-    override fun insertCharacterCardDeleteAction(characterCardDelete: CharacterCardDeleteAction): Long =
-        dao.insertCharacterCardDeleteAction(characterCardDelete.cardId)
+    override fun insertCardDeleteAction(cardDelete: CardDeleteAction): Long =
+        dao.insertCardDeleteAction(cardDelete.cardId)
 
-    override fun deleteCharacterCardDeleteAction(actionId: Long) =
-        dao.deleteCharacterCardDeleteAction(actionId)
+    override fun deleteCardDeleteAction(actionId: Long) =
+        dao.deleteCardDeleteAction(actionId)
 
-    override fun getCharacterCardDeleteAction(actionId: Long): CharacterCardDeleteAction? =
-        dao.getCharacterCardDeleteAction(actionId)
+    override fun getCardDeleteAction(actionId: Long): CardDeleteAction? =
+        dao.getCardDeleteAction(actionId)
 
-    override fun getCharacterCardDeleteActions(): Flow<List<CharacterCardDeleteAction>> =
-        dao.getCharacterCardDeleteActions()
+    override fun getCardDeleteActions(): Flow<List<CardDeleteAction>> =
+        dao.getCardDeleteActions()
 
-    override fun insertCharacterCardUpdateAction(characterCardUpdate: CharacterCardUpdateAction): Long =
-        dao.insertCharacterCardUpdateAction(
-            characterCardUpdate.cardId,
-            characterCardUpdate.prevCardId
+    override fun insertCardUpdateAction(cardUpdate: CardUpdateAction): Long =
+        dao.insertCardUpdateAction(
+            cardUpdate.cardId,
+            cardUpdate.prevCardId
         )
 
-    override fun deleteCharacterCardUpdateAction(actionId: Long) =
-        dao.deleteCharacterCardUpdateAction(actionId)
+    override fun deleteCardUpdateAction(actionId: Long) =
+        dao.deleteCardUpdateAction(actionId)
 
-    override fun getCharacterCardUpdateAction(actionId: Long): CharacterCardUpdateAction? =
-        dao.getCharacterCardUpdateAction(actionId)
+    override fun getCardUpdateAction(actionId: Long): CardUpdateAction? =
+        dao.getCardUpdateAction(actionId)
 
-    override fun getCharacterCardUpdateActions(): Flow<List<CharacterCardUpdateAction>> =
-        dao.getCharacterCardUpdateActions()
+    override fun getCardUpdateActions(): Flow<List<CardUpdateAction>> =
+        dao.getCardUpdateActions()
 }
