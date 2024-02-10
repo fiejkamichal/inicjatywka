@@ -11,7 +11,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
 fun ActionStackEntryEntity.toActionStackEntry(): ActionStackEntry {
     return ActionStackEntry(

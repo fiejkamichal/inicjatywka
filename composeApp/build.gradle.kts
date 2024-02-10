@@ -1,6 +1,8 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
+val inicjatywkaVersion = "1.5.0"
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -13,9 +15,9 @@ kotlin {
 
     sqldelight {
         databases {
-            create("PhaseDatabase") {
-                packageName = "org.mechanika.inicjatywka.phasedatabase"
-                srcDirs("src/commonMain/sqldelight/phasedatabase")
+            create("EngineDatabase") {
+                packageName = "org.mechanika.inicjatywka.enginedatabase"
+                srcDirs("src/commonMain/sqldelight/enginedatabase")
             }
             create("ActionDatabase") {
                 packageName = "org.mechanika.inicjatywka.actiondatabase"
@@ -80,8 +82,8 @@ android {
         applicationId = "org.mechanika.inicjatywka"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 3
-        versionName = "1.4.0"
+        versionCode = 5
+        versionName = inicjatywkaVersion
     }
     packaging {
         resources {
@@ -110,7 +112,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "org.mechanika.inicjatywka"
-            packageVersion = "1.4.0"
+            packageVersion = inicjatywkaVersion
             modules("java.sql")
         }
     }

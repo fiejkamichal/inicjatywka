@@ -3,18 +3,18 @@ package org.mechanika.inicjatywka.game.domain.use_case.action
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
-import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
-import org.mechanika.inicjatywka.game.domain.use_case.phase.changePhase
+import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
+import org.mechanika.inicjatywka.game.domain.use_case.engine.changePhase
 
 class ActionUseCasePhaseChange(
-    private val phaseRepository: PhaseRepository,
+    private val engineRepository: EngineRepository,
     private val actionRepository: ActionRepository
 ) : ActionUseCase() {
     override fun undo(action: Action) {
         val a = action as? PhaseChangeAction
         if (a != null) changePhase(
             to = a.from,
-            repository = phaseRepository
+            repository = engineRepository
         )
     }
 
@@ -22,7 +22,7 @@ class ActionUseCasePhaseChange(
         val a = action as? PhaseChangeAction
         if (a != null) changePhase(
             to = a.to,
-            repository = phaseRepository
+            repository = engineRepository
         )
     }
 

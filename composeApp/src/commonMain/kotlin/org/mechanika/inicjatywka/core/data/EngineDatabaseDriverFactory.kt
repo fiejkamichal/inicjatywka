@@ -2,6 +2,6 @@ package org.mechanika.inicjatywka.core.data
 
 import app.cash.sqldelight.db.SqlDriver
 
-expect class PhaseDatabaseDriverFactory {
+expect class EngineDatabaseDriverFactory {
     fun create(): SqlDriver
 }

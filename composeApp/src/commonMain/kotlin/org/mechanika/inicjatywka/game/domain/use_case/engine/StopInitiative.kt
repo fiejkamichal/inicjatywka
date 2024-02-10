@@ -1,12 +1,12 @@
-package org.mechanika.inicjatywka.game.domain.use_case.phase
+package org.mechanika.inicjatywka.game.domain.use_case.engine
 
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 
 class StopInitiative(
-    private val repository: PhaseRepository,
+    private val repository: EngineRepository,
     private val stack: Stack
 ) {
     operator fun invoke() {

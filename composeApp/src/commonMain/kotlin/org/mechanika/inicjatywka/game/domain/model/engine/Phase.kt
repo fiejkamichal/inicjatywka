@@ -1,4 +1,4 @@
-package org.mechanika.inicjatywka.game.domain.model.phase
+package org.mechanika.inicjatywka.game.domain.model.engine
 
 data class Phase(
     val value: Phases

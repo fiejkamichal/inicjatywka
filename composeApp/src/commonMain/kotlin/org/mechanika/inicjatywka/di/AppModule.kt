@@ -2,10 +2,10 @@ package org.mechanika.inicjatywka.di
 
 import org.mechanika.inicjatywka.game.data.repository.ActionRepositoryImpl
 import org.mechanika.inicjatywka.game.data.repository.CardRepositoryImpl
-import org.mechanika.inicjatywka.game.data.repository.PhaseRepositoryImpl
+import org.mechanika.inicjatywka.game.data.repository.EngineRepositoryImpl
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
-import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
+import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardAdd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardDelete
@@ -22,9 +22,9 @@ import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
-import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
-import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
-import org.mechanika.inicjatywka.game.domain.use_case.phase.StopInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.GetPhase
+import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
 import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
@@ -33,8 +33,8 @@ import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoV
 class AppModule(
     appModulePlatform: AppModulePlatform
 ) {
-    private val phaseRepository: PhaseRepository = PhaseRepositoryImpl(
-        dao = appModulePlatform.phaseDao
+    private val engineRepository: EngineRepository = EngineRepositoryImpl(
+        dao = appModulePlatform.engineDao
     )
 
     private val actionRepository: ActionRepository = ActionRepositoryImpl(
@@ -47,7 +47,7 @@ class AppModule(
 
     private val actions: Actions = Actions(
         actionUseCaseEmpty = ActionUseCaseEmpty(),
-        actionUseCasePhaseChange = ActionUseCasePhaseChange(phaseRepository, actionRepository),
+        actionUseCasePhaseChange = ActionUseCasePhaseChange(engineRepository, actionRepository),
         actionUseCaseCardAdd = ActionUseCaseCardAdd(
             cardRepository,
             actionRepository
@@ -66,14 +66,14 @@ class AppModule(
 
     private val debug: Debug = Debug(
         actionRepository = actionRepository,
-        phaseRepository = phaseRepository,
+        engineRepository = engineRepository,
         cardRepository = cardRepository
     )
 
     val inicjatywkaUseCases = InicjatywkaUseCases(
-        startInitiative = StartInitiative(phaseRepository, stack),
-        stopInitiative = StopInitiative(phaseRepository, stack),
-        getPhase = GetPhase(phaseRepository),
+        startInitiative = StartInitiative(engineRepository, stack),
+        stopInitiative = StopInitiative(engineRepository, stack),
+        getPhase = GetPhase(engineRepository),
         actions = actions,
         undoAction = Undo(stack, actions),
         redoAction = Redo(stack, actions),

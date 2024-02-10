@@ -17,7 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 import org.mechanika.inicjatywka.game.presentation.components.card.CardList
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet

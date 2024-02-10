@@ -3,16 +3,16 @@ package org.mechanika.inicjatywka.core.data
 import android.content.Context
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import org.mechanika.inicjatywka.phasedatabase.PhaseDatabase
+import org.mechanika.inicjatywka.enginedatabase.EngineDatabase
 
-actual class PhaseDatabaseDriverFactory(
+actual class EngineDatabaseDriverFactory(
     private val context: Context
 ) {
     actual fun create(): SqlDriver {
         return AndroidSqliteDriver(
-            PhaseDatabase.Schema,
+            EngineDatabase.Schema,
             context = context,
-            "phase.db"
+            "engine.db"
         )
     }
 }

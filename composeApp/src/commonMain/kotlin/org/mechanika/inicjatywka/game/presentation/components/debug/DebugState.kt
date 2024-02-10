@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
 data class DebugState(
     val actions: Flow<List<ActionStackEntry>>,

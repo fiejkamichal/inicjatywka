@@ -10,9 +10,9 @@ import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
-import org.mechanika.inicjatywka.game.domain.use_case.phase.GetPhase
-import org.mechanika.inicjatywka.game.domain.use_case.phase.StartInitiative
-import org.mechanika.inicjatywka.game.domain.use_case.phase.StopInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.GetPhase
+import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
 
 data class InicjatywkaUseCases(
     val startInitiative: StartInitiative,

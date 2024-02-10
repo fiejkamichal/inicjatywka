@@ -1,13 +1,13 @@
 package org.mechanika.inicjatywka.game.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.mechanika.inicjatywka.game.data.data_source.phase.PhaseDao
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
+import org.mechanika.inicjatywka.game.data.data_source.engine.EngineDao
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 
-class PhaseRepositoryImpl(
-    private val dao: PhaseDao
-) : PhaseRepository {
+class EngineRepositoryImpl(
+    private val dao: EngineDao
+) : EngineRepository {
     override fun getPhase(): Flow<Phase?> {
         return dao.getPhase()
     }

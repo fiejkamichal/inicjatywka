@@ -1,6 +1,6 @@
 package org.mechanika.inicjatywka.game.domain.model.action
 
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
 data class PhaseChangeAction(
     override var id: Long? = null,

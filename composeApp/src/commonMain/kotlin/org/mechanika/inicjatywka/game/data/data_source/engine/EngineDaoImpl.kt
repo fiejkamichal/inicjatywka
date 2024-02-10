@@ -1,4 +1,4 @@
-package org.mechanika.inicjatywka.game.data.data_source.phase
+package org.mechanika.inicjatywka.game.data.data_source.engine
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
@@ -6,13 +6,13 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.phasedatabase.PhaseDatabase
+import org.mechanika.inicjatywka.enginedatabase.EngineDatabase
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
-class PhaseDaoImpl(
-    db: PhaseDatabase
-) : PhaseDao {
-    val queries = db.phaseQueries
+class EngineDaoImpl(
+    db: EngineDatabase
+) : EngineDao {
+    val queries = db.engineQueries
 
     override fun setPhase(phase: Phase) {
         queries.setPhaseEntity(phase.value.name)

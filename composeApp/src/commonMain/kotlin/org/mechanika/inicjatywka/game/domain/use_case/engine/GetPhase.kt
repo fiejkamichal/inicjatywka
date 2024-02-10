@@ -1,12 +1,12 @@
-package org.mechanika.inicjatywka.game.domain.use_case.phase
+package org.mechanika.inicjatywka.game.domain.use_case.engine
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mechanika.inicjatywka.game.domain.model.phase.Phase
-import org.mechanika.inicjatywka.game.domain.repository.PhaseRepository
+import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 
 class GetPhase(
-    private val repository: PhaseRepository
+    private val repository: EngineRepository
 ) {
     operator fun invoke(): Flow<Phase.Phases> {
         return repository.getPhase()
