@@ -30,7 +30,7 @@ fun DebugBottomSheet(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { viewModel.onEvent(DebugEvent.onDebugCloseClicked) }
+                    onClick = { viewModel.onEvent(DebugEvent.OnDebugCloseClicked) }
                 ) {
                     Text("Zamknij Debug")
                 }

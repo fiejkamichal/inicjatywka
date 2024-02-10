@@ -26,9 +26,9 @@ class DebugViewModel(
 
     fun onEvent(event: DebugEvent) {
         isDebugSheetOpen = when (event) {
-            DebugEvent.onDebugButtonClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = true)
+            DebugEvent.OnDebugButtonClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = true)
 
-            DebugEvent.onDebugCloseClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = false)
+            DebugEvent.OnDebugCloseClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = false)
         }
     }
 }

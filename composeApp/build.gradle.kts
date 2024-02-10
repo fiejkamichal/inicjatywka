@@ -15,17 +15,9 @@ kotlin {
 
     sqldelight {
         databases {
-            create("EngineDatabase") {
-                packageName = "org.mechanika.inicjatywka.enginedatabase"
-                srcDirs("src/commonMain/sqldelight/enginedatabase")
-            }
-            create("ActionDatabase") {
-                packageName = "org.mechanika.inicjatywka.actiondatabase"
-                srcDirs("src/commonMain/sqldelight/actiondatabase")
-            }
-            create("CardDatabase") {
-                packageName = "org.mechanika.inicjatywka.carddatabase"
-                srcDirs("src/commonMain/sqldelight/carddatabase")
+            create("InicjatywkaDatabase") {
+                packageName = "org.mechanika.inicjatywka.database"
+                srcDirs("src/commonMain/sqldelight/database")
             }
         }
     }

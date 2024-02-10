@@ -10,7 +10,7 @@ fun DebugButton(
 ) {
     Button(
         onClick = {
-            viewModel.onEvent(DebugEvent.onDebugButtonClicked)
+            viewModel.onEvent(DebugEvent.OnDebugButtonClicked)
         }
     ) {
         Text("Debug")

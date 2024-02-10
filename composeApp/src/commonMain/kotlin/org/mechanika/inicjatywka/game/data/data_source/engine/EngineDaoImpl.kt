@@ -6,11 +6,11 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mechanika.inicjatywka.enginedatabase.EngineDatabase
+import org.mechanika.inicjatywka.database.InicjatywkaDatabase
 import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
 class EngineDaoImpl(
-    db: EngineDatabase
+    db: InicjatywkaDatabase
 ) : EngineDao {
     val queries = db.engineQueries
 

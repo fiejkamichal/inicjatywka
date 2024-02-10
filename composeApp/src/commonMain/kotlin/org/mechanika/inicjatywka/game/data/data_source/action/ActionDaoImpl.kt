@@ -7,7 +7,7 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mechanika.inicjatywka.actiondatabase.ActionDatabase
+import org.mechanika.inicjatywka.database.InicjatywkaDatabase
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -16,7 +16,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 
 class ActionDaoImpl(
-    db: ActionDatabase
+    db: InicjatywkaDatabase
 ) : ActionDao {
     val queries = db.actionQueries
     override fun getActionStackEntry(position: Long): ActionStackEntry? {
@@ -78,8 +78,7 @@ class ActionDaoImpl(
         return queries.transactionWithResult {
             queries.insertPhaseChangeAction(
                 phaseChange.from.toString(),
-                phaseChange.to.toString(),
-                phaseChange.type.toString()
+                phaseChange.to.toString()
             )
             queries.lastInsertRowId().executeAsOne()
         }

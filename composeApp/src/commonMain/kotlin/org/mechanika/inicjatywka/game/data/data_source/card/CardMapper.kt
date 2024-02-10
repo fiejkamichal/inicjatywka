@@ -1,6 +1,6 @@
 package org.mechanika.inicjatywka.game.data.data_source.card
 
-import org.mechanika.inicjatywka.carddatabase.CardEntity
+import org.mechanika.inicjatywka.database.CardEntity
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 
 fun CardEntity.toCard(): Card {

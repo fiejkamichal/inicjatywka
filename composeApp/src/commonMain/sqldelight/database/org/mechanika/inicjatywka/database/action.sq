@@ -6,30 +6,36 @@ CREATE TABLE IF NOT EXISTS ActionStackEntryEntity (
 
 CREATE TABLE IF NOT EXISTS ActionStackPositionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    actionStackEntryPosition INTEGER
+    actionStackEntryPosition INTEGER NOT NULL,
+    FOREIGN KEY (actionStackEntryPosition) REFERENCES ActionStackEntryEntity(position)
 );
 
 CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     fromPhase TEXT NOT NULL,
     toPhase TEXT NOT NULL,
-    type TEXT NOT NULL
+    FOREIGN KEY (fromPhase) REFERENCES PhaseEntity(id),
+    FOREIGN KEY (toPhase) REFERENCES PhaseEntity(id)
 );
 
 CREATE TABLE IF NOT EXISTS CardAddActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    cardId INTEGER NOT NULL
+    cardId INTEGER NOT NULL,
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
 CREATE TABLE IF NOT EXISTS CardDeleteActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    cardId INTEGER NOT NULL
+    cardId INTEGER NOT NULL,
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
 CREATE TABLE IF NOT EXISTS CardUpdateActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     cardId INTEGER NOT NULL,
-    prevCardId INTEGER NOT NULL
+    prevCardId INTEGER NOT NULL,
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id),
+    FOREIGN KEY (prevCardId) REFERENCES CardEntity(id)
 );
 
 
@@ -59,7 +65,7 @@ INSERT OR REPLACE INTO ActionStackPositionEntity VALUES (0, :value);
 
 
 insertPhaseChangeAction:
-INSERT OR REPLACE INTO PhaseChangeActionEntity (fromPhase, toPhase, type) VALUES (:fromPhase, :toPhase, :type);
+INSERT OR REPLACE INTO PhaseChangeActionEntity (fromPhase, toPhase) VALUES (:fromPhase, :toPhase);
 
 deletePhaseChangeAction:
 DELETE FROM PhaseChangeActionEntity WHERE id = :actionId;

@@ -6,11 +6,11 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mechanika.inicjatywka.carddatabase.CardDatabase
+import org.mechanika.inicjatywka.database.InicjatywkaDatabase
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 
 class CardDaoImpl(
-    db: CardDatabase
+    db: InicjatywkaDatabase
 ) : CardDao {
     private val queries = db.cardQueries
     override fun insertCard(card: Card): Long {

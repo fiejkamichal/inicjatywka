@@ -1,5 +1,8 @@
 package org.mechanika.inicjatywka.di
 
+import org.mechanika.inicjatywka.game.data.data_source.action.ActionDaoImpl
+import org.mechanika.inicjatywka.game.data.data_source.card.CardDaoImpl
+import org.mechanika.inicjatywka.game.data.data_source.engine.EngineDaoImpl
 import org.mechanika.inicjatywka.game.data.repository.ActionRepositoryImpl
 import org.mechanika.inicjatywka.game.data.repository.CardRepositoryImpl
 import org.mechanika.inicjatywka.game.data.repository.EngineRepositoryImpl
@@ -34,20 +37,29 @@ class AppModule(
     appModulePlatform: AppModulePlatform
 ) {
     private val engineRepository: EngineRepository = EngineRepositoryImpl(
-        dao = appModulePlatform.engineDao
+        dao = EngineDaoImpl(
+            db = appModulePlatform.db
+        )
     )
 
     private val actionRepository: ActionRepository = ActionRepositoryImpl(
-        dao = appModulePlatform.actionDao
+        dao = ActionDaoImpl(
+            db = appModulePlatform.db
+        )
     )
 
     private val cardRepository: CardRepository = CardRepositoryImpl(
-        dao = appModulePlatform.cardDao
+        dao = CardDaoImpl(
+            db = appModulePlatform.db
+        )
     )
 
     private val actions: Actions = Actions(
         actionUseCaseEmpty = ActionUseCaseEmpty(),
-        actionUseCasePhaseChange = ActionUseCasePhaseChange(engineRepository, actionRepository),
+        actionUseCasePhaseChange = ActionUseCasePhaseChange(
+            engineRepository,
+            actionRepository
+        ),
         actionUseCaseCardAdd = ActionUseCaseCardAdd(
             cardRepository,
             actionRepository
@@ -62,9 +74,11 @@ class AppModule(
         )
     )
 
-    private val stack: Stack = Stack(actionRepository, actions)
+    private
+    val stack: Stack = Stack(actionRepository, actions)
 
-    private val debug: Debug = Debug(
+    private
+    val debug: Debug = Debug(
         actionRepository = actionRepository,
         engineRepository = engineRepository,
         cardRepository = cardRepository

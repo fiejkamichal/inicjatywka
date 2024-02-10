@@ -33,7 +33,7 @@ fun CardEdit(
     ) {
         Column {
             Text("Edycja Karta postaci (${viewModel.cardEdit?.id}):")
-            viewModel.cardEdit?.getStats()?.forEach { it ->
+            viewModel.cardEdit?.getStats()?.forEach {
                 StatEdit(
                     it,
                     onValueChanged = { id, value ->
