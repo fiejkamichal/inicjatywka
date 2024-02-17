@@ -55,6 +55,7 @@ class RootComponent(
                     inicjatywkaUseCases = appModule.inicjatywkaUseCases,
                     undoRedoViewModel = appModule.getUndoRedoViewModel(),
                     debugViewModel = appModule.getDebugViewModel(),
+                    cardViewModel = appModule.getCardViewModel(),
                     componentContext = context,
                     onNavigateToInitialPhase = {
                         navigation.replaceAll(

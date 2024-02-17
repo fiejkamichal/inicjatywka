@@ -37,4 +37,38 @@ class EngineDaoImpl(
                 it?.toPhase()
             }
     }
+
+    override fun setCurrentCardId(cardId: Long) {
+        queries.setCurrentCardEntity(cardId)
+    }
+
+    override fun deleteCurrentCardId() {
+        queries.deleteCurrentCardEntity()
+    }
+
+    override fun getCurrentCardIds(): Flow<List<Long>> {
+        return queries.getCurrentCardEntities()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toLong()
+                }
+            }
+    }
+
+    override fun getCurrentCardIdAsFlow(): Flow<Long?> {
+        return queries.getCurrentCardEntity()
+            .asFlow()
+            .mapToOneOrNull(context = Dispatchers.IO)
+            .map {
+                it?.toLong()
+            }
+    }
+
+    override fun getCurrentCardId(): Long? {
+        return queries.getCurrentCardEntity()
+            .executeAsOneOrNull()?.toLong()
+    }
+
 }

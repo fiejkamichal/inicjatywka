@@ -13,7 +13,9 @@ data class DebugState(
     val phases: Flow<List<Phase>>,
     val cards: Flow<List<Card>>,
     val deletedCards: Flow<List<Card>>,
-    val currentStackPosition: Flow<Long?>
+    val currentStackPosition: Flow<Long?>,
+    val currentCardId: Flow<Long?>,
+    val currentCardIds: Flow<List<Long>>
 )
 
 data class DebugSheetState(

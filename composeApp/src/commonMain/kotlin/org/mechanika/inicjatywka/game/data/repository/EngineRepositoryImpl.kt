@@ -20,4 +20,25 @@ class EngineRepositoryImpl(
     override fun getPhases(): Flow<List<Phase>> {
         return dao.getPhases()
     }
+
+    override fun getCurrentCardId(): Long? {
+        return dao.getCurrentCardId()
+    }
+
+    override fun getCurrentCardIdAsFlow(): Flow<Long?> {
+        return dao.getCurrentCardIdAsFlow()
+    }
+
+    override fun setCurrentCardId(cardId: Long): Long {
+        dao.setCurrentCardId(cardId)
+        return cardId
+    }
+
+    override fun unsetCurrentCardId() {
+        dao.deleteCurrentCardId()
+    }
+
+    override fun getCurrentCardIds(): Flow<List<Long>> {
+        return dao.getCurrentCardIds()
+    }
 }

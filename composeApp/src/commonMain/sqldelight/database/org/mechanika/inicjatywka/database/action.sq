@@ -14,8 +14,10 @@ CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     fromPhase TEXT NOT NULL,
     toPhase TEXT NOT NULL,
+    cardId INTEGER,
     FOREIGN KEY (fromPhase) REFERENCES PhaseEntity(id),
-    FOREIGN KEY (toPhase) REFERENCES PhaseEntity(id)
+    FOREIGN KEY (toPhase) REFERENCES PhaseEntity(id),
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
 CREATE TABLE IF NOT EXISTS CardAddActionEntity (
@@ -65,7 +67,7 @@ INSERT OR REPLACE INTO ActionStackPositionEntity VALUES (0, :value);
 
 
 insertPhaseChangeAction:
-INSERT OR REPLACE INTO PhaseChangeActionEntity (fromPhase, toPhase) VALUES (:fromPhase, :toPhase);
+INSERT OR REPLACE INTO PhaseChangeActionEntity (fromPhase, toPhase, cardId) VALUES (:fromPhase, :toPhase, :cardID);
 
 deletePhaseChangeAction:
 DELETE FROM PhaseChangeActionEntity WHERE id = :actionId;

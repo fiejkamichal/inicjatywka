@@ -22,6 +22,8 @@ fun Debug(
     val cards = component.state.cards.collectAsState(emptyList())
     val deletedCards = component.state.deletedCards.collectAsState(emptyList())
     val currentStackPosition = component.state.currentStackPosition.collectAsState(null)
+    val currentCardId = component.state.currentCardId.collectAsState(null)
+    val currentCardIds = component.state.currentCardIds.collectAsState(emptyList())
 
     Column {
         Button(
@@ -49,9 +51,18 @@ fun Debug(
             )
         }
 
-        DebugList(deletedCards.value, "deleted cards")
-        DebugList(cards.value, "cards")
+        Row {
+            Text(
+                text = "Obecna Karta Postaci (${currentCardId.value})",
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            )
+        }
+
+        DebugList(currentCardIds.value, "current card ids")
         DebugList(phases.value, "phases")
+        DebugList(cards.value, "cards")
+        DebugList(deletedCards.value, "deleted cards")
         DebugList(actions.value, "actions")
         DebugList(phaseChanges.value, "phaseChanges")
     }

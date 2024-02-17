@@ -1,11 +1,14 @@
 package org.mechanika.inicjatywka.game.presentation.initiative_phase
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Button
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -17,7 +20,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.map
+import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
 import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
@@ -28,6 +34,12 @@ fun InitiativePhaseScreen(
     component: InitiativePhaseViewModel
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initiative)
+    val currentCardId = component.state.currentCardId.collectAsState(null)
+    val sortedCards = component.cardViewModel.state.cards.map {
+        it.sortedBy { card ->
+            card.getStat(Stat.Id.Initiative).value.toLong()
+        }
+    }.collectAsState(emptyList())
 
     Scaffold(
         floatingActionButton = {
@@ -68,6 +80,43 @@ fun InitiativePhaseScreen(
                         .padding(horizontal = 16.dp),
                     fontWeight = FontWeight.Bold
                 )
+            }
+            item {
+                Text(
+                    text = "Obecna tura: " + currentCardId.value.toString(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    fontWeight = FontWeight.Bold
+                )
+                Button(
+                    onClick = { component.onEvent(InitiativePhaseEvent.nextTurn) }
+                ) {
+                    Text("Następna tura")
+                }
+            }
+            item {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    sortedCards.value.forEach {
+                        Column {
+                            Text(
+                                text = it.getStat(Stat.Id.Initiative).value + " " +
+                                        it.getStat(Stat.Id.Name).value + " " + it.id.toString(),
+                                fontWeight = (
+                                        if (it.id == currentCardId.value)
+                                            FontWeight.Bold
+                                        else
+                                            FontWeight.Light
+                                        )
+                            )
+                        }
+                    }
+                }
+            }
+            item {
+                CardEdit(component.cardViewModel)
             }
         }
     }

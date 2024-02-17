@@ -33,6 +33,14 @@ class Debug(
         return engineRepository.getPhases()
     }
 
+    fun getCurrentCardId(): Flow<Long?> {
+        return engineRepository.getCurrentCardIdAsFlow()
+    }
+
+    fun getCurrentCardIds(): Flow<List<Long>> {
+        return engineRepository.getCurrentCardIds()
+    }
+
     fun getCurrentStackPosition(): Flow<Long?> {
         return actionRepository.getActionStackPositionFlow()
     }

@@ -78,7 +78,8 @@ class ActionDaoImpl(
         return queries.transactionWithResult {
             queries.insertPhaseChangeAction(
                 phaseChange.from.toString(),
-                phaseChange.to.toString()
+                phaseChange.to.toString(),
+                phaseChange.cardId
             )
             queries.lastInsertRowId().executeAsOne()
         }

@@ -10,14 +10,17 @@ class StopInitiative(
     private val stack: Stack
 ) {
     operator fun invoke() {
+        val cardId = repository.getCurrentCardId()
         changePhase(
             to = Phase.Phases.Initial,
-            repository = repository,
+            cardId = null,
+            repository = repository
         )
         stack.pushActionAboveCurrentPosition(
             PhaseChangeAction(
                 from = Phase.Phases.Initiative,
-                to = Phase.Phases.Initial
+                to = Phase.Phases.Initial,
+                cardId = cardId
             )
         )
     }

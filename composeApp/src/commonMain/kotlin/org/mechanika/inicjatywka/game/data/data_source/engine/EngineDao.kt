@@ -8,4 +8,9 @@ interface EngineDao {
     fun getPhase(): Flow<Phase?>
     fun setPhase(phase: Phase)
     fun getPhases(): Flow<List<Phase>>
+    fun setCurrentCardId(cardId: Long)
+    fun getCurrentCardIds(): Flow<List<Long>>
+    fun getCurrentCardId(): Long?
+    fun deleteCurrentCardId()
+    fun getCurrentCardIdAsFlow(): Flow<Long?>
 }

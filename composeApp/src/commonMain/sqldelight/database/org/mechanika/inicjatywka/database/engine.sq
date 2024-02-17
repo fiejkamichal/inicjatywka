@@ -3,6 +3,11 @@ CREATE TABLE IF NOT EXISTS PhaseEntity (
     value TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS CurrentCardEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    cardId INTEGER NOT NULL,
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id)
+);
 
 getPhaseEntity:
 SELECT * FROM PhaseEntity WHERE id = 0;
@@ -13,3 +18,16 @@ INSERT OR REPLACE INTO PhaseEntity VALUES (0, :value);
 getPhaseEntities:
 SELECT * FROM PhaseEntity;
 
+
+
+getCurrentCardEntity:
+SELECT * FROM CurrentCardEntity WHERE id = 0;
+
+setCurrentCardEntity:
+INSERT OR REPLACE INTO CurrentCardEntity VALUES (0, :cardId);
+
+getCurrentCardEntities:
+SELECT * FROM CurrentCardEntity;
+
+deleteCurrentCardEntity:
+DELETE FROM CurrentCardEntity WHERE id = 0;

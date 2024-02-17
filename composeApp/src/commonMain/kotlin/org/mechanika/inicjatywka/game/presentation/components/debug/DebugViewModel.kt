@@ -15,7 +15,9 @@ class DebugViewModel(
         phases = inicjatywkaUseCases.debug.getPhases(),
         cards = inicjatywkaUseCases.debug.getCards(),
         deletedCards = inicjatywkaUseCases.debug.getDeletedCards(),
-        currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition()
+        currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition(),
+        currentCardId = inicjatywkaUseCases.debug.getCurrentCardId(),
+        currentCardIds = inicjatywkaUseCases.debug.getCurrentCardIds()
     )
 
     var isDebugSheetOpen by mutableStateOf(DebugSheetState())

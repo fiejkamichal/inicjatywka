@@ -22,10 +22,13 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
 import org.mechanika.inicjatywka.game.domain.use_case.card.AddCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.DeleteCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.GetCardIdWithHighestInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
+import org.mechanika.inicjatywka.game.domain.use_case.engine.GetCurrentCardId
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetPhase
+import org.mechanika.inicjatywka.game.domain.use_case.engine.NextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
 import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
@@ -84,8 +87,11 @@ class AppModule(
         cardRepository = cardRepository
     )
 
+    private
+    val getCardIdWithHighestInitiative = GetCardIdWithHighestInitiative(cardRepository)
+
     val inicjatywkaUseCases = InicjatywkaUseCases(
-        startInitiative = StartInitiative(engineRepository, stack),
+        startInitiative = StartInitiative(engineRepository, getCardIdWithHighestInitiative, stack),
         stopInitiative = StopInitiative(engineRepository, stack),
         getPhase = GetPhase(engineRepository),
         actions = actions,
@@ -97,7 +103,9 @@ class AppModule(
         deleteCard = DeleteCard(cardRepository, stack),
         getCard = GetCard(cardRepository),
         getCards = GetCards(cardRepository),
-        updateCard = UpdateCard(cardRepository, stack)
+        updateCard = UpdateCard(cardRepository, stack),
+        getCurrentCardId = GetCurrentCardId(engineRepository),
+        nextTurn = NextTurn(engineRepository, cardRepository)
     )
 
     private val undoRedoViewModel = UndoRedoViewModel(

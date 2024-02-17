@@ -6,5 +6,6 @@ data class PhaseChangeAction(
     override var id: Long? = null,
     val from: Phase.Phases,
     val to: Phase.Phases,
+    val cardId: Long?,
     override val type: ActionStackEntry.ActionTypes = ActionStackEntry.ActionTypes.PhaseChange
 ) : Action
