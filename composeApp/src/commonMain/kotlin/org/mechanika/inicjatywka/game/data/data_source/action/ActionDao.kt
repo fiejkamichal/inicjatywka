@@ -1,6 +1,7 @@
 package org.mechanika.inicjatywka.game.data.data_source.action
 
 import kotlinx.coroutines.flow.Flow
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -50,4 +51,7 @@ interface ActionDao {
     fun deleteNextRoundAction(actionId: Long)
     fun getNextRoundAction(actionId: Long): NextRoundAction?
     fun getNextRoundActions(): Flow<List<NextRoundAction>>
+    fun deleteActionListAction(actionListId: Long)
+    fun insertActionListAction(actionListAction: ActionListAction): Long
+    fun getActionListAction(actionListId: Long): ActionListAction
 }

@@ -10,6 +10,7 @@ import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseActionList
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardAdd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardDelete
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardUpdate
@@ -86,8 +87,11 @@ class AppModule(
         actionUseCaseNextRound = ActionUseCaseNextRound(
             engineRepository,
             actionRepository
-        )
+        ),
+        actionUseCaseActionList = null
     )
+
+    private val actionUseCaseActionList = ActionUseCaseActionList(actionRepository, actions)
 
     private
     val stack: Stack = Stack(actionRepository, actions)
@@ -131,6 +135,10 @@ class AppModule(
     )
 
     private val debugViewModel = DebugViewModel(inicjatywkaUseCases)
+
+    init {
+        actions.actionUseCaseActionList = actionUseCaseActionList
+    }
 
     fun getUndoRedoViewModel(): UndoRedoViewModel {
         return undoRedoViewModel

@@ -11,6 +11,12 @@ data class ActionStackEntry(
         CardDelete(2),
         CardUpdate(3),
         NextTurn(4),
-        NextRound(5);
+        NextRound(5),
+        ActionList(6);
+
+        companion object {
+            private val map = entries.associateBy { it.value }
+            infix fun from(value: Long) = map[value]
+        }
     }
 }

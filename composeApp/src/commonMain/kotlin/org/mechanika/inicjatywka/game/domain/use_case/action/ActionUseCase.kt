@@ -29,6 +29,7 @@ abstract class ActionUseCase {
                 ActionStackEntry.ActionTypes.CardUpdate -> actions.actionUseCaseCardUpdate
                 ActionStackEntry.ActionTypes.NextTurn -> actions.actionUseCaseNextTurn
                 ActionStackEntry.ActionTypes.NextRound -> actions.actionUseCaseNextRound
+                ActionStackEntry.ActionTypes.ActionList -> actions.actionUseCaseActionList?:error("actionUseCaseActionList not defined")
             }
         }
     }

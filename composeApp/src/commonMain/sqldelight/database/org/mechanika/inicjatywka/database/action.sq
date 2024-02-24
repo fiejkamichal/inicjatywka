@@ -57,6 +57,18 @@ CREATE TABLE IF NOT EXISTS NextRoundActionEntity (
     FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
 );
 
+CREATE TABLE IF NOT EXISTS ActionListItem (
+    actionListId INTEGER NOT NULL,
+    actionId INTEGER NOT NULL,
+    listPosition INTEGER NOT NULL,
+    actionType INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ActionListActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+);
+
+
 getActionStackEntry:
 SELECT * FROM ActionStackEntryEntity WHERE position = :position;
 
@@ -166,6 +178,31 @@ SELECT * FROM NextRoundActionEntity WHERE id = :actionId;
 getNextRoundActions:
 SELECT * FROM NextRoundActionEntity ORDER BY id ASC;
 
+
+
+insertActionListAction:
+INSERT OR REPLACE INTO ActionListActionEntity (id) VALUES (NULL);
+
+deleteActionListAction:
+DELETE FROM ActionListActionEntity WHERE id = :actionId;
+
+getActionListActions:
+SELECT * FROM ActionListActionEntity ORDER BY id ASC;
+
+
+insertActionListItem:
+INSERT OR REPLACE INTO ActionListItem
+(actionId, actionListId, actionType, listPosition)
+VALUES (:actionId, :actionListId, :actionType, :listPosition);
+
+deleteActionListItems:
+DELETE FROM ActionListItem WHERE actionListId = :actionListId;
+
+getActionListItems:
+SELECT * FROM ActionListItem WHERE actionListId = :actionListId ORDER BY listPosition ASC;
+
+getAllActionListItems:
+SELECT * FROM ActionListItem ORDER BY actionListId,listPosition ASC;
 
 lastInsertRowId:
 SELECT last_insert_rowid();

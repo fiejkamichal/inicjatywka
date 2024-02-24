@@ -2,6 +2,7 @@ package org.mechanika.inicjatywka.game.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.data.data_source.action.ActionDao
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -154,5 +155,18 @@ class ActionRepositoryImpl(
 
     override fun getNextRoundActions(): Flow<List<NextRoundAction>> =
         dao.getNextRoundActions()
+
+
+    override fun insertActionListAction(actionListAction: ActionListAction): Long {
+        return dao.insertActionListAction(actionListAction)
+    }
+
+    override fun deleteActionListAction(actionListId: Long) {
+        dao.deleteActionListAction(actionListId)
+    }
+
+    override fun getActionListAction(actionListId: Long): ActionListAction {
+        return dao.getActionListAction(actionListId)
+    }
 
 }

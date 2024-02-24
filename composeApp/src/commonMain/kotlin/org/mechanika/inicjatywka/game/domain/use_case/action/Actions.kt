@@ -7,5 +7,6 @@ data class Actions(
     val actionUseCaseCardDelete: ActionUseCaseCardDelete,
     val actionUseCaseCardUpdate: ActionUseCaseCardUpdate,
     val actionUseCaseNextTurn: ActionUseCaseNextTurn,
-    val actionUseCaseNextRound: ActionUseCaseNextRound
+    val actionUseCaseNextRound: ActionUseCaseNextRound,
+    var actionUseCaseActionList: ActionUseCaseActionList?
 )

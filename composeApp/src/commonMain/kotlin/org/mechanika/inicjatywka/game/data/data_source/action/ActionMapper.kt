@@ -20,7 +20,8 @@ import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 fun ActionStackEntryEntity.toActionStackEntry(): ActionStackEntry {
     return ActionStackEntry(
         position = position,
-        actionType = ActionStackEntry.ActionTypes.entries.find { it.value == this.actionType } ?: error("Invalid actionType ${this.actionType}"),
+        actionType = (ActionStackEntry.ActionTypes from this.actionType)
+            ?: error("Invalid actionType ${this.actionType}"),
         actionId = actionId
     )
 }
