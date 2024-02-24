@@ -15,8 +15,6 @@ CREATE TABLE IF NOT EXISTS PhaseChangeActionEntity (
     fromPhase TEXT NOT NULL,
     toPhase TEXT NOT NULL,
     cardId INTEGER,
-    FOREIGN KEY (fromPhase) REFERENCES PhaseEntity(id),
-    FOREIGN KEY (toPhase) REFERENCES PhaseEntity(id),
     FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 

@@ -7,34 +7,43 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.database.InicjatywkaDatabase
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 
 class EngineDaoImpl(
     db: InicjatywkaDatabase
 ) : EngineDao {
-    val queries = db.engineQueries
+    private val queries = db.engineQueries
 
-    override fun setPhase(phase: Phase) {
-        queries.setPhaseEntity(phase.value.name)
+    override fun getEngine(): Engine? {
+        return queries.getEngineEntity()
+            .executeAsOneOrNull()?.toEngine()
     }
 
-    override fun getPhases(): Flow<List<Phase>> {
+    override fun setEngine(phase: Engine.Phases) {
+        return queries.setEngineEntity(phase.toString())
+    }
+
+    override fun setPhase(phase: Engine.Phases) {
+        queries.setPhaseEntity(phase.name)
+    }
+
+    override fun getPhases(): Flow<List<Engine.Phases>> {
         return queries.getPhaseEntities()
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { list ->
                 list.map {
-                    it.toPhase()
+                    Engine.Phases.valueOf(it)
                 }
             }
     }
 
-    override fun getPhase(): Flow<Phase?> {
+    override fun getPhase(): Flow<Engine.Phases?> {
         return queries.getPhaseEntity()
             .asFlow()
             .mapToOneOrNull(context = Dispatchers.IO)
             .map {
-                it?.toPhase()
+                if(it != null) Engine.Phases.valueOf(it) else null
             }
     }
 
@@ -51,8 +60,8 @@ class EngineDaoImpl(
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { list ->
-                list.map {
-                    it.toLong()
+                list.mapNotNull {
+                    it.cardId
                 }
             }
     }
@@ -62,13 +71,13 @@ class EngineDaoImpl(
             .asFlow()
             .mapToOneOrNull(context = Dispatchers.IO)
             .map {
-                it?.toLong()
+                it?.cardId
             }
     }
 
     override fun getCurrentCardId(): Long? {
         return queries.getCurrentCardEntity()
-            .executeAsOneOrNull()?.toLong()
+            .executeAsOneOrNull()?.cardId
     }
 
 }

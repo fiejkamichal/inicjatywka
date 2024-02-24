@@ -17,7 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardList
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
@@ -29,7 +29,7 @@ import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
 fun InitialPhaseScreen(
     component: InitialPhaseViewModel
 ) {
-    val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initial)
+    val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initial)
 
     Scaffold(
         floatingActionButton = {

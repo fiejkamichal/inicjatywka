@@ -13,7 +13,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 
 fun ActionStackEntryEntity.toActionStackEntry(): ActionStackEntry {
     return ActionStackEntry(
@@ -32,8 +32,8 @@ fun ActionStackPositionEntity.toLong(): Long {
 fun PhaseChangeActionEntity.toPhaseChangeAction(): PhaseChangeAction {
     return PhaseChangeAction(
         id = this.id,
-        from = Phase.Phases.valueOf(this.fromPhase),
-        to = Phase.Phases.valueOf(this.toPhase),
+        from = Engine.Phases.valueOf(this.fromPhase),
+        to = Engine.Phases.valueOf(this.toPhase),
         cardId = this.cardId
     )
 }

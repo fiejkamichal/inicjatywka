@@ -1,16 +1,11 @@
 package org.mechanika.inicjatywka.game.data.data_source.engine
 
-import org.mechanika.inicjatywka.database.CurrentCardEntity
-import org.mechanika.inicjatywka.database.PhaseEntity
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.database.EngineEntity
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 
-fun PhaseEntity.toPhase(): Phase {
-    return Phase(
-        value = Phase.Phases.valueOf(this.value_)
+fun EngineEntity.toEngine(): Engine {
+    return Engine(
+        phase = Engine.Phases.valueOf(this.phase),
+        cardId = this.cardId
     )
 }
-
-fun CurrentCardEntity.toLong(): Long {
-    return this.cardId
-}
-

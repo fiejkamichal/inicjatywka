@@ -3,7 +3,7 @@ package org.mechanika.inicjatywka.game.domain.use_case.debug
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
@@ -25,11 +25,11 @@ class Debug(
         return actionRepository.getPhaseChangeActions()
     }
 
-    fun getPhase(): Flow<Phase?> {
+    fun getPhase(): Flow<Engine.Phases?> {
         return engineRepository.getPhase()
     }
 
-    fun getPhases(): Flow<List<Phase>> {
+    fun getPhases(): Flow<List<Engine.Phases>> {
         return engineRepository.getPhases()
     }
 
@@ -37,7 +37,7 @@ class Debug(
         return engineRepository.getCurrentCardIdAsFlow()
     }
 
-    fun getCurrentCardIds(): Flow<List<Long>> {
+    fun getCurrentCardIds(): Flow<List<Long?>> {
         return engineRepository.getCurrentCardIds()
     }
 

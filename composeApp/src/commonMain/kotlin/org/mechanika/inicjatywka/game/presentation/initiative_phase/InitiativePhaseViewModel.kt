@@ -4,7 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
 import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
@@ -23,7 +23,7 @@ class InitiativePhaseViewModel(
     val state = InitiativePhaseState(
         currentPhase = inicjatywkaUseCases.getPhase()
             .map {
-                if (it == Phase.Phases.Initial) {
+                if (it == Engine.Phases.Initial) {
                     onNavigateToInitialPhase()
                 }
                 it

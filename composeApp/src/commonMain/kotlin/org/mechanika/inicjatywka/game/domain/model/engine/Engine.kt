@@ -1,7 +1,8 @@
 package org.mechanika.inicjatywka.game.domain.model.engine
 
-data class Phase(
-    val value: Phases
+data class Engine(
+    val phase: Phases,
+    val cardId: Long?
 ) {
     companion object {
         val phases = listOf(Phases.Initial, Phases.Initiative)

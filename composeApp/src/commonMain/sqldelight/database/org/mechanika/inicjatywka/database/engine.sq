@@ -1,33 +1,36 @@
-CREATE TABLE IF NOT EXISTS PhaseEntity (
+CREATE TABLE IF NOT EXISTS EngineEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS CurrentCardEntity (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    cardId INTEGER NOT NULL,
+    phase TEXT NOT NULL,
+    cardId INTEGER,
     FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
+getEngineEntity:
+SELECT * FROM EngineEntity WHERE id = 0;
+
+setEngineEntity:
+INSERT OR REPLACE INTO EngineEntity (id, phase, cardId) VALUES (0, :phase, NULL);
+
+
 getPhaseEntity:
-SELECT * FROM PhaseEntity WHERE id = 0;
+SELECT phase FROM EngineEntity WHERE id = 0;
 
 setPhaseEntity:
-INSERT OR REPLACE INTO PhaseEntity VALUES (0, :value);
+UPDATE EngineEntity SET phase = :phase WHERE id = 0;
 
 getPhaseEntities:
-SELECT * FROM PhaseEntity;
+SELECT phase FROM EngineEntity;
 
 
 
 getCurrentCardEntity:
-SELECT * FROM CurrentCardEntity WHERE id = 0;
+SELECT cardId FROM EngineEntity WHERE id = 0;
 
 setCurrentCardEntity:
-INSERT OR REPLACE INTO CurrentCardEntity VALUES (0, :cardId);
+UPDATE EngineEntity SET cardId = :cardId WHERE id = 0;
 
 getCurrentCardEntities:
-SELECT * FROM CurrentCardEntity;
+SELECT cardId FROM EngineEntity;
 
 deleteCurrentCardEntity:
-DELETE FROM CurrentCardEntity WHERE id = 0;
+UPDATE EngineEntity SET cardId = NULL WHERE id = 0;

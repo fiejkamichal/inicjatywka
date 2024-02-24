@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS EngineEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    phase TEXT NOT NULL,
+    cardId INTEGER,
+    FOREIGN KEY (cardId) REFERENCES CardEntity(id)
+);

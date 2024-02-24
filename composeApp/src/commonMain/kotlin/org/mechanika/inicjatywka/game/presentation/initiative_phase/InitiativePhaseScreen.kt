@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
-import org.mechanika.inicjatywka.game.domain.model.engine.Phase
+import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
@@ -32,7 +32,7 @@ import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
 fun InitiativePhaseScreen(
     component: InitiativePhaseViewModel
 ) {
-    val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initiative)
+    val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initiative)
     val currentCardId = component.state.currentCardId.collectAsState(null)
     val sortedCards = component.cardViewModel.state.cards.collectAsState(emptyList())
 
