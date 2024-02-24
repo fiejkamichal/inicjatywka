@@ -8,6 +8,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 class NextTurn(
     private val engineRepository: EngineRepository,
     private val cardRepository: CardRepository,
+    private val nextRound: NextRound,
     private val stack: Stack
 ) {
     operator fun invoke() {
@@ -32,8 +33,7 @@ class NextTurn(
             )
         }
         else {
-            return
-            TODO("implement end of initiative turn")
+            nextRound()
         }
     }
 }

@@ -14,6 +14,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardAd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardDelete
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardUpdate
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseNextRound
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseNextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
@@ -30,6 +31,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetCurrentCardId
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetPhase
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetRound
+import org.mechanika.inicjatywka.game.domain.use_case.engine.NextRound
 import org.mechanika.inicjatywka.game.domain.use_case.engine.NextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
@@ -80,6 +82,10 @@ class AppModule(
         actionUseCaseNextTurn = ActionUseCaseNextTurn(
             engineRepository,
             actionRepository
+        ),
+        actionUseCaseNextRound = ActionUseCaseNextRound(
+            engineRepository,
+            actionRepository
         )
     )
 
@@ -96,6 +102,9 @@ class AppModule(
     private
     val getCardIdWithHighestInitiative = GetCardIdWithHighestInitiative(cardRepository)
 
+    private
+    val nextRound = NextRound(engineRepository, getCardIdWithHighestInitiative, stack)
+
     val inicjatywkaUseCases = InicjatywkaUseCases(
         startInitiative = StartInitiative(engineRepository, getCardIdWithHighestInitiative, stack),
         stopInitiative = StopInitiative(engineRepository, stack),
@@ -111,7 +120,7 @@ class AppModule(
         getCards = GetCards(cardRepository),
         updateCard = UpdateCard(cardRepository, stack),
         getCurrentCardId = GetCurrentCardId(engineRepository),
-        nextTurn = NextTurn(engineRepository, cardRepository, stack),
+        nextTurn = NextTurn(engineRepository, cardRepository, nextRound, stack),
         getRound = GetRound(engineRepository)
     )
 

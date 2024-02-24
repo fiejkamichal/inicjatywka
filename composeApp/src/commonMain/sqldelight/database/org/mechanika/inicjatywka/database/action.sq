@@ -47,6 +47,15 @@ CREATE TABLE IF NOT EXISTS NextTurnActionEntity (
     FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
 );
 
+CREATE TABLE IF NOT EXISTS NextRoundActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fromCardId INTEGER NOT NULL,
+    toCardId INTEGER NOT NULL,
+    fromRound INTEGER NOT NULL,
+    toRound INTEGER NOT NULL,
+    FOREIGN KEY (fromCardId) REFERENCES CardEntity(id),
+    FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
+);
 
 getActionStackEntry:
 SELECT * FROM ActionStackEntryEntity WHERE position = :position;
@@ -141,6 +150,21 @@ SELECT * FROM NextTurnActionEntity WHERE id = :actionId;
 
 getNextTurnActions:
 SELECT * FROM NextTurnActionEntity ORDER BY id ASC;
+
+
+insertNextRoundAction:
+INSERT OR REPLACE INTO NextRoundActionEntity
+(fromCardId, toCardId, fromRound, toRound)
+VALUES (:fromCardId, :toCardId, :fromRound, :toRound);
+
+deleteNextRoundAction:
+DELETE FROM NextRoundActionEntity WHERE id = :actionId;
+
+getNextRoundAction:
+SELECT * FROM NextRoundActionEntity WHERE id = :actionId;
+
+getNextRoundActions:
+SELECT * FROM NextRoundActionEntity ORDER BY id ASC;
 
 
 lastInsertRowId:

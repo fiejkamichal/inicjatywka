@@ -5,6 +5,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextRoundAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
@@ -51,4 +52,8 @@ interface ActionRepository {
     fun deleteNextTurnAction(actionId: Long)
     fun getNextTurnAction(actionId: Long): NextTurnAction?
     fun getNextTurnActions(): Flow<List<NextTurnAction>>
+    fun insertNextRoundAction(nextRound: NextRoundAction): Long
+    fun deleteNextRoundAction(actionId: Long)
+    fun getNextRoundAction(actionId: Long): NextRoundAction?
+    fun getNextRoundActions(): Flow<List<NextRoundAction>>
 }

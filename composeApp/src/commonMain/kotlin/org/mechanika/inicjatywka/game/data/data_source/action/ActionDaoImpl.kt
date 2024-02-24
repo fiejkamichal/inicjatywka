@@ -12,6 +12,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextRoundAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
@@ -213,6 +214,38 @@ class ActionDaoImpl(
             .map { list ->
                 list.map {
                     it.toNextTurnAction()
+                }
+            }
+    }
+
+
+    override fun insertNextRoundAction(nextRound: NextRoundAction): Long {
+        return queries.transactionWithResult {
+            queries.insertNextRoundAction(
+                fromCardId = nextRound.fromCardId,
+                toCardId = nextRound.toCardId,
+                fromRound = nextRound.fromRound,
+                toRound = nextRound.toRound)
+            queries.lastInsertRowId().executeAsOne()
+        }
+    }
+
+    override fun deleteNextRoundAction(actionId: Long) {
+        queries.deleteNextRoundAction(actionId)
+    }
+
+    override fun getNextRoundAction(actionId: Long): NextRoundAction? {
+        return queries.getNextRoundAction(actionId).executeAsOneOrNull()
+            ?.toNextRoundAction()
+    }
+
+    override fun getNextRoundActions(): Flow<List<NextRoundAction>> {
+        return queries.getNextRoundActions()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toNextRoundAction()
                 }
             }
     }

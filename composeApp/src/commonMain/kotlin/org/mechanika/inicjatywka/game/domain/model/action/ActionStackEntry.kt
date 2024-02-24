@@ -10,6 +10,7 @@ data class ActionStackEntry(
         CardAdd(1),
         CardDelete(2),
         CardUpdate(3),
-        NextTurn(4);
+        NextTurn(4),
+        NextRound(5);
     }
 }
