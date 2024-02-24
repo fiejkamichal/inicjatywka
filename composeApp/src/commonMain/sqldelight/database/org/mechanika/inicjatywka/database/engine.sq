@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS EngineEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     phase TEXT NOT NULL,
     cardId INTEGER,
+    round INTEGER,
     FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
@@ -34,3 +35,10 @@ SELECT cardId FROM EngineEntity;
 
 deleteCurrentCardEntity:
 UPDATE EngineEntity SET cardId = NULL WHERE id = 0;
+
+
+getRoundEntity:
+SELECT round FROM EngineEntity WHERE id = 0;
+
+setRoundEntity:
+UPDATE EngineEntity SET round = :round WHERE id = 0;

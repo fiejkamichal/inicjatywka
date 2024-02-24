@@ -80,4 +80,21 @@ class EngineDaoImpl(
             .executeAsOneOrNull()?.cardId
     }
 
+    override fun getRound(): Long? {
+        return queries.getRoundEntity()
+            .executeAsOneOrNull()?.round
+    }
+
+    override fun getRoundAsFlow(): Flow<Long?> {
+        return queries.getRoundEntity()
+            .asFlow()
+            .mapToOneOrNull(Dispatchers.IO)
+            .map {
+                it?.round
+            }
+    }
+
+    override fun setRound(round: Long?) {
+        queries.setRoundEntity(round)
+    }
 }

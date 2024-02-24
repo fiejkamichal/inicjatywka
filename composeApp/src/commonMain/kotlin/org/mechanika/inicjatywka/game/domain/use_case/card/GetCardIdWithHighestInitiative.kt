@@ -6,6 +6,6 @@ class GetCardIdWithHighestInitiative(
     private val repository: CardRepository
 ) {
     operator fun invoke(): Long? {
-        return repository.getCards().maxByOrNull { it.initiative }!!.id
+        return repository.getCards().maxByOrNull { it.initiative }?.id
     }
 }

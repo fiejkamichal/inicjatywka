@@ -1,6 +1,7 @@
 package org.mechanika.inicjatywka.game.data.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.game.data.data_source.engine.EngineDao
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
@@ -44,5 +45,19 @@ class EngineRepositoryImpl(
 
     override fun getCurrentCardIds(): Flow<List<Long?>> {
         return dao.getCurrentCardIds()
+    }
+
+    override fun getRound(): Long {
+        return dao.getRound()?:0
+    }
+
+    override fun setRound(round: Long) {
+        dao.setRound(round)
+    }
+
+    override fun getRoundAsFlow(): Flow<Long> {
+        return dao.getRoundAsFlow().map {
+            it?:0
+        }
     }
 }

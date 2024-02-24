@@ -78,9 +78,10 @@ class ActionDaoImpl(
     override fun insertPhaseChangeAction(phaseChange: PhaseChangeAction): Long {
         return queries.transactionWithResult {
             queries.insertPhaseChangeAction(
-                phaseChange.from.toString(),
-                phaseChange.to.toString(),
-                phaseChange.cardId
+                fromPhase = phaseChange.from.toString(),
+                toPhase = phaseChange.to.toString(),
+                cardId = phaseChange.cardId,
+                round = phaseChange.round
             )
             queries.lastInsertRowId().executeAsOne()
         }

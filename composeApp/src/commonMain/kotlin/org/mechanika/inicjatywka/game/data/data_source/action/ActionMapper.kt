@@ -34,7 +34,8 @@ fun PhaseChangeActionEntity.toPhaseChangeAction(): PhaseChangeAction {
         id = this.id,
         from = Engine.Phases.valueOf(this.fromPhase),
         to = Engine.Phases.valueOf(this.toPhase),
-        cardId = this.cardId
+        cardId = this.cardId,
+        round = this.round
     )
 }
 

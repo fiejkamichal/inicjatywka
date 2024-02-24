@@ -18,13 +18,15 @@ class ActionUseCasePhaseChange(
                 changePhase(
                     to = Engine.Phases.Initial,
                     cardId = null,
-                    repository = engineRepository
+                    repository = engineRepository,
+                    round = 0
                 )
             else
                 changePhase(
                     to = Engine.Phases.Initiative,
                     cardId = a.cardId,
-                    repository = engineRepository
+                    repository = engineRepository,
+                    round = a.round
                 )
         }
     }
@@ -36,13 +38,15 @@ class ActionUseCasePhaseChange(
                 changePhase(
                     to = Engine.Phases.Initial,
                     cardId = null,
-                    repository = engineRepository
+                    repository = engineRepository,
+                    round = 0
                 )
             else
                 changePhase(
                     to = Engine.Phases.Initiative,
                     cardId = a.cardId,
-                    repository = engineRepository
+                    repository = engineRepository,
+                    round = a.round
                 )
     }
 

@@ -15,4 +15,7 @@ interface EngineDao {
     fun setPhase(phase: Engine.Phases)
     fun getEngine(): Engine?
     fun setEngine(phase: Engine.Phases)
+    fun getRound(): Long?
+    fun setRound(round: Long?)
+    fun getRoundAsFlow(): Flow<Long?>
 }

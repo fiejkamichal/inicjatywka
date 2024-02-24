@@ -32,10 +32,10 @@ class InitiativePhaseViewModel(
             .onEach { it ->
                 val card = it?.let { it1 -> inicjatywkaUseCases.getCard(it1) }
                 card?.let { it1 ->
-
                     cardViewModel.onEvent(CardEvent.EditCard(it1))
                 }
-            }
+            },
+        round = inicjatywkaUseCases.getRound()
     )
 
     fun onEvent(event: InitiativePhaseEvent) {

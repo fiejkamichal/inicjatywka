@@ -12,4 +12,7 @@ interface EngineRepository {
     fun unsetCurrentCardId()
     fun getCurrentCardIdAsFlow(): Flow<Long?>
     fun setPhase(phase: Engine.Phases): Engine.Phases
+    fun getRound(): Long
+    fun setRound(round: Long)
+    fun getRoundAsFlow(): Flow<Long>
 }

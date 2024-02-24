@@ -11,16 +11,19 @@ class StopInitiative(
 ) {
     operator fun invoke() {
         val cardId = repository.getCurrentCardId()
+        val round = repository.getRound()
         changePhase(
             to = Engine.Phases.Initial,
             cardId = null,
-            repository = repository
+            repository = repository,
+            round = 0
         )
         stack.pushActionAboveCurrentPosition(
             PhaseChangeAction(
                 from = Engine.Phases.Initiative,
                 to = Engine.Phases.Initial,
-                cardId = cardId
+                cardId = cardId,
+                round = round
             )
         )
     }

@@ -13,16 +13,19 @@ class StartInitiative(
 ) {
     operator fun invoke() {
         val cardId = getCardIdWithHighestInitiative()
+        val round = 1L
         changePhase(
             to = Engine.Phases.Initiative,
             cardId = cardId,
-            repository = repository
+            repository = repository,
+            round = round
         )
         stack.pushActionAboveCurrentPosition(
             PhaseChangeAction(
                 from = Engine.Phases.Initial,
                 to = Engine.Phases.Initiative,
-                cardId = cardId
+                cardId = cardId,
+                round = round
             )
         )
     }
