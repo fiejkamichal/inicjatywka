@@ -14,6 +14,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardAd
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardDelete
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseCardUpdate
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseEmpty
+import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCaseNextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.action.ActionUseCasePhaseChange
 import org.mechanika.inicjatywka.game.domain.use_case.action.Actions
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
@@ -74,6 +75,10 @@ class AppModule(
         actionUseCaseCardUpdate = ActionUseCaseCardUpdate(
             cardRepository,
             actionRepository
+        ),
+        actionUseCaseNextTurn = ActionUseCaseNextTurn(
+            engineRepository,
+            actionRepository
         )
     )
 
@@ -105,7 +110,7 @@ class AppModule(
         getCards = GetCards(cardRepository),
         updateCard = UpdateCard(cardRepository, stack),
         getCurrentCardId = GetCurrentCardId(engineRepository),
-        nextTurn = NextTurn(engineRepository, cardRepository)
+        nextTurn = NextTurn(engineRepository, cardRepository, stack)
     )
 
     private val undoRedoViewModel = UndoRedoViewModel(

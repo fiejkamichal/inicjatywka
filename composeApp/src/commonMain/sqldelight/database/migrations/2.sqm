@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS NextTurnActionEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fromCardId INTEGER NOT NULL,
+    toCardId INTEGER NOT NULL,
+    FOREIGN KEY (fromCardId) REFERENCES CardEntity(id),
+    FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
+);

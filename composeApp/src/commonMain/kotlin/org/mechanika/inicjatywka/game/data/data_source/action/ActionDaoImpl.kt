@@ -12,6 +12,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 
@@ -183,6 +184,34 @@ class ActionDaoImpl(
             .map { list ->
                 list.map {
                     it.toCardUpdateAction()
+                }
+            }
+    }
+
+
+    override fun insertNextTurnAction(fromCardId: Long, toCardId: Long): Long {
+        return queries.transactionWithResult {
+            queries.insertNextTurnAction(fromCardId = fromCardId, toCardId = toCardId)
+            queries.lastInsertRowId().executeAsOne()
+        }
+    }
+
+    override fun deleteNextTurnAction(actionId: Long) {
+        queries.deleteNextTurnAction(actionId)
+    }
+
+    override fun getNextTurnAction(actionId: Long): NextTurnAction? {
+        return queries.getNextTurnAction(actionId).executeAsOneOrNull()
+            ?.toNextTurnAction()
+    }
+
+    override fun getNextTurnActions(): Flow<List<NextTurnAction>> {
+        return queries.getNextTurnActions()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { list ->
+                list.map {
+                    it.toNextTurnAction()
                 }
             }
     }

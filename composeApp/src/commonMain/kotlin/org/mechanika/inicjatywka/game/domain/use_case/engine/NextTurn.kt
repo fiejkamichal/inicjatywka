@@ -1,32 +1,39 @@
 package org.mechanika.inicjatywka.game.domain.use_case.engine
 
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.runBlocking
-import org.mechanika.inicjatywka.game.domain.model.card.Card
+import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
+import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 
 class NextTurn(
-    private val repository: EngineRepository,
-    private val cardRepository: CardRepository
+    private val engineRepository: EngineRepository,
+    private val cardRepository: CardRepository,
+    private val stack: Stack
 ) {
     operator fun invoke() {
-        var cardId = repository.getCurrentCardId() ?: 0
-        runBlocking {
-            cardRepository.getCards().collectLatest {
-                val iter =
-                    it.sortedByDescending { it.getStat(Card.Stat.Id.Initiative).value.toLong() }
-                        .listIterator()
-                while (iter.hasNext()) {
-                    val card = iter.next()
-                    if (card.id == cardId) break
-                }
-                if (iter.hasNext()) {
-                    val card = iter.next()
-                    cardId = card.id ?: 0
-                }
-            }
+        val fromCardId = engineRepository.getCurrentCardId() ?: 0
+        var toCardId = fromCardId
+
+        val cards = cardRepository.getCards()
+        val iterator = cards.listIterator()
+        while (iterator.hasNext()) {
+            val card = iterator.next()
+            if (card.id == toCardId) break
         }
-        repository.setCurrentCardId(cardId)
+        if (iterator.hasNext()) {
+            val card = iterator.next()
+            toCardId = card.id ?: 0
+            engineRepository.setCurrentCardId(toCardId)
+            stack.pushActionAboveCurrentPosition(
+                NextTurnAction(
+                    fromCardId = fromCardId,
+                    toCardId = toCardId
+                )
+            )
+        }
+        else {
+            return
+            TODO("implement end of initiative turn")
+        }
     }
 }

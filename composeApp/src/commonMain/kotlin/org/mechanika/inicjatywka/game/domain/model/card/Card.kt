@@ -3,7 +3,7 @@ package org.mechanika.inicjatywka.game.domain.model.card
 data class Card(
     var id: Long?,
     private var name: String = "",
-    private var initiative: Long = 50,
+    var initiative: Long = 50,
     val deleted: Boolean = false,
     private var ally: Boolean = true,
     private var hitPoints: Long = 0,

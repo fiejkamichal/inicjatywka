@@ -27,6 +27,7 @@ abstract class ActionUseCase {
                 ActionStackEntry.ActionTypes.CardDelete -> actions.actionUseCaseCardDelete
                 null -> actions.actionUseCaseEmpty
                 ActionStackEntry.ActionTypes.CardUpdate -> actions.actionUseCaseCardUpdate
+                ActionStackEntry.ActionTypes.NextTurn -> actions.actionUseCaseNextTurn
             }
         }
     }

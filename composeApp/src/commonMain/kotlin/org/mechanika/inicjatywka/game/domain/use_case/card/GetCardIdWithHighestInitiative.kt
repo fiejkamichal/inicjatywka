@@ -5,7 +5,7 @@ import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 class GetCardIdWithHighestInitiative(
     private val repository: CardRepository
 ) {
-    operator fun invoke(): Long {
-        return 1
+    operator fun invoke(): Long? {
+        return repository.getCards().maxByOrNull { it.initiative }!!.id
     }
 }

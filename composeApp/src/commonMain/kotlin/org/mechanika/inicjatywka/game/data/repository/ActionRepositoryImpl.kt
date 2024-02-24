@@ -6,6 +6,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.repository.ActionRepository
 
@@ -122,4 +123,20 @@ class ActionRepositoryImpl(
 
     override fun getCardUpdateActions(): Flow<List<CardUpdateAction>> =
         dao.getCardUpdateActions()
+
+
+    override fun insertNextTurnAction(nextTurn: NextTurnAction): Long =
+        dao.insertNextTurnAction(
+            nextTurn.fromCardId,
+            nextTurn.toCardId
+        )
+
+    override fun deleteNextTurnAction(actionId: Long) =
+        dao.deleteNextTurnAction(actionId)
+
+    override fun getNextTurnAction(actionId: Long): NextTurnAction? =
+        dao.getNextTurnAction(actionId)
+
+    override fun getNextTurnActions(): Flow<List<NextTurnAction>> =
+        dao.getNextTurnActions()
 }

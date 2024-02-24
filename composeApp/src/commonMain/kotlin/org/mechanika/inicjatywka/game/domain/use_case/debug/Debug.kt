@@ -14,7 +14,7 @@ class Debug(
     val cardRepository: CardRepository
 ) {
     fun getCards(): Flow<List<Card>> {
-        return cardRepository.getCards()
+        return cardRepository.getCardsAsFlow()
     }
 
     fun getDeletedCards(): Flow<List<Card>> {

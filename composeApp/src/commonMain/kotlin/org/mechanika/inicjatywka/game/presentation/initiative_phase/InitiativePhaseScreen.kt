@@ -20,7 +20,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.map
 import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
 import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
@@ -35,11 +34,7 @@ fun InitiativePhaseScreen(
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Phase.Phases.Initiative)
     val currentCardId = component.state.currentCardId.collectAsState(null)
-    val sortedCards = component.cardViewModel.state.cards.map {
-        it.sortedBy { card ->
-            card.getStat(Stat.Id.Initiative).value.toLong()
-        }
-    }.collectAsState(emptyList())
+    val sortedCards = component.cardViewModel.state.cards.collectAsState(emptyList())
 
     Scaffold(
         floatingActionButton = {
@@ -90,7 +85,7 @@ fun InitiativePhaseScreen(
                     fontWeight = FontWeight.Bold
                 )
                 Button(
-                    onClick = { component.onEvent(InitiativePhaseEvent.nextTurn) }
+                    onClick = { component.onEvent(InitiativePhaseEvent.NextTurn) }
                 ) {
                     Text("Następna tura")
                 }

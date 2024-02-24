@@ -9,6 +9,7 @@ data class ActionStackEntry(
         PhaseChange(0),
         CardAdd(1),
         CardDelete(2),
-        CardUpdate(3);
+        CardUpdate(3),
+        NextTurn(4);
     }
 }

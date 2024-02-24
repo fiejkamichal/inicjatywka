@@ -60,7 +60,7 @@ getCard:
 SELECT * FROM CardEntity WHERE id = :id;
 
 getCards:
-SELECT * FROM CardEntity WHERE deleted = 0;
+SELECT * FROM CardEntity WHERE deleted = 0 ORDER BY initiative DESC;
 
 getDeletedCards:
 SELECT * FROM CardEntity WHERE deleted = 1;

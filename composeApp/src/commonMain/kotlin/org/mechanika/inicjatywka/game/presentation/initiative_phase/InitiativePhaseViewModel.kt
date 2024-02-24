@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
@@ -42,12 +41,12 @@ class InitiativePhaseViewModel(
     fun onEvent(event: InitiativePhaseEvent) {
         when (event) {
             InitiativePhaseEvent.StopInitiative -> {
-                runBlocking { inicjatywkaUseCases.stopInitiative() }
+                inicjatywkaUseCases.stopInitiative()
                 onNavigateToInitialPhase()
             }
 
-            InitiativePhaseEvent.nextTurn -> {
-                runBlocking { inicjatywkaUseCases.nextTurn }
+            InitiativePhaseEvent.NextTurn -> {
+                inicjatywkaUseCases.nextTurn()
             }
         }
     }

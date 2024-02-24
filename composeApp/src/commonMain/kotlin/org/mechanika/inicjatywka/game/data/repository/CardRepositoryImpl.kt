@@ -40,7 +40,11 @@ class CardRepositoryImpl(
         return dao.getCard(id)
     }
 
-    override fun getCards(): Flow<List<Card>> {
+    override fun getCardsAsFlow(): Flow<List<Card>> {
+        return dao.getCardsAsFlow()
+    }
+
+    override fun getCards(): List<Card> {
         return dao.getCards()
     }
 

@@ -8,6 +8,6 @@ class GetCards(
     private val repository: CardRepository
 ) {
     operator fun invoke(): Flow<List<Card>> {
-        return repository.getCards()
+        return repository.getCardsAsFlow()
     }
 }

@@ -5,6 +5,7 @@ import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 
 interface ActionDao {
@@ -40,4 +41,8 @@ interface ActionDao {
     fun deleteCardUpdateAction(actionId: Long)
     fun getCardUpdateAction(actionId: Long): CardUpdateAction?
     fun getCardUpdateActions(): Flow<List<CardUpdateAction>>
+    fun insertNextTurnAction(fromCardId: Long, toCardId: Long): Long
+    fun deleteNextTurnAction(actionId: Long)
+    fun getNextTurnAction(actionId: Long): NextTurnAction?
+    fun getNextTurnActions(): Flow<List<NextTurnAction>>
 }

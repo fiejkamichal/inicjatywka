@@ -5,11 +5,13 @@ import org.mechanika.inicjatywka.database.ActionStackPositionEntity
 import org.mechanika.inicjatywka.database.CardAddActionEntity
 import org.mechanika.inicjatywka.database.CardDeleteActionEntity
 import org.mechanika.inicjatywka.database.CardUpdateActionEntity
+import org.mechanika.inicjatywka.database.NextTurnActionEntity
 import org.mechanika.inicjatywka.database.PhaseChangeActionEntity
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
+import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.engine.Phase
 
@@ -55,5 +57,14 @@ fun CardUpdateActionEntity.toCardUpdateAction(): CardUpdateAction {
         id = this.id,
         cardId = this.cardId,
         prevCardId = this.prevCardId
+    )
+}
+
+
+fun NextTurnActionEntity.toNextTurnAction(): NextTurnAction {
+    return NextTurnAction(
+        id = this.id,
+        fromCardId = this.fromCardId,
+        toCardId = this.toCardId
     )
 }

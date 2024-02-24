@@ -17,7 +17,7 @@ class CardDaoImpl(
         return queries.transactionWithResult {
             queries.insertCard(
                 name = card.getStat(Card.Stat.Id.Name).value,
-                initiative = card.getStat(Card.Stat.Id.Initiative).value.toLong(),
+                initiative = card.initiative,
                 ally = if (card.getStat(Card.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
                 hitPoints = card.getStat(Card.Stat.Id.HitPoints).value.toLong(),
                 resilience = card.getStat(Card.Stat.Id.Resilience).value.toLong(),
@@ -35,7 +35,7 @@ class CardDaoImpl(
         return queries.transactionWithResult {
             queries.insertDeletedCard(
                 name = card.getStat(Card.Stat.Id.Name).value,
-                initiative = card.getStat(Card.Stat.Id.Initiative).value.toLong(),
+                initiative = card.initiative,
                 ally = if (card.getStat(Card.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
                 hitPoints = card.getStat(Card.Stat.Id.HitPoints).value.toLong(),
                 resilience = card.getStat(Card.Stat.Id.Resilience).value.toLong(),
@@ -53,7 +53,7 @@ class CardDaoImpl(
         queries.updateCard(
             id = id,
             name = card.getStat(Card.Stat.Id.Name).value,
-            initiative = card.getStat(Card.Stat.Id.Initiative).value.toLong(),
+            initiative = card.initiative,
             ally = if (card.getStat(Card.Stat.Id.Ally).value.toBoolean()) 1L else 0L,
             hitPoints = card.getStat(Card.Stat.Id.HitPoints).value.toLong(),
             resilience = card.getStat(Card.Stat.Id.Resilience).value.toLong(),
@@ -93,7 +93,7 @@ class CardDaoImpl(
             ?.toCard()
     }
 
-    override fun getCards(): Flow<List<Card>> {
+    override fun getCardsAsFlow(): Flow<List<Card>> {
         return queries.getCards()
             .asFlow()
             .mapToList(Dispatchers.IO)
@@ -102,6 +102,14 @@ class CardDaoImpl(
                     it.toCard()
                 }
             }
+    }
+
+    override fun getCards(): List<Card> {
+        return queries.getCards()
+            .executeAsList()
+            .map {
+                    it.toCard()
+                }
     }
 
     override fun getDeletedCards(): Flow<List<Card>> {
