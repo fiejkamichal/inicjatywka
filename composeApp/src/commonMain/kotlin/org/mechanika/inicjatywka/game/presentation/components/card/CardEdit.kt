@@ -38,19 +38,12 @@ fun CardEdit(
                 StatEdit(
                     it,
                     onValueChanged = onUpdate
-//                        viewModel.onEvent(CardEvent.UpdateCardStat(id, value))
                 )
             }
             Button(
                 onClick = {
                     cardEdit?.let {
                         onSave(it)
-                        /*
-                                                CardEvent.SaveCard(
-                                                    it
-                                                )
-                                            }?.let { viewModel.onEvent(it) }
-                        */
                     }
                 },
             ) {
