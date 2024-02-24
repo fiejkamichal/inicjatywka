@@ -43,7 +43,6 @@ class CardViewModel(
                 event.card.id?.let {
                     updateCard(it, event.card)
                 }
-                cardEdit = null
             }
 
             is CardEvent.UpdateCardStat -> {

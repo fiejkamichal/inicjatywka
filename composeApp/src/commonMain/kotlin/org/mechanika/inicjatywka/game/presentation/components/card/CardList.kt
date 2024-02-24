@@ -31,9 +31,18 @@ fun CardList(
                     .padding(horizontal = 16.dp)
             )
         }
-        cards.value.forEach {
+        cards.value.forEach { it ->
             if (cardEdit != null && it.id == cardEdit.id)
-                CardEdit(viewModel)
+                CardEdit(
+                    cardEdit = viewModel.cardEdit,
+                    onUpdate = { id, value ->
+                        viewModel.onEvent(CardEvent.UpdateCardStat(id, value))
+                    },
+                    onSave = { card ->
+                        viewModel.onEvent(CardEvent.SaveCard(card))
+                        viewModel.cardEdit = null
+                    }
+                )
             else
                 Card(
                     card = it,

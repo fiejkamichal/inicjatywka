@@ -22,8 +22,9 @@ import org.mechanika.inicjatywka.game.domain.model.card.Card
 
 @Composable
 fun CardEdit(
-//    card: Card,
-    viewModel: CardViewModel
+    cardEdit: Card?,
+    onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
+    onSave: (card: Card) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -32,22 +33,25 @@ fun CardEdit(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
-            Text("Edycja Karta postaci (${viewModel.cardEdit?.id}):")
-            viewModel.cardEdit?.getStats()?.forEach {
+            Text("Edycja Karta postaci (${cardEdit?.id}):")
+            cardEdit?.getStats()?.forEach {
                 StatEdit(
                     it,
-                    onValueChanged = { id, value ->
-                        viewModel.onEvent(CardEvent.UpdateCardStat(id, value))
-                    }
+                    onValueChanged = onUpdate
+//                        viewModel.onEvent(CardEvent.UpdateCardStat(id, value))
                 )
             }
             Button(
                 onClick = {
-                    viewModel.cardEdit?.let {
-                        CardEvent.SaveCard(
-                            it
-                        )
-                    }?.let { viewModel.onEvent(it) }
+                    cardEdit?.let {
+                        onSave(it)
+                        /*
+                                                CardEvent.SaveCard(
+                                                    it
+                                                )
+                                            }?.let { viewModel.onEvent(it) }
+                        */
+                    }
                 },
             ) {
                 Text("Zapisz")

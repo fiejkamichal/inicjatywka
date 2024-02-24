@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
@@ -112,7 +113,16 @@ fun InitiativePhaseScreen(
                 }
             }
             item {
-                CardEdit(component.cardViewModel)
+                CardEdit(
+
+                    cardEdit = component.cardViewModel.cardEdit,
+                    onUpdate = { id, value ->
+                        component.cardViewModel.onEvent(CardEvent.UpdateCardStat(id, value))
+                    },
+                    onSave = { card ->
+                        component.cardViewModel.onEvent(CardEvent.SaveCard(card))
+                    }
+                    )
             }
         }
     }
