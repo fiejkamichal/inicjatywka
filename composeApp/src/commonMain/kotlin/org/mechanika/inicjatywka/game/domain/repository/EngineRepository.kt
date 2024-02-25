@@ -15,4 +15,7 @@ interface EngineRepository {
     fun getRound(): Long
     fun setRound(round: Long)
     fun getRoundAsFlow(): Flow<Long>
+    fun getReverse(): Boolean
+    fun setReverse(reverse: Boolean)
+    fun getReverseAsFlow(): Flow<Boolean>
 }

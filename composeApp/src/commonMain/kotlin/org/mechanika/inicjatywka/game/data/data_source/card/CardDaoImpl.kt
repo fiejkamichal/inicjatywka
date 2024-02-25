@@ -43,7 +43,8 @@ class CardDaoImpl(
                 concentration = card.getStat(Card.Stat.Id.Concentration).value.toLong(),
                 movePoints = card.getStat(Card.Stat.Id.MovePoints).value.toLong(),
                 steps = card.getStat(Card.Stat.Id.Steps).value.toLong(),
-                states = card.getStat(Card.Stat.Id.States).value
+                states = card.getStat(Card.Stat.Id.States).value,
+                waits = if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) 1L else 0L
             )
             queries.lastInsertRowId().executeAsOne()
         }

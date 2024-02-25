@@ -12,7 +12,7 @@ import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 class EngineDaoImpl(
     db: InicjatywkaDatabase
 ) : EngineDao {
-    private val queries = db.engineQueries
+    val queries = db.engineQueries
 
     override fun getEngine(): Engine? {
         return queries.getEngineEntity()
@@ -96,5 +96,27 @@ class EngineDaoImpl(
 
     override fun setRound(round: Long?) {
         queries.setRoundEntity(round)
+    }
+
+
+    override fun getReverse(): Boolean {
+        val ent = queries.getReverseEntity()
+            .executeAsOneOrNull()
+        return if (ent == null) false else ent.reverse == 1L
+    }
+
+    override fun getReverseAsFlow(): Flow<Boolean> {
+        return queries.getReverseEntity()
+            .asFlow()
+            .mapToOneOrNull(Dispatchers.IO)
+            .map {
+                if (it == null) false
+                else
+                    it.reverse == 1L
+            }
+    }
+
+    override fun setReverse(reverse: Boolean) {
+        queries.setReverseEntity(if (reverse) 1L else 0L)
     }
 }

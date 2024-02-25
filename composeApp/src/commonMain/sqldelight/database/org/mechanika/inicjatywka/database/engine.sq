@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS EngineEntity (
     phase TEXT NOT NULL,
     cardId INTEGER,
     round INTEGER,
+    reverse INTEGER,
     FOREIGN KEY (cardId) REFERENCES CardEntity(id)
 );
 
@@ -42,3 +43,9 @@ SELECT round FROM EngineEntity WHERE id = 0;
 
 setRoundEntity:
 UPDATE EngineEntity SET round = :round WHERE id = 0;
+
+getReverseEntity:
+SELECT reverse FROM EngineEntity WHERE id = 0;
+
+setReverseEntity:
+UPDATE EngineEntity SET reverse = :reverse WHERE id = 0;

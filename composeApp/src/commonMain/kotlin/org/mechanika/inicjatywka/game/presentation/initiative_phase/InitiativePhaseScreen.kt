@@ -39,6 +39,7 @@ fun InitiativePhaseScreen(
     val currentCardId = component.state.currentCardId.collectAsState(null)
     val sortedCards = component.cardViewModel.state.cards.collectAsState(emptyList())
     val round = component.state.round.collectAsState(0)
+    val reverse = component.state.reverse.collectAsState(false)
 
     Scaffold(
         floatingActionButton = {
@@ -64,7 +65,7 @@ fun InitiativePhaseScreen(
             }
             item {
                 Text(
-                    text = "Gra z inicjatywą. Runda: " + round.value,
+                    text = "Gra z inicjatywą. Runda: " + round.value + " " + if (!reverse.value) "Do przodu" else "do tyłu",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),

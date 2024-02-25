@@ -129,10 +129,7 @@ class ActionRepositoryImpl(
 
 
     override fun insertNextTurnAction(nextTurn: NextTurnAction): Long =
-        dao.insertNextTurnAction(
-            nextTurn.fromCardId,
-            nextTurn.toCardId
-        )
+        dao.insertNextTurnAction(nextTurn)
 
     override fun deleteNextTurnAction(actionId: Long) =
         dao.deleteNextTurnAction(actionId)

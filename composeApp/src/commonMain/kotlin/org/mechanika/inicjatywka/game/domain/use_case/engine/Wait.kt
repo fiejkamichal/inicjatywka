@@ -15,6 +15,8 @@ class Wait(
     private val stack: Stack
 ) {
     operator fun invoke(card: Card) {
+        val fromReverse = engineRepository.getReverse()
+        if (fromReverse) return // cannot wait if this is reverse
         val cardId = card.id ?: return
         val nextCardId = nextTurn.getNextCardId(cardId)
 
@@ -36,7 +38,9 @@ class Wait(
                     },
                     NextTurnAction(
                         fromCardId = cardId,
-                        toCardId = nextCardId
+                        toCardId = nextCardId,
+                        fromReverse = fromReverse,
+                        toReverse = fromReverse
                     )
                 )
             )

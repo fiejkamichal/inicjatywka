@@ -195,9 +195,14 @@ class ActionDaoImpl(
     }
 
 
-    override fun insertNextTurnAction(fromCardId: Long, toCardId: Long): Long {
+    override fun insertNextTurnAction(nextTurn: NextTurnAction): Long {
         return queries.transactionWithResult {
-            queries.insertNextTurnAction(fromCardId = fromCardId, toCardId = toCardId)
+            queries.insertNextTurnAction(
+                fromCardId = nextTurn.fromCardId,
+                toCardId = nextTurn.toCardId,
+                fromReverse = if (nextTurn.fromReverse) 1L else 0L,
+                toReverse = if (nextTurn.toReverse) 1L else 0L
+            )
             queries.lastInsertRowId().executeAsOne()
         }
     }
@@ -229,7 +234,9 @@ class ActionDaoImpl(
                 fromCardId = nextRound.fromCardId,
                 toCardId = nextRound.toCardId,
                 fromRound = nextRound.fromRound,
-                toRound = nextRound.toRound
+                toRound = nextRound.toRound,
+                fromReverse = if (nextRound.fromReverse) 1L else 0L,
+                toReverse = if (nextRound.toReverse) 1L else 0L
             )
             queries.lastInsertRowId().executeAsOne()
         }

@@ -13,6 +13,7 @@ class ActionUseCaseNextTurn(
         val a = action as? NextTurnAction
         if (a != null) {
             engineRepository.setCurrentCardId(a.fromCardId)
+            engineRepository.setReverse(a.fromReverse)
         }
     }
 
@@ -20,6 +21,7 @@ class ActionUseCaseNextTurn(
         val a = action as? NextTurnAction
         if (a != null) {
             engineRepository.setCurrentCardId(a.toCardId)
+            engineRepository.setReverse(a.toReverse)
         }
     }
 

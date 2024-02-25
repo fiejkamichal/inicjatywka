@@ -37,7 +37,7 @@ steps, states, waits
 VALUES (:name, :initiative, 1,
 :ally, :hitPoints, :resilience,
 :mana,:concentration,:movePoints,
-:steps,:states,0);
+:steps,:states,:waits);
 
 deleteCard:
 DELETE FROM CardEntity WHERE id = :id;

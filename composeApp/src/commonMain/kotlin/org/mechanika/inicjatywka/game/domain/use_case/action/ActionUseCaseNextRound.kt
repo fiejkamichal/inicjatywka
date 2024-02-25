@@ -14,6 +14,7 @@ class ActionUseCaseNextRound(
         if (a != null) {
             engineRepository.setCurrentCardId(a.fromCardId)
             engineRepository.setRound(a.fromRound)
+            engineRepository.setReverse(a.fromReverse)
         }
     }
 
@@ -22,6 +23,7 @@ class ActionUseCaseNextRound(
         if (a != null) {
             engineRepository.setCurrentCardId(a.toCardId)
             engineRepository.setRound(a.toRound)
+            engineRepository.setReverse(a.toReverse)
         }
     }
 

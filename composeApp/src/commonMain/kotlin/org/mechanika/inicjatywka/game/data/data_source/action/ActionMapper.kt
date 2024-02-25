@@ -71,7 +71,9 @@ fun NextTurnActionEntity.toNextTurnAction(): NextTurnAction {
     return NextTurnAction(
         id = this.id,
         fromCardId = this.fromCardId,
-        toCardId = this.toCardId
+        toCardId = this.toCardId,
+        fromReverse = this.fromReverse == 1L,
+        toReverse = this.toReverse == 1L
     )
 }
 
@@ -82,7 +84,9 @@ fun NextRoundActionEntity.toNextRoundAction(): NextRoundAction {
         fromRound = this.fromRound,
         toRound = this.toRound,
         fromCardId = this.fromCardId,
-        toCardId = this.toCardId
+        toCardId = this.toCardId,
+        fromReverse = this.fromReverse == 1L,
+        toReverse = this.toReverse == 1L
     )
 }
 

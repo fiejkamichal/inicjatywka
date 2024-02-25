@@ -18,4 +18,7 @@ interface EngineDao {
     fun getRound(): Long?
     fun setRound(round: Long?)
     fun getRoundAsFlow(): Flow<Long?>
+    fun getReverse(): Boolean
+    fun getReverseAsFlow(): Flow<Boolean>
+    fun setReverse(reverse: Boolean)
 }

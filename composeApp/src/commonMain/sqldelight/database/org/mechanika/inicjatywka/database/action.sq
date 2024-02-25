@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS NextTurnActionEntity (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     fromCardId INTEGER NOT NULL,
     toCardId INTEGER NOT NULL,
+    fromReverse INTEGER NOT NULL,
+    toReverse INTEGER NOT NULL,
     FOREIGN KEY (fromCardId) REFERENCES CardEntity(id),
     FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
 );
@@ -53,6 +55,8 @@ CREATE TABLE IF NOT EXISTS NextRoundActionEntity (
     toCardId INTEGER NOT NULL,
     fromRound INTEGER NOT NULL,
     toRound INTEGER NOT NULL,
+    fromReverse INTEGER NOT NULL,
+    toReverse INTEGER NOT NULL,
     FOREIGN KEY (fromCardId) REFERENCES CardEntity(id),
     FOREIGN KEY (toCardId) REFERENCES CardEntity(id)
 );
@@ -151,8 +155,8 @@ SELECT * FROM CardUpdateActionEntity ORDER BY id ASC;
 
 insertNextTurnAction:
 INSERT OR REPLACE INTO NextTurnActionEntity
-(fromCardId, toCardId)
-VALUES (:fromCardId, :toCardId);
+(fromCardId, toCardId, fromReverse, toReverse)
+VALUES (:fromCardId, :toCardId, :fromReverse, :toReverse);
 
 deleteNextTurnAction:
 DELETE FROM NextTurnActionEntity WHERE id = :actionId;
@@ -166,8 +170,10 @@ SELECT * FROM NextTurnActionEntity ORDER BY id ASC;
 
 insertNextRoundAction:
 INSERT OR REPLACE INTO NextRoundActionEntity
-(fromCardId, toCardId, fromRound, toRound)
-VALUES (:fromCardId, :toCardId, :fromRound, :toRound);
+(fromCardId, toCardId, fromRound, toRound, fromReverse, toReverse)
+VALUES (:fromCardId, :toCardId,
+ :fromRound, :toRound,
+  :fromReverse, :toReverse);
 
 deleteNextRoundAction:
 DELETE FROM NextRoundActionEntity WHERE id = :actionId;

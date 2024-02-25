@@ -44,7 +44,6 @@ interface ActionDao {
     fun deleteCardUpdateAction(actionId: Long)
     fun getCardUpdateAction(actionId: Long): CardUpdateAction?
     fun getCardUpdateActions(): Flow<List<CardUpdateAction>>
-    fun insertNextTurnAction(fromCardId: Long, toCardId: Long): Long
     fun deleteNextTurnAction(actionId: Long)
     fun getNextTurnAction(actionId: Long): NextTurnAction?
     fun getNextTurnActions(): Flow<List<NextTurnAction>>
@@ -58,4 +57,5 @@ interface ActionDao {
     fun getActionListActionIds(): Flow<List<Long>>
     fun getAllActionListItems(): Flow<List<ActionListItem>>
     fun getAllActions(): Flow<List<List<String>>>
+    fun insertNextTurnAction(nextTurn: NextTurnAction): Long
 }

@@ -7,7 +7,7 @@ import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 
 class EngineRepositoryImpl(
-    private val dao: EngineDao
+    val dao: EngineDao
 ) : EngineRepository {
 
     init {
@@ -60,5 +60,17 @@ class EngineRepositoryImpl(
         return dao.getRoundAsFlow().map {
             it ?: 0
         }
+    }
+
+    override fun getReverse(): Boolean {
+        return dao.getReverse()
+    }
+
+    override fun setReverse(reverse: Boolean) {
+        dao.setReverse(reverse)
+    }
+
+    override fun getReverseAsFlow(): Flow<Boolean> {
+        return dao.getReverseAsFlow()
     }
 }

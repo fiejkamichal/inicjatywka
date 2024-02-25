@@ -35,7 +35,8 @@ class InitiativePhaseViewModel(
                     cardViewModel.onEvent(CardEvent.EditCard(it1))
                 }
             },
-        round = inicjatywkaUseCases.getRound()
+        round = inicjatywkaUseCases.getRound(),
+        reverse = inicjatywkaUseCases.getReverse()
     )
 
     fun onEvent(event: InitiativePhaseEvent) {
@@ -45,7 +46,9 @@ class InitiativePhaseViewModel(
                 onNavigateToInitialPhase()
             }
 
-            InitiativePhaseEvent.NextTurn -> inicjatywkaUseCases.nextTurn()
+            InitiativePhaseEvent.NextTurn -> inicjatywkaUseCases.nextTurn?.let { it1 -> it1() }
+                ?: error("nextTurn is not available!!!")
+
             InitiativePhaseEvent.Wait -> cardViewModel.cardEdit?.let {
                 inicjatywkaUseCases.wait?.let { it1 -> it1(it) }
                     ?: error("wait is not available!!!")
