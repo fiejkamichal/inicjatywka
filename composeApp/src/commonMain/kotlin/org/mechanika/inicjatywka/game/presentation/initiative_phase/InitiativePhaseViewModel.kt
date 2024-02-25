@@ -47,7 +47,8 @@ class InitiativePhaseViewModel(
 
             InitiativePhaseEvent.NextTurn -> inicjatywkaUseCases.nextTurn()
             InitiativePhaseEvent.Wait -> cardViewModel.cardEdit?.let {
-                inicjatywkaUseCases.wait?.let { it1 -> it1(it) } ?: error("wait is not available!!!")
+                inicjatywkaUseCases.wait?.let { it1 -> it1(it) }
+                    ?: error("wait is not available!!!")
             }
         }
     }

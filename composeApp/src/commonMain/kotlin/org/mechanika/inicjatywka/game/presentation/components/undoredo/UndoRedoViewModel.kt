@@ -1,6 +1,5 @@
 package org.mechanika.inicjatywka.game.presentation.components.undoredo
 
-import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.use_case.action.Redo
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
