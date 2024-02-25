@@ -1,5 +1,6 @@
 package org.mechanika.inicjatywka.game.data.data_source.action
 
+import org.mechanika.inicjatywka.database.ActionListItemEntity
 import org.mechanika.inicjatywka.database.ActionStackEntryEntity
 import org.mechanika.inicjatywka.database.ActionStackPositionEntity
 import org.mechanika.inicjatywka.database.CardAddActionEntity
@@ -8,6 +9,7 @@ import org.mechanika.inicjatywka.database.CardUpdateActionEntity
 import org.mechanika.inicjatywka.database.NextRoundActionEntity
 import org.mechanika.inicjatywka.database.NextTurnActionEntity
 import org.mechanika.inicjatywka.database.PhaseChangeActionEntity
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListItem
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -81,5 +83,14 @@ fun NextRoundActionEntity.toNextRoundAction(): NextRoundAction {
         toRound = this.toRound,
         fromCardId = this.fromCardId,
         toCardId = this.toCardId
+    )
+}
+
+fun ActionListItemEntity.toActionListItem(): ActionListItem {
+    return ActionListItem(
+        actionListId = this.actionListId,
+        actionId = this.actionId,
+        actionType = this.actionType,
+        listPosition = this.listPosition
     )
 }

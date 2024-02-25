@@ -16,6 +16,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.engine.GetRound
 import org.mechanika.inicjatywka.game.domain.use_case.engine.NextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.Wait
 
 data class InicjatywkaUseCases(
     val startInitiative: StartInitiative,
@@ -33,5 +34,6 @@ data class InicjatywkaUseCases(
     val updateCard: UpdateCard,
     val getCurrentCardId: GetCurrentCardId,
     val nextTurn: NextTurn,
-    val getRound: GetRound
+    val getRound: GetRound,
+    var wait: Wait?
 )

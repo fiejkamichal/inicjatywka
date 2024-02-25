@@ -89,7 +89,12 @@ fun InitiativePhaseScreen(
                 Button(
                     onClick = { component.onEvent(InitiativePhaseEvent.NextTurn) }
                 ) {
-                    Text("Następna tura")
+                    Text("Koniec tury postaci")
+                }
+                Button(
+                    onClick = { component.onEvent(InitiativePhaseEvent.Wait) }
+                ) {
+                    Text("Postać czeka")
                 }
             }
             item {

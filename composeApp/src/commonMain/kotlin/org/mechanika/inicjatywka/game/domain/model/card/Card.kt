@@ -76,6 +76,10 @@ data class Card(
             Null, Name, Initiative, Ally,
             HitPoints, Resilience, Mana, Concentration, MovePoints, Steps, States, Waits
         }
+
+        override fun toString(): String {
+            return "$name ($id): $value"
+        }
     }
 
     override fun toString(): String {

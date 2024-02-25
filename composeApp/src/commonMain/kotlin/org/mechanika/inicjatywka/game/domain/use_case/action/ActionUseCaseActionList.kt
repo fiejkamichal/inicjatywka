@@ -23,11 +23,20 @@ class ActionUseCaseActionList(
     }
 
     override fun deleteFromSubRepository(action: Action) {
+        val a = action as? ActionListAction
+        a?.actions?.forEach {
+            getActionUseCase(actions, it.type).delete(it)
+        }
         actionRepository.deleteActionListAction(action.id!!)
     }
 
-    override fun insertToSubRepository(action: Action): Long =
-        actionRepository.insertActionListAction(action as ActionListAction)
+    override fun insertToSubRepository(action: Action): Long {
+        val a = action as? ActionListAction
+        a?.actions?.forEach {
+            it.id = getActionUseCase(actions, it.type).insert(it)
+        }
+        return actionRepository.insertActionListAction(action as ActionListAction)
+    }
 
     override fun get(id: Long): Action =
         actionRepository.getActionListAction(id)

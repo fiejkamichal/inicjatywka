@@ -3,6 +3,7 @@ package org.mechanika.inicjatywka.game.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.data.data_source.action.ActionDao
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListItem
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -169,4 +170,15 @@ class ActionRepositoryImpl(
         return dao.getActionListAction(actionListId)
     }
 
+    override fun getActionListActionIds(): Flow<List<Long>> {
+        return dao.getActionListActionIds()
+    }
+
+    override fun getActionListItems(): Flow<List<ActionListItem>> {
+        return dao.getAllActionListItems()
+    }
+
+    override fun getAllActions(): Flow<List<List<String>>> {
+        return dao.getAllActions()
+    }
 }

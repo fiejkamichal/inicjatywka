@@ -36,6 +36,7 @@ import org.mechanika.inicjatywka.game.domain.use_case.engine.NextRound
 import org.mechanika.inicjatywka.game.domain.use_case.engine.NextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
+import org.mechanika.inicjatywka.game.domain.use_case.engine.Wait
 import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
@@ -125,8 +126,11 @@ class AppModule(
         updateCard = UpdateCard(cardRepository, stack),
         getCurrentCardId = GetCurrentCardId(engineRepository),
         nextTurn = NextTurn(engineRepository, cardRepository, nextRound, stack),
-        getRound = GetRound(engineRepository)
+        getRound = GetRound(engineRepository),
+        wait = null
     )
+
+    private val wait = Wait(engineRepository, inicjatywkaUseCases.updateCard, inicjatywkaUseCases.nextTurn, stack)
 
     private val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,
@@ -138,6 +142,7 @@ class AppModule(
 
     init {
         actions.actionUseCaseActionList = actionUseCaseActionList
+        inicjatywkaUseCases.wait = wait
     }
 
     fun getUndoRedoViewModel(): UndoRedoViewModel {

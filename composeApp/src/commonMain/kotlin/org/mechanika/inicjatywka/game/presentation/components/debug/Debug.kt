@@ -24,6 +24,9 @@ fun Debug(
     val currentStackPosition = component.state.currentStackPosition.collectAsState(null)
     val currentCardId = component.state.currentCardId.collectAsState(null)
     val currentCardIds = component.state.currentCardIds.collectAsState(emptyList())
+    val actionListActionIds = component.state.actionListActionIds.collectAsState(emptyList())
+    val actionListItems = component.state.actionListItems.collectAsState(emptyList())
+    val allActions = component.state.allActions.collectAsState(emptyList())
 
     Column {
         Button(
@@ -59,6 +62,12 @@ fun Debug(
             )
         }
 
+        allActions.value.forEachIndexed { index, strings ->
+            DebugList(strings, "table $index")
+        }
+
+        DebugList(actionListActionIds.value, "actionListActionIds")
+        DebugList(actionListItems.value, "actionListItems")
         DebugList(currentCardIds.value, "current card ids")
         DebugList(phases.value, "phases")
         DebugList(cards.value, "cards")

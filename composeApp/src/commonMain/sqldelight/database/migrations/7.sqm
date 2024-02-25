@@ -1,0 +1,1 @@
+ALTER TABLE ActionListItem RENAME TO ActionListItemEntity;

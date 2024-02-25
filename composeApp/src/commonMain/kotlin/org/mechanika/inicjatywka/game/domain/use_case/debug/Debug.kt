@@ -1,6 +1,7 @@
 package org.mechanika.inicjatywka.game.domain.use_case.debug
 
 import kotlinx.coroutines.flow.Flow
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListItem
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
@@ -43,5 +44,17 @@ class Debug(
 
     fun getCurrentStackPosition(): Flow<Long?> {
         return actionRepository.getActionStackPositionFlow()
+    }
+
+    fun getActionListActionIds(): Flow<List<Long>> {
+        return actionRepository.getActionListActionIds()
+    }
+
+    fun getActionListItems(): Flow<List<ActionListItem>> {
+        return actionRepository.getActionListItems()
+    }
+
+    fun getAllActions(): Flow<List<List<String>>> {
+        return actionRepository.getAllActions()
     }
 }

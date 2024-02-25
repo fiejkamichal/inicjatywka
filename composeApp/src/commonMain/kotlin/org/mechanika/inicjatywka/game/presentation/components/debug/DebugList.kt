@@ -1,5 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -20,15 +22,16 @@ fun <T> DebugList(
     name: String
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = Modifier.fillMaxSize().border(1.dp, Color.Black),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
 
     ) {
         Row {
+            Spacer(Modifier.width(8.dp))
             Text(
                 text = "$name (${list.size})",
                 modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 8.dp)
 
             )
         }
@@ -38,11 +41,11 @@ fun <T> DebugList(
                 modifier = Modifier.fillMaxWidth()
 
             ) {
-                Spacer(Modifier.width(16.dp))
                 Text(
                     text = "-: ${it.toString()}",
                     modifier = Modifier.weight(1f)
                 )
+                Spacer(Modifier.width(8.dp))
             }
         }
     }

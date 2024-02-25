@@ -1,6 +1,7 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
 import kotlinx.coroutines.flow.Flow
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListItem
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
@@ -15,7 +16,10 @@ data class DebugState(
     val deletedCards: Flow<List<Card>>,
     val currentStackPosition: Flow<Long?>,
     val currentCardId: Flow<Long?>,
-    val currentCardIds: Flow<List<Long?>>
+    val currentCardIds: Flow<List<Long?>>,
+    val actionListActionIds: Flow<List<Long>>,
+    val actionListItems: Flow<List<ActionListItem>>,
+    val allActions: Flow<List<List<String>>>
 )
 
 data class DebugSheetState(

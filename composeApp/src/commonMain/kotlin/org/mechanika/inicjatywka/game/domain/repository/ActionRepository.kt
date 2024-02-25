@@ -2,6 +2,7 @@ package org.mechanika.inicjatywka.game.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
+import org.mechanika.inicjatywka.game.domain.model.action.ActionListItem
 import org.mechanika.inicjatywka.game.domain.model.action.ActionStackEntry
 import org.mechanika.inicjatywka.game.domain.model.action.CardAddAction
 import org.mechanika.inicjatywka.game.domain.model.action.CardDeleteAction
@@ -60,4 +61,7 @@ interface ActionRepository {
     fun insertActionListAction(actionListAction: ActionListAction): Long
     fun deleteActionListAction(actionListId: Long)
     fun getActionListAction(actionListId: Long): ActionListAction
+    fun getActionListActionIds(): Flow<List<Long>>
+    fun getActionListItems(): Flow<List<ActionListItem>>
+    fun getAllActions(): Flow<List<List<String>>>
 }

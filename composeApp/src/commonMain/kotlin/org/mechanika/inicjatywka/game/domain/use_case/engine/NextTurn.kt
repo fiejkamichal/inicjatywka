@@ -13,17 +13,9 @@ class NextTurn(
 ) {
     operator fun invoke() {
         val fromCardId = engineRepository.getCurrentCardId() ?: 0
-        var toCardId = fromCardId
-
-        val cards = cardRepository.getCards()
-        val iterator = cards.listIterator()
-        while (iterator.hasNext()) {
-            val card = iterator.next()
-            if (card.id == toCardId) break
-        }
-        if (iterator.hasNext()) {
-            val card = iterator.next()
-            toCardId = card.id ?: 0
+        val toCardId = getNextCardId(fromCardId)
+        if (toCardId == null) nextRound()
+        else {
             engineRepository.setCurrentCardId(toCardId)
             stack.pushActionAboveCurrentPosition(
                 NextTurnAction(
@@ -32,8 +24,19 @@ class NextTurn(
                 )
             )
         }
-        else {
-            nextRound()
+    }
+
+    fun getNextCardId(cardId: Long): Long? {
+        val cards = cardRepository.getCards()
+        val iterator = cards.listIterator()
+        while (iterator.hasNext()) {
+            val card = iterator.next()
+            if (card.id == cardId) break
         }
+        if (iterator.hasNext()) {
+            val card = iterator.next()
+            return card.id
+        }
+        return null
     }
 }

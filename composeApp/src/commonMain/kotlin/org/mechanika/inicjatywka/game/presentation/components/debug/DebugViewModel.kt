@@ -17,7 +17,10 @@ class DebugViewModel(
         deletedCards = inicjatywkaUseCases.debug.getDeletedCards(),
         currentStackPosition = inicjatywkaUseCases.debug.getCurrentStackPosition(),
         currentCardId = inicjatywkaUseCases.debug.getCurrentCardId(),
-        currentCardIds = inicjatywkaUseCases.debug.getCurrentCardIds()
+        currentCardIds = inicjatywkaUseCases.debug.getCurrentCardIds(),
+        actionListActionIds = inicjatywkaUseCases.debug.getActionListActionIds(),
+        actionListItems = inicjatywkaUseCases.debug.getActionListItems(),
+        allActions = inicjatywkaUseCases.debug.getAllActions()
     )
 
     var isDebugSheetOpen by mutableStateOf(DebugSheetState())
