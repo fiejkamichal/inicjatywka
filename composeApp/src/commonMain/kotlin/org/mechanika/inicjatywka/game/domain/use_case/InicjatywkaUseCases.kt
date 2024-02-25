@@ -34,7 +34,7 @@ data class InicjatywkaUseCases(
     val getCards: GetCards,
     val updateCard: UpdateCard,
     val getCurrentCardId: GetCurrentCardId,
-    var nextTurn: NextTurn?,
+    val nextTurn: NextTurn,
     val getRound: GetRound,
     val getReverse: GetReverse,
     var wait: Wait?

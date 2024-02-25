@@ -10,23 +10,20 @@ class UpdateCard(
     private val stack: Stack
 ) {
     operator fun invoke(cardId: Long, newCard: Card) {
-        val prevId = update(cardId, newCard)
-        if (prevId != null) {
-            stack.pushActionAboveCurrentPosition(
-                CardUpdateAction(
-                    cardId = cardId,
-                    prevCardId = prevId
-                )
-            )
+        update(cardId, newCard)?.let {
+            stack.pushActionAboveCurrentPosition(it)
         }
     }
 
-    fun update(cardId: Long, newCard: Card): Long? {
+    fun update(cardId: Long, newCard: Card): CardUpdateAction? {
         val card = repository.getCard(cardId)
         if (card != null && !card.sameStats(newCard)) {
             val prevId = repository.insertDeletedCard(card)
             repository.updateCard(cardId, newCard)
-            return prevId
+            return CardUpdateAction(
+                cardId = cardId,
+                prevCardId = prevId
+            )
         }
         return null
     }

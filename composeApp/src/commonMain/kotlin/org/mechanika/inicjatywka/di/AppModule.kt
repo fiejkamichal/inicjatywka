@@ -108,9 +108,19 @@ class AppModule(
     private
     val getCardIdWithHighestInitiative = GetCardIdWithHighestInitiative(cardRepository)
 
+    private val updateCard = UpdateCard(cardRepository, stack)
+
+    private
+    val nextRound = NextRound(
+        engineRepository,
+        cardRepository,
+        updateCard,
+        getCardIdWithHighestInitiative,
+        stack
+    )
     val inicjatywkaUseCases = InicjatywkaUseCases(
         startInitiative = StartInitiative(engineRepository, getCardIdWithHighestInitiative, stack),
-        stopInitiative = StopInitiative(engineRepository, stack),
+        stopInitiative = StopInitiative(engineRepository, cardRepository, updateCard, stack),
         getPhase = GetPhase(engineRepository),
         actions = actions,
         undoAction = Undo(stack, actions),
@@ -121,28 +131,17 @@ class AppModule(
         deleteCard = DeleteCard(cardRepository, stack),
         getCard = GetCard(cardRepository),
         getCards = GetCards(cardRepository),
-        updateCard = UpdateCard(cardRepository, stack),
+        updateCard = updateCard,
         getCurrentCardId = GetCurrentCardId(engineRepository),
-        nextTurn = null,
+        nextTurn = NextTurn(engineRepository, cardRepository, nextRound, updateCard, stack),
         getRound = GetRound(engineRepository),
         getReverse = GetReverse(engineRepository),
         wait = null
     )
 
-    private
-    val nextRound = NextRound(
-        engineRepository,
-        cardRepository,
-        inicjatywkaUseCases.updateCard,
-        getCardIdWithHighestInitiative,
-        stack
-    )
-
-    private val nextTurn =
-        NextTurn(engineRepository, cardRepository, nextRound, inicjatywkaUseCases.updateCard, stack)
 
     private val wait =
-        Wait(engineRepository, inicjatywkaUseCases.updateCard, nextTurn, stack)
+        Wait(engineRepository, updateCard, inicjatywkaUseCases.nextTurn, stack)
 
     private val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,
@@ -155,7 +154,6 @@ class AppModule(
     init {
         actions.actionUseCaseActionList = actionUseCaseActionList
         inicjatywkaUseCases.wait = wait
-        inicjatywkaUseCases.nextTurn = nextTurn
     }
 
     fun getUndoRedoViewModel(): UndoRedoViewModel {

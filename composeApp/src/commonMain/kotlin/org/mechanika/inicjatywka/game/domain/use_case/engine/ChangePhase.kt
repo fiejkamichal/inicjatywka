@@ -7,10 +7,12 @@ fun changePhase(
     to: Engine.Phases,
     cardId: Long?,
     round: Long,
+    reverse: Boolean,
     repository: EngineRepository,
 ) {
     repository.setPhase(to)
     repository.setRound(round)
+    repository.setReverse(reverse)
     if (cardId != null) repository.setCurrentCardId(cardId)
     else repository.unsetCurrentCardId()
 }

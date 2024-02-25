@@ -8,5 +8,6 @@ data class PhaseChangeAction(
     val to: Engine.Phases,
     val cardId: Long?,
     val round: Long,
+    val reverse: Boolean,
     override val type: ActionStackEntry.ActionTypes = ActionStackEntry.ActionTypes.PhaseChange
 ) : Action

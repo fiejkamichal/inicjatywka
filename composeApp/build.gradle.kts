@@ -1,7 +1,7 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
-val inicjatywkaVersion = "1.6.0"
+val inicjatywkaVersion = "1.7.0"
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -74,7 +74,7 @@ android {
         applicationId = "org.mechanika.inicjatywka"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 7
+        versionCode = 170
         versionName = inicjatywkaVersion
     }
     packaging {

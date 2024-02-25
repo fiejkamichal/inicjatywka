@@ -18,14 +18,16 @@ class StartInitiative(
             to = Engine.Phases.Initiative,
             cardId = cardId,
             repository = repository,
-            round = round
+            round = round,
+            reverse = false
         )
         stack.pushActionAboveCurrentPosition(
             PhaseChangeAction(
                 from = Engine.Phases.Initial,
                 to = Engine.Phases.Initiative,
                 cardId = cardId,
-                round = round
+                round = round,
+                reverse = false
             )
         )
     }

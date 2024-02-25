@@ -86,7 +86,8 @@ class ActionDaoImpl(
                 fromPhase = phaseChange.from.toString(),
                 toPhase = phaseChange.to.toString(),
                 cardId = phaseChange.cardId,
-                round = phaseChange.round
+                round = phaseChange.round,
+                reverse = if (phaseChange.reverse) 1L else 0L
             )
             queries.lastInsertRowId().executeAsOne()
         }

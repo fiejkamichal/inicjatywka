@@ -2,7 +2,6 @@ package org.mechanika.inicjatywka.game.domain.use_case.engine
 
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
-import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
@@ -58,14 +57,8 @@ class NextTurn(
             if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) {
                 val cardNew = card.copy()
                 cardNew.setStat(Card.Stat.Id.Waits, false.toString())
-                val prevCardId = updateCard.update(fromCardId, cardNew)
-                prevCardId?.let {
-                    actions.add(
-                        CardUpdateAction(
-                            cardId = fromCardId,
-                            prevCardId = prevCardId
-                        )
-                    )
+                updateCard.update(fromCardId, cardNew)?.let {
+                    actions.add(it)
                 }
             }
 

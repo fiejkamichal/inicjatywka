@@ -1,0 +1,1 @@
+ALTER TABLE PhaseChangeActionEntity ADD COLUMN reverse INTEGER DEFAULT 0;

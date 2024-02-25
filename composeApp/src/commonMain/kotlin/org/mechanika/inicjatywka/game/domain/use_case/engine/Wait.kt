@@ -1,7 +1,6 @@
 package org.mechanika.inicjatywka.game.domain.use_case.engine
 
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
-import org.mechanika.inicjatywka.game.domain.model.action.CardUpdateAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
@@ -23,19 +22,14 @@ class Wait(
         nextCardId ?: return //cannot wait if it is last
 
         card.setStat(Card.Stat.Id.Waits, true.toString())
-        val prevCardId = updateCard.update(cardId, card)
+        val cardUpdateAction = updateCard.update(cardId, card)
 
         engineRepository.setCurrentCardId(nextCardId)
 
         stack.pushActionAboveCurrentPosition(
             ActionListAction(
                 actions = listOfNotNull(
-                    prevCardId?.let {
-                        CardUpdateAction(
-                            cardId = cardId,
-                            prevCardId = prevCardId
-                        )
-                    },
+                    cardUpdateAction,
                     NextTurnAction(
                         fromCardId = cardId,
                         toCardId = nextCardId,
