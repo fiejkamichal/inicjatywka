@@ -95,7 +95,8 @@ fun InitiativePhaseScreen(
                     Text("Koniec tury postaci")
                 }
                 Button(
-                    onClick = { component.onEvent(InitiativePhaseEvent.Wait) }
+                    onClick = { component.onEvent(InitiativePhaseEvent.Wait) },
+                    enabled = !reverse.value
                 ) {
                     Text("Postać czeka")
                 }

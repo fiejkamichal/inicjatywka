@@ -6,6 +6,8 @@ import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 fun EngineEntity.toEngine(): Engine {
     return Engine(
         phase = Engine.Phases.valueOf(this.phase),
-        cardId = this.cardId
+        cardId = this.cardId,
+        round = this.round?:0,
+        reverse = this.reverse == 1L
     )
 }
