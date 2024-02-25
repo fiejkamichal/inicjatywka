@@ -13,6 +13,7 @@ class EngineRepositoryImpl(
     init {
         dao.getEngine() ?: dao.setEngine(Engine.Phases.Initial)
     }
+
     override fun getPhase(): Flow<Engine.Phases?> {
         return dao.getPhase()
     }
@@ -48,7 +49,7 @@ class EngineRepositoryImpl(
     }
 
     override fun getRound(): Long {
-        return dao.getRound()?:0
+        return dao.getRound() ?: 0
     }
 
     override fun setRound(round: Long) {
@@ -57,7 +58,7 @@ class EngineRepositoryImpl(
 
     override fun getRoundAsFlow(): Flow<Long> {
         return dao.getRoundAsFlow().map {
-            it?:0
+            it ?: 0
         }
     }
 }

@@ -130,7 +130,8 @@ class AppModule(
         wait = null
     )
 
-    private val wait = Wait(engineRepository, inicjatywkaUseCases.updateCard, inicjatywkaUseCases.nextTurn, stack)
+    private val wait =
+        Wait(engineRepository, inicjatywkaUseCases.updateCard, inicjatywkaUseCases.nextTurn, stack)
 
     private val undoRedoViewModel = UndoRedoViewModel(
         undo = inicjatywkaUseCases.undoAction,

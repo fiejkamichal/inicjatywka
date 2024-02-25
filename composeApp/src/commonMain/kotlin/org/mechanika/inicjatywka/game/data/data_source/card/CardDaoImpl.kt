@@ -108,8 +108,8 @@ class CardDaoImpl(
         return queries.getCards()
             .executeAsList()
             .map {
-                    it.toCard()
-                }
+                it.toCard()
+            }
     }
 
     override fun getDeletedCards(): Flow<List<Card>> {

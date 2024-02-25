@@ -1,5 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.initiative_phase
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,6 +19,7 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
@@ -102,7 +104,14 @@ fun InitiativePhaseScreen(
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     sortedCards.value.forEach {
-                        Column {
+                        Column(
+                            modifier = Modifier.border(
+                                width = 1.dp,
+                                color = if (it.getStat(Stat.Id.Waits).value.toBoolean())
+                                    Color.Red
+                                else Color.Black
+                            ),
+                        ) {
                             Text(
                                 text = it.getStat(Stat.Id.Initiative).value + " " +
                                         it.getStat(Stat.Id.Name).value + " " + it.id.toString(),
@@ -127,7 +136,7 @@ fun InitiativePhaseScreen(
                     onSave = { card ->
                         component.cardViewModel.onEvent(CardEvent.SaveCard(card))
                     }
-                    )
+                )
             }
         }
     }

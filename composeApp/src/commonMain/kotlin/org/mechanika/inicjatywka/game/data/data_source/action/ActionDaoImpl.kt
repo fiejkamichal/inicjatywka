@@ -229,7 +229,8 @@ class ActionDaoImpl(
                 fromCardId = nextRound.fromCardId,
                 toCardId = nextRound.toCardId,
                 fromRound = nextRound.fromRound,
-                toRound = nextRound.toRound)
+                toRound = nextRound.toRound
+            )
             queries.lastInsertRowId().executeAsOne()
         }
     }
@@ -262,7 +263,7 @@ class ActionDaoImpl(
             actionListAction.actions.forEachIndexed { index, action ->
                 queries.insertActionListItem(
                     actionListId = actionListId,
-                    actionId = action.id?:0,
+                    actionId = action.id ?: 0,
                     actionType = action.type.value,
                     listPosition = index.toLong()
                 )

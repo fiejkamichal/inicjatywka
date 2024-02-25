@@ -43,7 +43,7 @@ class EngineDaoImpl(
             .asFlow()
             .mapToOneOrNull(context = Dispatchers.IO)
             .map {
-                if(it != null) Engine.Phases.valueOf(it) else null
+                if (it != null) Engine.Phases.valueOf(it) else null
             }
     }
 
