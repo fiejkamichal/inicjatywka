@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardList
+import org.mechanika.inicjatywka.game.presentation.components.card.CardListEvent
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
@@ -72,10 +73,10 @@ fun InitialPhaseScreen(
                 )
             }
             item {
-                New(component.cardViewModel)
+                New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
             }
             item {
-                CardList(component.cardViewModel)
+                CardList(component.cardListViewModel, component.cardEditViewModel)
             }
         }
     }

@@ -3,7 +3,6 @@ package org.mechanika.inicjatywka.game.presentation.components.card
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,43 +14,42 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CardList(
-    viewModel: CardViewModel
+    cardListViewModel: CardListViewModel,
+    cardEditViewModel: CardEditViewModel
 ) {
-    val cards = viewModel.state.cards.collectAsState(emptyList())
-    val cardEdit = viewModel.cardEdit
+    val cards = cardListViewModel.state.cards.collectAsState(emptyList())
+    val cardEdit = cardEditViewModel.cardEdit
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Row {
-            Text(
-                text = "Karty Postaci (${cards.value.size})",
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
-        }
+        Text(
+            text = "Karty Postaci (${cards.value.size})",
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        )
         cards.value.forEach { it ->
             if (cardEdit != null && it.id == cardEdit.id)
                 CardEdit(
-                    cardEdit = viewModel.cardEdit,
+                    cardEdit = cardEditViewModel.cardEdit,
                     onUpdate = { id, value ->
-                        viewModel.onEvent(CardEvent.UpdateCardStat(id, value))
+                        cardEditViewModel.onEvent(CardEditEvent.UpdateCardStat(id, value))
                     },
                     onSave = { card ->
-                        viewModel.onEvent(CardEvent.SaveCard(card))
-                        viewModel.cardEdit = null
+                        cardEditViewModel.onEvent(CardEditEvent.SaveCard(card))
+                        cardEditViewModel.cardEdit = null
                     }
                 )
             else
                 Card(
                     card = it,
-                    viewModel = viewModel,
+                    viewModel = cardListViewModel,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
                         .clickable {
-                            viewModel.onEvent(CardEvent.EditCard(it))
+                            cardEditViewModel.onEvent(CardEditEvent.EditCard(it))
                         }
                 )
         }

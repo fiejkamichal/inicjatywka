@@ -1,7 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -37,30 +36,24 @@ fun Debug(
             )
         }
 
-        Row {
-            Text(
-                text = "Faza (${currentPhase.value})",
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+        Text(
+            text = "Faza (${currentPhase.value})",
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
 
-            )
-        }
+        )
 
-        Row {
-            Text(
-                text = "Obecna Pozycja na Stosie (${currentStackPosition.value})",
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
-        }
+        Text(
+            text = "Obecna Pozycja na Stosie (${currentStackPosition.value})",
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        )
 
-        Row {
-            Text(
-                text = "Obecna Karta Postaci (${currentCardId.value})",
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
-        }
+        Text(
+            text = "Obecna Karta Postaci (${currentCardId.value})",
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        )
 
         allActions.value.forEachIndexed { index, strings ->
             DebugList(strings, "table $index")

@@ -6,8 +6,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
-import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEditViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardListViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -16,7 +17,9 @@ class InitiativePhaseViewModel(
     componentContext: ComponentContext,
     val undoRedoViewModel: UndoRedoViewModel,
     val debugViewModel: DebugViewModel,
-    val cardViewModel: CardViewModel,
+    val cardListViewModel: CardListViewModel,
+    val currentCardEditViewModel: CardEditViewModel,
+    val selectedCardEditViewModel: CardEditViewModel,
     private val onNavigateToInitialPhase: () -> Unit
 ) : ViewModel(), ComponentContext by componentContext {
 
@@ -32,7 +35,7 @@ class InitiativePhaseViewModel(
             .onEach { it ->
                 val card = it?.let { it1 -> inicjatywkaUseCases.getCard(it1) }
                 card?.let { it1 ->
-                    cardViewModel.onEvent(CardEvent.EditCard(it1))
+                    currentCardEditViewModel.onEvent(CardEditEvent.EditCard(it1))
                 }
             },
         round = inicjatywkaUseCases.getRound(),
@@ -46,10 +49,9 @@ class InitiativePhaseViewModel(
                 onNavigateToInitialPhase()
             }
 
-            InitiativePhaseEvent.NextTurn -> inicjatywkaUseCases.nextTurn?.let { it1 -> it1() }
-                ?: error("nextTurn is not available!!!")
+            InitiativePhaseEvent.NextTurn -> inicjatywkaUseCases.nextTurn()
 
-            InitiativePhaseEvent.Wait -> cardViewModel.cardEdit?.let {
+            InitiativePhaseEvent.Wait -> currentCardEditViewModel.cardEdit?.let {
                 inicjatywkaUseCases.wait?.let { it1 -> it1(it) }
                     ?: error("wait is not available!!!")
             }

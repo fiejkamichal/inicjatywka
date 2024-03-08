@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
-import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEditViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardListViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -16,7 +17,8 @@ class InitialPhaseViewModel(
     componentContext: ComponentContext,
     val undoRedoViewModel: UndoRedoViewModel,
     val debugViewModel: DebugViewModel,
-    val cardViewModel: CardViewModel,
+    val cardListViewModel: CardListViewModel,
+    val cardEditViewModel: CardEditViewModel,
     private val onNavigateToInitiativePhase: () -> Unit
 ) : ViewModel(), ComponentContext by componentContext {
 

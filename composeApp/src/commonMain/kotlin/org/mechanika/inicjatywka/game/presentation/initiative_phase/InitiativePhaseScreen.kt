@@ -1,8 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.initiative_phase
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,13 +17,11 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.mechanika.inicjatywka.game.domain.model.card.Card.Stat
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
@@ -37,7 +33,7 @@ fun InitiativePhaseScreen(
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initiative)
     val currentCardId = component.state.currentCardId.collectAsState(null)
-    val sortedCards = component.cardViewModel.state.cards.collectAsState(emptyList())
+    val sortedCards = component.cardListViewModel.state.cards.collectAsState(emptyList())
     val round = component.state.round.collectAsState(0)
     val reverse = component.state.reverse.collectAsState(false)
 
@@ -102,43 +98,57 @@ fun InitiativePhaseScreen(
                 }
             }
             item {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    sortedCards.value.forEach {
-                        Column(
-                            modifier = Modifier.border(
-                                width = 1.dp,
-                                color = if (it.getStat(Stat.Id.Waits).value.toBoolean())
-                                    Color.Red
-                                else Color.Black
-                            ),
-                        ) {
-                            Text(
-                                text = it.getStat(Stat.Id.Initiative).value + " " +
-                                        it.getStat(Stat.Id.Name).value + " " + it.id.toString(),
-                                fontWeight = (
-                                        if (it.id == currentCardId.value)
-                                            FontWeight.Bold
-                                        else
-                                            FontWeight.Light
-                                        )
+                Row {
+                    CardEdit(
+                        cardEdit = component.currentCardEditViewModel.cardEdit,
+                        onUpdate = { id, value ->
+                            component.currentCardEditViewModel.onEvent(
+                                CardEditEvent.UpdateCardStat(
+                                    id,
+                                    value
+                                )
+                            )
+                        },
+                        onSave = { card ->
+                            component.currentCardEditViewModel.onEvent(
+                                CardEditEvent.SaveCard(
+                                    card
+                                )
                             )
                         }
-                    }
-                }
-            }
-            item {
-                CardEdit(
+                    )
 
-                    cardEdit = component.cardViewModel.cardEdit,
-                    onUpdate = { id, value ->
-                        component.cardViewModel.onEvent(CardEvent.UpdateCardStat(id, value))
-                    },
-                    onSave = { card ->
-                        component.cardViewModel.onEvent(CardEvent.SaveCard(card))
-                    }
-                )
+                    InitiativeCardList(
+                        sortedCards = sortedCards.value,
+                        highlightedCardId = currentCardId.value,
+                        onCardSelect = {
+                            component.selectedCardEditViewModel.onEvent(
+                                CardEditEvent.EditCard(
+                                    it
+                                )
+                            )
+                        }
+                    )
+
+                    CardEdit(
+                        cardEdit = component.selectedCardEditViewModel.cardEdit,
+                        onUpdate = { id, value ->
+                            component.selectedCardEditViewModel.onEvent(
+                                CardEditEvent.UpdateCardStat(
+                                    id,
+                                    value
+                                )
+                            )
+                        },
+                        onSave = { card ->
+                            component.selectedCardEditViewModel.onEvent(
+                                CardEditEvent.SaveCard(
+                                    card
+                                )
+                            )
+                        }
+                    )
+                }
             }
         }
     }
@@ -148,3 +158,4 @@ fun InitiativePhaseScreen(
         modifier = Modifier
     )
 }
+

@@ -40,7 +40,8 @@ class RootComponent(
                     inicjatywkaUseCases = appModule.inicjatywkaUseCases,
                     undoRedoViewModel = appModule.getUndoRedoViewModel(),
                     debugViewModel = appModule.getDebugViewModel(),
-                    cardViewModel = appModule.getCardViewModel(),
+                    cardListViewModel = appModule.getCardListViewModel(),
+                    cardEditViewModel = appModule.getCardEditViewModel(),
                     componentContext = context,
                     onNavigateToInitiativePhase = {
                         navigation.replaceAll(
@@ -55,7 +56,9 @@ class RootComponent(
                     inicjatywkaUseCases = appModule.inicjatywkaUseCases,
                     undoRedoViewModel = appModule.getUndoRedoViewModel(),
                     debugViewModel = appModule.getDebugViewModel(),
-                    cardViewModel = appModule.getCardViewModel(),
+                    cardListViewModel = appModule.getCardListViewModel(),
+                    currentCardEditViewModel = appModule.getCardEditViewModel(),
+                    selectedCardEditViewModel = appModule.getCardEditViewModel(),
                     componentContext = context,
                     onNavigateToInitialPhase = {
                         navigation.replaceAll(

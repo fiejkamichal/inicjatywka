@@ -38,7 +38,8 @@ import org.mechanika.inicjatywka.game.domain.use_case.engine.NextTurn
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StartInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.StopInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.engine.Wait
-import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEditViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardListViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -164,11 +165,16 @@ class AppModule(
         return debugViewModel
     }
 
-    fun getCardViewModel(): CardViewModel {
-        return CardViewModel(
+    fun getCardListViewModel(): CardListViewModel {
+        return CardListViewModel(
             addCard = inicjatywkaUseCases.addCard,
             deleteCard = inicjatywkaUseCases.deleteCard,
-            getCards = inicjatywkaUseCases.getCards,
+            getCards = inicjatywkaUseCases.getCards
+        )
+    }
+
+    fun getCardEditViewModel(): CardEditViewModel {
+        return CardEditViewModel(
             updateCard = inicjatywkaUseCases.updateCard
         )
     }

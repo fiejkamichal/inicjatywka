@@ -5,14 +5,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun New(
-    onNew: () -> Unit
+fun Delete(
+    active: Boolean,
+    onDelete: () -> Unit
 ) {
     Button(
-        onClick = onNew,
+        onClick = onDelete,
+        enabled = active
     ) {
-        Text(
-            text = "Dodaj Postać"
-        )
+        Text("Usuń")
     }
 }

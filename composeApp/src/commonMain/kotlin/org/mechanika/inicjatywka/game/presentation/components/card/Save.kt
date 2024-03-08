@@ -5,14 +5,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun New(
-    onNew: () -> Unit
+fun Save(
+    onSave: () -> Unit
 ) {
     Button(
-        onClick = onNew,
+        onClick = onSave,
     ) {
-        Text(
-            text = "Dodaj Postać"
-        )
+        Text("Zapisz")
     }
 }
