@@ -2,16 +2,13 @@ package org.mechanika.inicjatywka.game.presentation.initial_phase
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -23,6 +20,7 @@ import org.mechanika.inicjatywka.game.presentation.components.card.CardListEvent
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
+import org.mechanika.inicjatywka.game.presentation.components.layout.Layout
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
 
@@ -32,29 +30,14 @@ fun InitialPhaseScreen(
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initial)
 
-    Scaffold(
+    Layout(
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                component.onEvent(InitialPhaseEvent.StartInitiative)
-            }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowForward,
-                    contentDescription = "Start Inicjatywy"
-                )
-            }
-        }
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                DebugButton(component.debugViewModel)
+            DebugButton(component.debugViewModel)
+        },
+        topContent = {
+            Row {
                 Undo(component.undoRedoViewModel)
                 Redo(component.undoRedoViewModel)
-            }
-            item {
                 Text(
                     text = "Ekran startowy",
                     modifier = Modifier
@@ -62,8 +45,6 @@ fun InitialPhaseScreen(
                         .padding(horizontal = 16.dp),
                     fontWeight = FontWeight.Bold
                 )
-            }
-            item {
                 Text(
                     text = currentPhase.value.toString(),
                     modifier = Modifier
@@ -72,17 +53,35 @@ fun InitialPhaseScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            item {
-                New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
+        },
+        middleContent =
+        {
+            Row(){
+                Button(onClick = {
+                    component.onEvent(InitialPhaseEvent.StartInitiative)
+                }) {
+                    Text("Start Inicjatywy")
+                }
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    item {
+                        New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
+                    }
+                    item {
+                        CardList(component.cardListViewModel, component.cardEditViewModel)
+                    }
+                }
             }
-            item {
-                CardList(component.cardListViewModel, component.cardEditViewModel)
-            }
+        },
+        bottomSheet = {
+            DebugBottomSheet(
+                isOpen = component.debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
+                viewModel = component.debugViewModel,
+                modifier = Modifier
+            )
         }
-    }
-    DebugBottomSheet(
-        isOpen = component.debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
-        viewModel = component.debugViewModel,
-        modifier = Modifier
     )
 }

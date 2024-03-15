@@ -1,6 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.components.debug
 
-import androidx.compose.material.Button
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 fun DebugButton(
     viewModel: DebugViewModel
 ) {
-    Button(
+    FloatingActionButton(
         onClick = {
             viewModel.onEvent(DebugEvent.OnDebugButtonClicked)
         }

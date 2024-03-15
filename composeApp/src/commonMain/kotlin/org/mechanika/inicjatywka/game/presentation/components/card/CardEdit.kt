@@ -1,10 +1,21 @@
 package org.mechanika.inicjatywka.game.presentation.components.card
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
+import androidx.compose.foundation.HorizontalScrollbar
+import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.OutlinedTextField
@@ -24,28 +35,53 @@ fun CardEdit(
     onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
     onSave: (card: Card) -> Unit
 ) {
-    Row(
+    Box(
         modifier = Modifier
-            //.fillMaxSize()
-            .border(BorderStroke(4.dp, Color.Black)),
-        verticalAlignment = Alignment.CenterVertically
+            .background(Color.Red)
+            .size(300.dp)
+            .padding(10.dp)
     ) {
-        Column {
-            Text("Edycja Karta postaci (${cardEdit?.id}):")
-            cardEdit?.getStats()?.forEach {
-                StatEdit(
-                    it,
-                    onValueChanged = onUpdate
-                )
+        val stateVertical = rememberScrollState(0)
+        val stateHorizontal = rememberScrollState(0)
+
+        Box(
+            modifier = Modifier
+                .background(Color.Blue)
+                .fillMaxSize()
+                .verticalScroll(stateVertical)
+                .padding(end = 12.dp, bottom = 12.dp)
+                .horizontalScroll(stateHorizontal)
+        ) {
+            Column {
+                Text("Edycja Karta postaci (${cardEdit?.id}):")
+                cardEdit?.getStats()?.forEach {
+                    StatEdit(
+                        it,
+                        onValueChanged = onUpdate
+                    )
+                }
+                Save {
+                    cardEdit?.let {
+                        onSave(it)
+                    }
+                }
             }
         }
-        Save {
-            cardEdit?.let {
-                onSave(it)
-            }
-        }
+        VerticalScrollbar(
+            modifier = Modifier.align(Alignment.CenterEnd)
+                .fillMaxHeight(),
+            adapter = rememberScrollbarAdapter(stateVertical)
+        )
+        HorizontalScrollbar(
+            modifier = Modifier.align(Alignment.BottomStart)
+                .fillMaxWidth()
+                .padding(end = 12.dp),
+            adapter = rememberScrollbarAdapter(stateHorizontal)
+        )
     }
+
 }
+
 
 @Composable
 fun StatEdit(
@@ -121,32 +157,41 @@ private fun StatBooleanField(
 }
 
 @Composable
-private fun StatLongField(
+fun StatLongField(
     value: Long,
     fieldName: String,
     onValueChanged: (Long) -> Unit
 ) {
     val pattern = remember { Regex("^-?\\d*\$") }
-    Row {
-        Text(text = fieldName)
-        OutlinedTextField(
-            value = value.toString(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = {
-                if (it.matches(pattern)) {
-                    onValueChanged(it.toLongOrNull() ?: 0)
+    OutlinedTextField(
+        label = {
+            Text(
+                text = fieldName,
+                modifier = Modifier
+                    .background(color = Color.LightGray)
+            )
+        },
+        value = value.toString(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        onValueChange = {
+            if (it.matches(pattern)) {
+                onValueChanged(it.toLongOrNull() ?: 0)
+            }
+        },
+        trailingIcon = {
+            Row {
+                Button(
+                    onClick = { onValueChanged(value + 1) }
+                ) {
+                    Text("+")
+                }
+                Button(
+                    onClick = { onValueChanged(value - 1) }
+                ) {
+                    Text("-")
                 }
             }
-        )
-        Button(
-            onClick = { onValueChanged(value + 1) }
-        ) {
-            Text("+")
         }
-        Button(
-            onClick = { onValueChanged(value - 1) }
-        ) {
-            Text("-")
-        }
-    }
+    )
 }
+
