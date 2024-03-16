@@ -58,6 +58,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.sqldelight.jvm)
             implementation(libs.decompose)
+            implementation(libs.appdirs)
         }
     }
 }
@@ -106,6 +107,12 @@ compose.desktop {
             packageName = "org.mechanika.inicjatywka"
             packageVersion = inicjatywkaVersion
             modules("java.sql")
+            windows {
+                dirChooser = true
+                perUserInstall = true
+                upgradeUuid = "BD51EE71-2707-4BF3-BFEB-20C3BA1B8EC5"
+                menuGroup = "Inicjatywka"
+            }
         }
     }
 }

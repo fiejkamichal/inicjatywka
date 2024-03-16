@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.CardListEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
 import org.mechanika.inicjatywka.game.presentation.components.layout.Layout
@@ -91,6 +93,7 @@ fun InitiativePhaseScreen(
                         ) {
                             Text("Postać czeka")
                         }
+                        New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
                     }
                 }
                 item {
