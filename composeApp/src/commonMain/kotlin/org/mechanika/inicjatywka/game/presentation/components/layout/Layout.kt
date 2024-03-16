@@ -4,54 +4,64 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun Layout(
-    floatingActionButton: (@Composable () -> Unit)? = null,
-    topContent: (@Composable () -> Unit)? = null,
-    middleContent: (@Composable () -> Unit)? = null,
-    bottomContent: (@Composable () -> Unit)? = null,
-    bottomSheet: (@Composable () -> Unit)? = null
+    modifier: Modifier = Modifier,
+    floatingActionButton: @Composable () -> Unit = { },
+    topLeftText: String = "",
+    topRightText: String = "",
+    topMiddleContent: @Composable () -> Unit = {},
+    middleLeftContent: @Composable () -> Unit = {},
+    middleMiddleContent: @Composable () -> Unit = {},
+    middleRightContent: @Composable () -> Unit = {},
+    bottomContent: @Composable () -> Unit = {},
+    bottomSheet: @Composable () -> Unit = {},
 ) {
     Scaffold(
-        floatingActionButton = {floatingActionButton?.let { it() }}
+        floatingActionButton = floatingActionButton
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
-                .background(Color( 0xFF94DF1A))
-                .border(10.dp, Color( 0xFF324F0F))
+                .background(Color(0xFF94DF1A))
+                .border(10.dp, Color(0xFF324F0F))
+                .padding(10.dp)
         ) {
+            TopBar(
+                modifier = Modifier
+                    .weight(0.1f)
+                    .fillMaxWidth(),
+                leftText = topLeftText,
+                rightText = topRightText,
+                middleContent = topMiddleContent
+            )
+            MiddleBar (
+                modifier = Modifier
+                    .weight(0.8f)
+                    .fillMaxWidth(),
+                leftContent = middleLeftContent,
+                middleContent = middleMiddleContent,
+                rightContent = middleRightContent
+            )
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.1f)
+                    .weight(0.1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-                topContent?.let { it() }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.8f)
-            ) {
-                middleContent?.let{ it() }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.1f)
-            ) {
-                bottomContent?.let { it() }
+                bottomContent()
             }
         }
     }
-    bottomSheet?.let { it() }
+    bottomSheet()
 }

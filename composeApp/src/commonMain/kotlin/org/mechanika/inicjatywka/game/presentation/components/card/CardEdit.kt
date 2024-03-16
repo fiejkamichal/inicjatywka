@@ -1,13 +1,17 @@
 package org.mechanika.inicjatywka.game.presentation.components.card
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -22,41 +26,39 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CardEdit(
+    modifier: Modifier = Modifier,
     cardEdit: Card?,
     onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
     onSave: (card: Card) -> Unit
 ) {
     Box(
-        modifier = Modifier
-            .background(Color.Red)
-            .size(300.dp)
+        modifier = modifier
+            .background(Color.DarkGray)
             .padding(10.dp)
     ) {
         val stateVertical = rememberScrollState(0)
         val stateHorizontal = rememberScrollState(0)
 
-        Box(
+        Column(
             modifier = Modifier
-                .background(Color.Blue)
-                .fillMaxSize()
-                //.verticalScroll(stateVertical)
-                .padding(end = 12.dp, bottom = 12.dp)
-                .horizontalScroll(stateHorizontal)
+                .background(Color.Green)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Column {
-                Text("Edycja Karta postaci (${cardEdit?.id}):")
+            FlowRow {
                 cardEdit?.getStats()?.forEach {
                     StatEdit(
                         it,
                         onValueChanged = onUpdate
                     )
                 }
-                Save {
-                    cardEdit?.let {
-                        onSave(it)
-                    }
+            }
+            Save {
+                cardEdit?.let {
+                    onSave(it)
                 }
             }
         }
@@ -160,6 +162,9 @@ fun StatLongField(
 ) {
     val pattern = remember { Regex("^-?\\d*\$") }
     OutlinedTextField(
+        modifier = Modifier
+            .padding(0.dp)
+            .width(100.dp),
         label = {
             Text(
                 text = fieldName,
@@ -175,13 +180,19 @@ fun StatLongField(
             }
         },
         trailingIcon = {
-            Row {
+            Column {
                 Button(
-                    onClick = { onValueChanged(value + 1) }
+                    modifier = Modifier
+                        .size(20.dp),
+                    onClick = { onValueChanged(value + 1) },
+                    contentPadding = PaddingValues(0.dp)
                 ) {
                     Text("+")
                 }
                 Button(
+                    modifier = Modifier
+                        .size(20.dp),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { onValueChanged(value - 1) }
                 ) {
                     Text("-")
