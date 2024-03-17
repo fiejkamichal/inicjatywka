@@ -26,9 +26,6 @@ class DebugViewModel(
     var isDebugSheetOpen by mutableStateOf(DebugSheetState())
         private set
 
-    fun updateState() {
-    }
-
     fun onEvent(event: DebugEvent) {
         isDebugSheetOpen = when (event) {
             DebugEvent.OnDebugButtonClicked -> isDebugSheetOpen.copy(isDebugSheetOpen = true)

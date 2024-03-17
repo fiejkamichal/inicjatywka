@@ -17,7 +17,7 @@ class UpdateCard(
 
     fun update(cardId: Long, newCard: Card): CardUpdateAction? {
         val card = repository.getCard(cardId)
-        if (card != null && !card.sameStats(newCard)) {
+        if (card != null && !(card.sameStats(newCard) && card.waits == newCard.waits)) {
             val prevId = repository.insertDeletedCard(card)
             repository.updateCard(cardId, newCard)
             return CardUpdateAction(

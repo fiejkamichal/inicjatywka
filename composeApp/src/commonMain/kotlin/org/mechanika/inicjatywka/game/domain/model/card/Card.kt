@@ -87,7 +87,7 @@ data class Card(
     }
 
     override fun toString(): String {
-        return id.toString() + " " + getStats().toString()
+        return id.toString() + " " + getStats().toString() + " waits " + waits.toString()
     }
 
     fun sameStats(card: Card): Boolean {
