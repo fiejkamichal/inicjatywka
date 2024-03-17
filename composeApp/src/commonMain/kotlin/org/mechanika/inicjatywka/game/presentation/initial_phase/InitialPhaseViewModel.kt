@@ -47,6 +47,9 @@ class InitialPhaseViewModel(
                 runBlocking { inicjatywkaUseCases.startInitiative() }
                 onNavigateToInitiativePhase()
             }
+
+            is InitialPhaseEvent.Export -> inicjatywkaUseCases.export(event.path)
+            is InitialPhaseEvent.Import -> inicjatywkaUseCases.import(event.path)
         }
     }
 }

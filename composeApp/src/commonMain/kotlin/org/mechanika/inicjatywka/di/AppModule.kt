@@ -24,9 +24,11 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
 import org.mechanika.inicjatywka.game.domain.use_case.card.AddCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.DeleteCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.ExportCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCardIdWithHighestInitiative
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
+import org.mechanika.inicjatywka.game.domain.use_case.card.ImportCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetCurrentCardId
@@ -137,7 +139,9 @@ class AppModule(
         nextTurn = NextTurn(engineRepository, cardRepository, nextRound, updateCard, stack),
         getRound = GetRound(engineRepository),
         getReverse = GetReverse(engineRepository),
-        wait = null
+        wait = null,
+        import = ImportCards(repository = cardRepository, stack = stack),
+        export = ExportCards(cardRepository)
     )
 
 

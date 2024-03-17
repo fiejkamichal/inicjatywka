@@ -1,5 +1,8 @@
 package org.mechanika.inicjatywka.game.domain.model.card
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Card(
     var id: Long?,
     private var name: String = "",
@@ -61,6 +64,7 @@ data class Card(
         }
     }
 
+    @Serializable
     class Stat(
         val id: Id,
         val name: String,

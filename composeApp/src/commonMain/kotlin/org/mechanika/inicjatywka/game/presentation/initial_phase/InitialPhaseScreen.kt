@@ -12,13 +12,15 @@ import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
 import org.mechanika.inicjatywka.game.presentation.components.card.CardListEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.InitiativeCardList
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
+import org.mechanika.inicjatywka.game.presentation.components.importExport.Export
+import org.mechanika.inicjatywka.game.presentation.components.importExport.Import
 import org.mechanika.inicjatywka.game.presentation.components.layout.Layout
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
-import org.mechanika.inicjatywka.game.presentation.components.card.InitiativeCardList
 
 @Composable
 fun InitialPhaseScreen(
@@ -86,10 +88,14 @@ fun InitialPhaseScreen(
 
         },
         bottomContent = {
-            Button(onClick = {
-                component.onEvent(InitialPhaseEvent.StartInitiative)
-            }) {
-                Text("Start Inicjatywy")
+            Row {
+                Button(onClick = {
+                    component.onEvent(InitialPhaseEvent.StartInitiative)
+                }) {
+                    Text("Start Inicjatywy")
+                }
+                Export(onExport = { component.onEvent(InitialPhaseEvent.Export(it))} )
+                Import(onImport = { component.onEvent(InitialPhaseEvent.Import(it))} )
             }
         },
         bottomSheet = {

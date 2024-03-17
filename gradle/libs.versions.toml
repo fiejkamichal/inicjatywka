@@ -16,6 +16,7 @@ compose-plugin = "1.5.11"
 junit = "4.13.2"
 kotlin = "1.9.21"
 moko = "0.16.1"
+mpfilepicker = "3.1.0"
 sqldelight = "2.0.0"
 extensionsComposeJetbrains = "2.1.4-compose-experimental"
 decompose = "2.2.2"
@@ -41,6 +42,7 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 moko-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 moko-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "moko" }
+mpfilepicker = { module = "com.darkrockstudios:mpfilepicker", version.ref = "mpfilepicker" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }

@@ -6,8 +6,10 @@ import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
 import org.mechanika.inicjatywka.game.domain.use_case.action.Undo
 import org.mechanika.inicjatywka.game.domain.use_case.card.AddCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.DeleteCard
+import org.mechanika.inicjatywka.game.domain.use_case.card.ExportCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCard
 import org.mechanika.inicjatywka.game.domain.use_case.card.GetCards
+import org.mechanika.inicjatywka.game.domain.use_case.card.ImportCards
 import org.mechanika.inicjatywka.game.domain.use_case.card.UpdateCard
 import org.mechanika.inicjatywka.game.domain.use_case.debug.Debug
 import org.mechanika.inicjatywka.game.domain.use_case.engine.GetCurrentCardId
@@ -37,5 +39,7 @@ data class InicjatywkaUseCases(
     val nextTurn: NextTurn,
     val getRound: GetRound,
     val getReverse: GetReverse,
-    var wait: Wait?
+    var wait: Wait?,
+    val import: ImportCards,
+    val export: ExportCards
 )

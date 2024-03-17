@@ -53,6 +53,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.jetbrains)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.mpfilepicker)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
