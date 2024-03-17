@@ -77,6 +77,10 @@ fun InitialPhaseScreen(
                                 card
                             )
                         )
+                    },
+                    onDelete = { cardId ->
+                        component.cardListViewModel.onEvent(CardListEvent.DeleteCard(cardId))
+                        component.cardEditViewModel.cardEdit = null
                     }
                 )
                 Row(

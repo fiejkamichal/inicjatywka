@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,7 +33,8 @@ fun CardEdit(
     modifier: Modifier = Modifier,
     cardEdit: Card?,
     onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
-    onSave: (card: Card) -> Unit
+    onSave: (card: Card) -> Unit,
+    onDelete: ((cardId: Long) -> Unit)? = null
 ) {
     Box(
         modifier = modifier
@@ -58,7 +60,18 @@ fun CardEdit(
                         )
                     }
                 }
-                Save { onSave(cardEdit) }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Save { onSave(cardEdit) }
+                    onDelete?.let { delete ->
+                        Delete(
+                            cardEdit.id != null
+                        ) { cardEdit.id?.let { delete(it) } }
+                    }
+                }
             }
         }
         /*

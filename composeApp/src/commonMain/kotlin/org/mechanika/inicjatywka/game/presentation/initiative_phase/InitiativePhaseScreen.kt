@@ -115,7 +115,7 @@ fun InitiativePhaseScreen(
                                 card
                             )
                         )
-                    }
+                    },
                 )
                 Row (
                     modifier = Modifier.weight(0.1f)

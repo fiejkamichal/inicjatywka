@@ -39,7 +39,8 @@ fun CardList(
                     onSave = { card ->
                         cardEditViewModel.onEvent(CardEditEvent.SaveCard(card))
                         cardEditViewModel.cardEdit = null
-                    }
+                    },
+                    onDelete = { cardId -> cardListViewModel.onEvent(CardListEvent.DeleteCard(cardId))}
                 )
             else
                 Card(

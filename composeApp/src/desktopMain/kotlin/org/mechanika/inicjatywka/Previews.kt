@@ -14,7 +14,8 @@ fun Preview() {
     CardEdit (
         cardEdit = card,
         onSave = {_ -> },
-        onUpdate = {_, _ -> }
+        onUpdate = {_, _ -> },
+        onDelete = {_ -> }
     )
 }
 
