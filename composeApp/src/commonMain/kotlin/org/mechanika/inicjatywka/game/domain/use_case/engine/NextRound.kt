@@ -3,7 +3,6 @@ package org.mechanika.inicjatywka.game.domain.use_case.engine
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextRoundAction
-import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
@@ -32,8 +31,8 @@ class NextRound(
 
         val actions = mutableListOf<Action>()
         val card = cardRepository.getCard(fromCardId) ?: error("card not found")
-        if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) {
-            card.setStat(Card.Stat.Id.Waits, false.toString())
+        if (card.waits) {
+            card.waits = false
             updateCard.update(fromCardId, card)?.let {
                 actions.add(it)
             }

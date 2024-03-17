@@ -3,7 +3,6 @@ package org.mechanika.inicjatywka.game.domain.use_case.engine
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
 import org.mechanika.inicjatywka.game.domain.model.action.NextTurnAction
-import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
 import org.mechanika.inicjatywka.game.domain.use_case.action.Stack
@@ -54,9 +53,9 @@ class NextTurn(
             }
 
             val actions = mutableListOf<Action>()
-            if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) {
+            if (card.waits) {
                 val cardNew = card.copy()
-                cardNew.setStat(Card.Stat.Id.Waits, false.toString())
+                cardNew.waits = false
                 updateCard.update(fromCardId, cardNew)?.let {
                     actions.add(it)
                 }
@@ -106,7 +105,7 @@ class NextTurn(
         }
         while (iterator.hasPrevious()) {
             val card = iterator.previous()
-            if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) return card.id
+            if (card.waits) return card.id
         }
         return null
     }

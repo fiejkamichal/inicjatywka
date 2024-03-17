@@ -3,7 +3,6 @@ package org.mechanika.inicjatywka.game.domain.use_case.engine
 import org.mechanika.inicjatywka.game.domain.model.action.Action
 import org.mechanika.inicjatywka.game.domain.model.action.ActionListAction
 import org.mechanika.inicjatywka.game.domain.model.action.PhaseChangeAction
-import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.repository.CardRepository
 import org.mechanika.inicjatywka.game.domain.repository.EngineRepository
@@ -32,9 +31,9 @@ class StopInitiative(
 
         val cards = cardRepository.getCards()
         cards.forEach { card ->
-            if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) {
+            if (card.waits) {
                 val cardNew = card.copy()
-                cardNew.setStat(Card.Stat.Id.Waits, false.toString())
+                cardNew.waits = false
                 card.id?.let { cardId ->
                     updateCard.update(cardId, cardNew)?.let {
                         actions.add(it)

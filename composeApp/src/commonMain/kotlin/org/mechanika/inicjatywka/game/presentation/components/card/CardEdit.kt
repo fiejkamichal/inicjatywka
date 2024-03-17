@@ -111,7 +111,6 @@ fun StatEdit(
             }
         )
 
-        Card.Stat.Id.Waits,
         Card.Stat.Id.Ally -> StatBooleanField(
             value = stat.value.toBoolean(),
             fieldName = stat.name,

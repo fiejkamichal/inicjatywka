@@ -44,7 +44,7 @@ class CardDaoImpl(
                 movePoints = card.getStat(Card.Stat.Id.MovePoints).value.toLong(),
                 steps = card.getStat(Card.Stat.Id.Steps).value.toLong(),
                 states = card.getStat(Card.Stat.Id.States).value,
-                waits = if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) 1L else 0L
+                waits = if (card.waits) 1L else 0L
             )
             queries.lastInsertRowId().executeAsOne()
         }
@@ -63,7 +63,7 @@ class CardDaoImpl(
             movePoints = card.getStat(Card.Stat.Id.MovePoints).value.toLong(),
             steps = card.getStat(Card.Stat.Id.Steps).value.toLong(),
             states = card.getStat(Card.Stat.Id.States).value,
-            waits = if (card.getStat(Card.Stat.Id.Waits).value.toBoolean()) 1L else 0L
+            waits = if (card.waits) 1L else 0L
         )
     }
 

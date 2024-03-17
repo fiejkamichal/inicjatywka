@@ -28,7 +28,7 @@ fun InitiativeCardList(
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = if (it.getStat(Card.Stat.Id.Waits).value.toBoolean())
+                        color = if (it.waits)
                             Color.Red
                         else Color.Black
                     )

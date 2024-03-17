@@ -39,7 +39,6 @@ class CardEditViewModel(
                         Card.Stat.Id.MovePoints -> cardEdit?.copy(movePoints = event.value.toLong())
                         Card.Stat.Id.Steps -> cardEdit?.copy(steps = event.value.toLong())
                         Card.Stat.Id.States -> cardEdit?.copy(states = event.value)
-                        Card.Stat.Id.Waits -> cardEdit?.copy(waits = event.value.toBoolean())
                     }
             }
         }

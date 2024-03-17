@@ -21,7 +21,7 @@ class Wait(
 
         nextCardId ?: return //cannot wait if it is last
 
-        card.setStat(Card.Stat.Id.Waits, true.toString())
+        card.waits = true
         val cardUpdateAction = updateCard.update(cardId, card)
 
         engineRepository.setCurrentCardId(nextCardId)

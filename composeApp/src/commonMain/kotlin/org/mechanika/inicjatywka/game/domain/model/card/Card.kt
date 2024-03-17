@@ -13,7 +13,7 @@ data class Card(
     private var movePoints: Long = 0,
     private var steps: Long = 0,
     private var states: String = "",
-    private var waits: Boolean = false
+    var waits: Boolean = false
 ) {
     private var stats: Map<Stat.Id, Stat> = emptyMap()
 
@@ -33,7 +33,6 @@ data class Card(
             Stat.Id.MovePoints to Stat(Stat.Id.MovePoints, "punkty ruchu", movePoints.toString()),
             Stat.Id.Steps to Stat(Stat.Id.Steps, "kroki", steps.toString()),
             Stat.Id.States to Stat(Stat.Id.States, "stany", states),
-            Stat.Id.Waits to Stat(Stat.Id.Waits, "czeka", waits.toString())
         )
     }
 
@@ -58,7 +57,6 @@ data class Card(
             Stat.Id.MovePoints -> movePoints = value.toLong()
             Stat.Id.Steps -> steps = value.toLong()
             Stat.Id.States -> states = value
-            Stat.Id.Waits -> waits = value.toBoolean()
             Stat.Id.Null -> {}
         }
     }
@@ -74,7 +72,8 @@ data class Card(
 
         enum class Id {
             Null, Name, Initiative, Ally,
-            HitPoints, Resilience, Mana, Concentration, MovePoints, Steps, States, Waits
+            HitPoints, Resilience, Mana, Concentration,
+            MovePoints, Steps, States
         }
 
         override fun toString(): String {
