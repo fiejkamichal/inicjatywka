@@ -36,30 +36,29 @@ fun CardEdit(
 ) {
     Box(
         modifier = modifier
+            .fillMaxSize()
             .background(Color.DarkGray)
             .padding(10.dp)
     ) {
         val stateVertical = rememberScrollState(0)
         val stateHorizontal = rememberScrollState(0)
 
-        Column(
-            modifier = Modifier
-                .background(Color.Green)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-        ) {
-            FlowRow {
-                cardEdit?.getStats()?.forEach {
-                    StatEdit(
-                        it,
-                        onValueChanged = onUpdate
-                    )
+        if (cardEdit != null) {
+            Column(
+                modifier = Modifier
+                    .background(Color.Green)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween,
+            ) {
+                FlowRow {
+                    cardEdit.getStats().forEach {
+                        StatEdit(
+                            it,
+                            onValueChanged = onUpdate
+                        )
+                    }
                 }
-            }
-            Save {
-                cardEdit?.let {
-                    onSave(it)
-                }
+                Save { onSave(cardEdit) }
             }
         }
         /*
