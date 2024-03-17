@@ -18,7 +18,6 @@ class ImportCards(
             .onEach { card ->
                 if (card != null) {
                     if (cardsInDb.none { it -> it.getStat(Card.Stat.Id.Name).value == card.getStat(Card.Stat.Id.Name).value }) {
-
                         val id = repository.insertCard(card)
                         card.id = id
                         stack.pushActionAboveCurrentPosition(
@@ -29,6 +28,5 @@ class ImportCards(
                     }
                 }
             }
-
     }
 }

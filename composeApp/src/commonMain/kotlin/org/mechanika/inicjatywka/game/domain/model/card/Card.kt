@@ -1,6 +1,7 @@
 package org.mechanika.inicjatywka.game.domain.model.card
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class Card(
@@ -18,6 +19,7 @@ data class Card(
     private var states: String = "",
     var waits: Boolean = false
 ) {
+    @Transient
     private var stats: Map<Stat.Id, Stat> = emptyMap()
 
     init {
@@ -64,7 +66,6 @@ data class Card(
         }
     }
 
-    @Serializable
     class Stat(
         val id: Id,
         val name: String,
