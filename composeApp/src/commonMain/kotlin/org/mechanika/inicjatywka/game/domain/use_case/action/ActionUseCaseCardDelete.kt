@@ -19,11 +19,8 @@ class ActionUseCaseCardDelete(
         if (a != null) cardRepository.markCardAsDeleted(a.cardId)
     }
 
-    override fun deleteFromSubRepository(action: Action) {
+    override fun deleteFromSubRepository(action: Action) =
         actionRepository.deleteCardDeleteAction(action.id!!)
-        val a = action as? CardDeleteAction
-        if (a != null) cardRepository.deleteCard(a.cardId)
-    }
 
     override fun insertToSubRepository(action: Action): Long =
         actionRepository.insertCardDeleteAction(action as CardDeleteAction)
