@@ -34,12 +34,13 @@ fun CardEdit(
     cardEdit: Card?,
     onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
     onSave: (card: Card) -> Unit,
-    onDelete: ((cardId: Long) -> Unit)? = null
+    onDelete: ((cardId: Long) -> Unit)? = null,
+    highlight: Boolean = false
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.DarkGray)
+            .background(if (highlight) Color.Red else Color.DarkGray)
             .padding(10.dp)
     ) {
         val stateVertical = rememberScrollState(0)
@@ -48,7 +49,7 @@ fun CardEdit(
         if (cardEdit != null) {
             Column(
                 modifier = Modifier
-                    .background(Color.Green)
+                    .background(Color(0xFF94DF1A))
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {

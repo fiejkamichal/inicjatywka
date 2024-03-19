@@ -33,7 +33,7 @@ fun Layout(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color(0xFF94DF1A))
+                .background(Color(0xFF75B114))
                 .border(10.dp, Color(0xFF324F0F))
                 .padding(10.dp)
         ) {

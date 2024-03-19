@@ -1,5 +1,6 @@
 package org.mechanika.inicjatywka.game.presentation.components.card
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,18 +27,24 @@ fun InitiativeCardList(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(
+                        if (it.id == highlightedCardId)
+                            Color.Red
+                        else
+                            Color.Transparent
+                    )
                     .border(
                         width = 1.dp,
                         color = if (it.waits)
-                            Color.Red
+                            Color.Blue
                         else Color.Black
                     )
-                    .padding(1.dp)
                     .clickable {
                         onCardSelect(it)
-                    },
+                    }
+                    .padding(5.dp),
             ) {
-                Text (
+                Text(
                     text = it.getStat(Card.Stat.Id.Initiative).value,
                     fontWeight = (
                             if (it.id == highlightedCardId)
@@ -47,9 +54,10 @@ fun InitiativeCardList(
                             ),
                     textAlign = TextAlign.Start
                 )
-                Text (
+                Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = it.getStat(Card.Stat.Id.Name).value + " (" + it.id.toString() + ")",
+                    text = it.getStat(Card.Stat.Id.Name).value
+                            + if (it.waits) " (czeka)" else "",
                     fontWeight = (
                             if (it.id == highlightedCardId)
                                 FontWeight.Bold

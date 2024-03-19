@@ -26,17 +26,23 @@ fun InitiativePhaseScreen(
     component: InitiativePhaseViewModel
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initiative)
-    val currentCardId = component.state.currentCardId.collectAsState(null)
+    val currentCardId = component.state.currentCardId
+        .onEach {
+            if(it == component.selectedCardEditViewModel.cardEdit?.id) {
+                component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
+            }
+        }
+        .collectAsState(null)
     val sortedCards = component.cardListViewModel.state.cards
         .onEach {
             if (it.none { card ->
-                card.id == component.currentCardEditViewModel.cardEdit?.id
-            }) {
+                    card.id == component.currentCardEditViewModel.cardEdit?.id
+                }) {
                 component.currentCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
             }
-            if(it.none { card ->
-                card.id == component.selectedCardEditViewModel.cardEdit?.id
-            }) {
+            if (it.none { card ->
+                    card.id == component.selectedCardEditViewModel.cardEdit?.id
+                }) {
                 component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
             }
         }.collectAsState(emptyList())
@@ -59,6 +65,7 @@ fun InitiativePhaseScreen(
             Column {
                 CardEdit(
                     modifier = Modifier.weight(0.9f),
+                    highlight = true,
                     cardEdit = component.currentCardEditViewModel.cardEdit,
                     onUpdate = { id, value ->
                         component.currentCardEditViewModel.onEvent(
@@ -76,7 +83,7 @@ fun InitiativePhaseScreen(
                         )
                     }
                 )
-                Row (
+                Row(
                     modifier = Modifier.weight(0.1f)
                 ) {
                     Button(
@@ -98,11 +105,14 @@ fun InitiativePhaseScreen(
                 sortedCards = sortedCards.value,
                 highlightedCardId = currentCardId.value,
                 onCardSelect = {
-                    component.selectedCardEditViewModel.onEvent(
-                        CardEditEvent.EditCard(
-                            it
+                    if (it.id != component.currentCardEditViewModel.cardEdit?.id) {
+                        component.selectedCardEditViewModel.onEvent(
+                            CardEditEvent.EditCard(it)
                         )
-                    )
+                    }
+                    else {
+                        component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
+                    }
                 }
             )
         },
@@ -130,7 +140,7 @@ fun InitiativePhaseScreen(
                         )
                     },
                 )
-                Row (
+                Row(
                     modifier = Modifier.weight(0.1f)
                 ) {
                     New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
