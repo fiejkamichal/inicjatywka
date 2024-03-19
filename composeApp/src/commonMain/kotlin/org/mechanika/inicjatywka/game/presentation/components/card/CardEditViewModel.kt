@@ -41,6 +41,8 @@ class CardEditViewModel(
                         Card.Stat.Id.States -> cardEdit?.copy(states = event.value)
                     }
             }
+
+            CardEditEvent.StopEditCard -> cardEdit = null
         }
     }
 }

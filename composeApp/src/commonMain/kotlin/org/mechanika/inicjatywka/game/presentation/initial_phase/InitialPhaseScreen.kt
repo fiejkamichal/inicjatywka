@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.flow.onEach
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
@@ -28,7 +29,15 @@ fun InitialPhaseScreen(
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initial)
     val currentCardId = component.state.currentCardId.collectAsState(null)
-    val sortedCards = component.cardListViewModel.state.cards.collectAsState(emptyList())
+    val sortedCards = component.cardListViewModel.state.cards
+        .onEach {
+            if(it.none { card ->
+                card.id == component.cardEditViewModel.cardEdit?.id
+            }) {
+                component.cardEditViewModel.onEvent(CardEditEvent.StopEditCard)
+            }
+        }
+        .collectAsState(emptyList())
 
     Layout(
         floatingActionButton = {
@@ -98,8 +107,8 @@ fun InitialPhaseScreen(
                 }) {
                     Text("Start Inicjatywy")
                 }
-                Export(onExport = { component.onEvent(InitialPhaseEvent.Export(it))} )
-                Import(onImport = { component.onEvent(InitialPhaseEvent.Import(it))} )
+                Export(onExport = { component.onEvent(InitialPhaseEvent.Export(it)) })
+                Import(onImport = { component.onEvent(InitialPhaseEvent.Import(it)) })
             }
         },
         bottomSheet = {

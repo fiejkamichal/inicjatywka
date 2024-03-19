@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.flow.onEach
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
 import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
@@ -26,7 +27,19 @@ fun InitiativePhaseScreen(
 ) {
     val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initiative)
     val currentCardId = component.state.currentCardId.collectAsState(null)
-    val sortedCards = component.cardListViewModel.state.cards.collectAsState(emptyList())
+    val sortedCards = component.cardListViewModel.state.cards
+        .onEach {
+            if (it.none { card ->
+                card.id == component.currentCardEditViewModel.cardEdit?.id
+            }) {
+                component.currentCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
+            }
+            if(it.none { card ->
+                card.id == component.selectedCardEditViewModel.cardEdit?.id
+            }) {
+                component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
+            }
+        }.collectAsState(emptyList())
     val round = component.state.round.collectAsState(0)
     val reverse = component.state.reverse.collectAsState(false)
 
