@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS NewCardEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    deleted INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    initiative INTEGER NOT NULL,
+    ally INTEGER NOT NULL,
+    hitPoints INTEGER NOT NULL,
+    maxHitPoints INTEGER NOT NULL,
+    resilience INTEGER NOT NULL,
+    maxResilience INTEGER NOT NULL,
+    mana INTEGER NOT NULL,
+    maxMana INTEGER NOT NULL,
+    concentration INTEGER NOT NULL,
+    maxConcentration INTEGER NOT NULL,
+    movePoints INTEGER NOT NULL,
+    steps INTEGER NOT NULL,
+    states TEXT NOT NULL,
+    waits INTEGER NOT NULL
+);
+
+INSERT INTO NewCardEntity (
+name, initiative, deleted,
+ally, hitPoints, maxHitPoints, resilience, maxResilience,
+mana, maxMana, concentration, maxConcentration, movePoints,
+steps, states, waits
+) SELECT
+name, initiative, deleted,
+ally, hitPoints, hitPoints, resilience, resilience,
+mana, mana, concentration, concentration, movePoints,
+steps, states, waits
+FROM CardEntity;
+
+DROP TABLE CardEntity;
+ALTER TABLE NewCardEntity RENAME TO CardEntity;

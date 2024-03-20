@@ -5,9 +5,13 @@ CREATE TABLE IF NOT EXISTS CardEntity (
     initiative INTEGER NOT NULL,
     ally INTEGER NOT NULL,
     hitPoints INTEGER NOT NULL,
+    maxHitPoints INTEGER NOT NULL,
     resilience INTEGER NOT NULL,
+    maxResilience INTEGER NOT NULL,
     mana INTEGER NOT NULL,
+    maxMana INTEGER NOT NULL,
     concentration INTEGER NOT NULL,
+    maxConcentration INTEGER NOT NULL,
     movePoints INTEGER NOT NULL,
     steps INTEGER NOT NULL,
     states TEXT NOT NULL,
@@ -18,25 +22,25 @@ CREATE TABLE IF NOT EXISTS CardEntity (
 insertCard:
 INSERT OR REPLACE INTO CardEntity
 (name, initiative, deleted,
-ally, hitPoints, resilience,
-mana, concentration, movePoints,
+ally, hitPoints, maxHitPoints, resilience, maxResilience,
+mana, maxMana, concentration, maxConcentration, movePoints,
 steps, states, waits
 )
 VALUES (:name, :initiative, 0,
-:ally, :hitPoints, :resilience,
-:mana,:concentration,:movePoints,
+:ally, :hitPoints, :maxHitPoints, :resilience, :maxResilience,
+:mana, :maxMana, :concentration,:maxConcentration, :movePoints,
 :steps,:states,0);
 
 insertDeletedCard:
 INSERT OR REPLACE INTO CardEntity
 (name, initiative, deleted,
-ally, hitPoints, resilience,
-mana, concentration, movePoints,
+ally, hitPoints, maxHitPoints, resilience, maxResilience,
+mana, maxMana, concentration, maxConcentration, movePoints,
 steps, states, waits
 )
 VALUES (:name, :initiative, 1,
-:ally, :hitPoints, :resilience,
-:mana,:concentration,:movePoints,
+:ally, :hitPoints, :maxHitPoints, :resilience, :maxResilience,
+:mana, :maxMana, :concentration,:maxConcentration, :movePoints,
 :steps,:states,:waits);
 
 deleteCard:
@@ -51,8 +55,10 @@ UPDATE CardEntity SET deleted = 0 WHERE id = :id;
 updateCard:
 UPDATE CardEntity SET
 name = :name, initiative = :initiative,
-ally = :ally, hitPoints = :hitPoints, resilience = :resilience,
-mana = :mana, concentration = :concentration, movePoints = :movePoints,
+ally = :ally, hitPoints = :hitPoints, maxHitPoints = :maxHitPoints,
+resilience = :resilience, maxResilience = :maxResilience,
+mana = :mana, maxMana = :maxMana, concentration = :concentration,
+maxConcentration = :maxConcentration, movePoints = :movePoints,
 steps = :steps, states = :states, waits = :waits
 WHERE id = :id;
 

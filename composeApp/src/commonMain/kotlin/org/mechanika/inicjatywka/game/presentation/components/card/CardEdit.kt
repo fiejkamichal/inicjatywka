@@ -112,9 +112,13 @@ fun StatEdit(
 
         Card.Stat.Id.Initiative,
         Card.Stat.Id.HitPoints,
+        Card.Stat.Id.MaxHitPoints,
         Card.Stat.Id.Resilience,
+        Card.Stat.Id.MaxResilience,
         Card.Stat.Id.Mana,
+        Card.Stat.Id.MaxMana,
         Card.Stat.Id.Concentration,
+        Card.Stat.Id.MaxConcentration,
         Card.Stat.Id.MovePoints,
         Card.Stat.Id.Steps -> StatLongField(
             value = stat.value.toLong(),
