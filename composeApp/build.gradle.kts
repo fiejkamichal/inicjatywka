@@ -108,6 +108,7 @@ compose.desktop {
             packageName = "org.mechanika.inicjatywka"
             packageVersion = inicjatywkaVersion
             modules("java.sql")
+            modules("jdk.unsupported")
             windows {
                 dirChooser = true
                 perUserInstall = true
