@@ -29,7 +29,10 @@ fun InitiativeCardList(
                     .fillMaxWidth()
                     .background(
                         if (it.id == highlightedCardId)
-                            Color.Red
+                            if (it.getStat(Card.Stat.Id.Ally).value.toBoolean())
+                                Color.Green
+                            else
+                                Color.Red
                         else
                             Color.Transparent
                     )

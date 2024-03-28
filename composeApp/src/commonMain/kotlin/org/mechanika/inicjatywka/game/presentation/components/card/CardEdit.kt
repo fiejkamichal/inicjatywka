@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.mechanika.inicjatywka.game.domain.model.card.Card
+import org.mechanika.inicjatywka.game.presentation.components.card.ally.AllySwitch
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -40,7 +40,14 @@ fun CardEdit(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(if (highlight) Color.Red else Color.DarkGray)
+            .background(
+                if (highlight)
+                    if (cardEdit?.getStat(Card.Stat.Id.Ally)?.value.toBoolean())
+                        Color.Green
+                    else
+                        Color.Red
+                else Color.DarkGray
+            )
             .padding(10.dp)
     ) {
         val stateVertical = rememberScrollState(0)
@@ -49,7 +56,11 @@ fun CardEdit(
         if (cardEdit != null) {
             Column(
                 modifier = Modifier
-                    .background(Color(0xFF94DF1A))
+                    .background(
+                        if (cardEdit.getStat(Card.Stat.Id.Ally).value.toBoolean()) Color(
+                            0xFF94DF1A
+                        ) else Color(0xFFDF291E)
+                    )
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -128,9 +139,8 @@ fun StatEdit(
             }
         )
 
-        Card.Stat.Id.Ally -> StatBooleanField(
+        Card.Stat.Id.Ally -> AllySwitch(
             value = stat.value.toBoolean(),
-            fieldName = stat.name,
             onValueChanged = {
                 onValueChanged(stat.id, it.toString())
             }
@@ -151,23 +161,6 @@ private fun StatTextField(
         },
         onValueChange = onValueChanged
     )
-}
-
-@Composable
-private fun StatBooleanField(
-    value: Boolean,
-    fieldName: String,
-    onValueChanged: (Boolean) -> Unit
-) {
-    Row {
-        Text(text = fieldName)
-        Checkbox(
-            checked = value,
-            onCheckedChange = {
-                onValueChanged(it)
-            }
-        )
-    }
 }
 
 @Composable
