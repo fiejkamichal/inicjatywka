@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -21,7 +20,7 @@ fun AllySwitch(
     onValueChanged: (Boolean) -> Unit
 ) {
 
-    var rotated by remember { mutableStateOf(value) }
+    var rotated by mutableStateOf(value)
 
     val rotation by animateFloatAsState(
         targetValue = if (rotated) 180f else 0f,

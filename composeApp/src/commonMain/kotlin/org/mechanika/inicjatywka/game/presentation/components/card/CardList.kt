@@ -36,8 +36,10 @@ fun InitiativeCardList(
                                 Color.Red
                         else if (it.id == selectedCardId)
                             Color.Gray
+                        else if (it.getStat(Card.Stat.Id.Ally).value.toBoolean())
+                            Color(0xff32C832)
                         else
-                            Color.Transparent
+                            Color(0xffC83232)
                     )
                     .border(
                         width = 1.dp,
