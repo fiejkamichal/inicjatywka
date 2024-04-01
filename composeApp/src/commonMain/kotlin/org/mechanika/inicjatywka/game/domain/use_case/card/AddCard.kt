@@ -9,9 +9,14 @@ class AddCard(
     private val repository: CardRepository,
     private val stack: Stack
 ) {
-    operator fun invoke(card: Card) {
-        val id = repository.insertCard(card)
-        card.id = id
+    operator fun invoke() {
+        val newCard = Card(
+            name = "",
+            initiative = 50,
+            id = null
+        )
+        val id = repository.insertCard(newCard)
+        newCard.id = id
         stack.pushActionAboveCurrentPosition(
             CardAddAction(
                 cardId = id

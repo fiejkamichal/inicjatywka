@@ -26,12 +26,21 @@ fun App(
             when (val instance = child.instance) {
                 is RootComponent.Child.InitialPhase ->
                     InitialPhaseScreen(
-                        instance.component
+                        state = instance.component.state,
+                        onEvent = { event -> instance.component.onEvent(event) },
+                        debugViewModel = instance.component.debugViewModel,
+                        undoRedoViewModel = instance.component.undoRedoViewModel,
+                        selectedCard = instance.component.selectedCardViewModel.cardEdit
                     )
 
                 is RootComponent.Child.InitiativePhase ->
                     InitiativePhaseScreen(
-                        instance.component
+                        state = instance.component.state,
+                        onEvent = { event -> instance.component.onEvent(event) },
+                        debugViewModel = instance.component.debugViewModel,
+                        undoRedoViewModel = instance.component.undoRedoViewModel,
+                        selectedCard = instance.component.selectedCardViewModel.cardEdit,
+                        currentCard = instance.component.currentCardViewModel.cardEdit,
                     )
             }
         }
