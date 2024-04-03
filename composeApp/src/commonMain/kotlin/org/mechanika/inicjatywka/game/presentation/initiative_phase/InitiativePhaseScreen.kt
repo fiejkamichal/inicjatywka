@@ -8,91 +8,65 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import kotlinx.coroutines.flow.onEach
+import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
-import org.mechanika.inicjatywka.game.presentation.components.card.CardListEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.Card
 import org.mechanika.inicjatywka.game.presentation.components.card.InitiativeCardList
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugButton
+import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.layout.Layout
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Redo
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.Undo
+import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
 @Composable
 fun InitiativePhaseScreen(
-    component: InitiativePhaseViewModel
+    state: InitiativePhaseState,
+    onEvent: (InitiativePhaseEvent) -> Unit,
+    debugViewModel: DebugViewModel,
+    undoRedoViewModel: UndoRedoViewModel,
+    selectedCard: Card?,
+    currentCard: Card?,
 ) {
-    val currentPhase = component.state.currentPhase.collectAsState(Engine.Phases.Initiative)
-    val currentCardId = component.state.currentCardId
-        .onEach {
-            if(it == component.selectedCardEditViewModel.cardEdit?.id) {
-                component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
-            }
-        }
-        .collectAsState(null)
-    val sortedCards = component.cardListViewModel.state.cards
-        .onEach {
-            if (it.none { card ->
-                    card.id == component.currentCardEditViewModel.cardEdit?.id
-                }) {
-                component.currentCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
-            }
-            if (it.none { card ->
-                    card.id == component.selectedCardEditViewModel.cardEdit?.id
-                }) {
-                component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
-            }
-        }.collectAsState(emptyList())
-    val round = component.state.round.collectAsState(0)
-    val reverse = component.state.reverse.collectAsState(false)
+    val currentPhase = state.currentPhase.collectAsState(Engine.Phases.Initiative)
+    val sortedCards = state.cards.collectAsState(emptyList())
+    val round = state.round.collectAsState(0)
+    val reverse = state.reverse.collectAsState(false)
+    val currentCardId = state.currentCardId.collectAsState(null)
 
     Layout(
         floatingActionButton = {
-            DebugButton(component.debugViewModel)
+            DebugButton(debugViewModel)
         },
         topLeftText = "Gra z inicjatywą. Runda: " + round.value + " " + if (!reverse.value) "Do przodu" else "do tyłu",
-        topRightText = /*currentPhase.value.toString() +*/ " Obecna tura: " + currentCardId.value.toString(),
+        topRightText = "Obecna tura: " + currentCardId.value.toString(),
         topMiddleContent = {
             Row {
-                Undo(component.undoRedoViewModel)
-                Redo(component.undoRedoViewModel)
+                Undo(undoRedoViewModel)
+                Redo(undoRedoViewModel)
             }
         },
         middleLeftContent = {
             Column {
-                CardEdit(
-                    modifier = Modifier.weight(0.9f),
+                Card(
+                    modifier = Modifier.weight(1f),
                     highlight = true,
-                    cardEdit = component.currentCardEditViewModel.cardEdit,
+                    card = currentCard,
                     onUpdate = { id, value ->
-                        component.currentCardEditViewModel.onEvent(
-                            CardEditEvent.UpdateCardStat(
-                                id,
-                                value
-                            )
-                        )
+                        onEvent(InitiativePhaseEvent.OnCurrentStatUpdate(id, value))
                     },
-                    onSave = { card ->
-                        component.currentCardEditViewModel.onEvent(
-                            CardEditEvent.SaveCard(
-                                card
-                            )
-                        )
-                    }
+                    onSave = { onEvent(InitiativePhaseEvent.OnCurrentCardSave(it)) }
                 )
-                Row(
-                    modifier = Modifier.weight(0.1f)
-                ) {
+                Row {
                     Button(
-                        onClick = { component.onEvent(InitiativePhaseEvent.NextTurn) }
+                        onClick = { onEvent(InitiativePhaseEvent.NextTurn) }
                     ) {
                         Text("Koniec tury postaci")
                     }
                     Button(
-                        onClick = { component.onEvent(InitiativePhaseEvent.Wait) },
+                        onClick = { onEvent(InitiativePhaseEvent.Wait) },
                         enabled = !reverse.value
                     ) {
                         Text("Postać czeka")
@@ -103,17 +77,9 @@ fun InitiativePhaseScreen(
         middleMiddleContent = {
             InitiativeCardList(
                 sortedCards = sortedCards.value,
-                highlightedCardId = currentCardId.value,
-                onCardSelect = {
-                    if (it.id != component.currentCardEditViewModel.cardEdit?.id) {
-                        component.selectedCardEditViewModel.onEvent(
-                            CardEditEvent.EditCard(it)
-                        )
-                    }
-                    else {
-                        component.selectedCardEditViewModel.onEvent(CardEditEvent.StopEditCard)
-                    }
-                }
+                highlightedCardId = currentCard?.id,
+                selectedCardId = selectedCard?.id,
+                onCardSelect = { onEvent(InitiativePhaseEvent.OnCardSelect(it)) },
             )
         },
         middleRightContent = {
@@ -121,35 +87,22 @@ fun InitiativePhaseScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
 
-                CardEdit(
-                    modifier = Modifier.weight(0.9f),
-                    cardEdit = component.selectedCardEditViewModel.cardEdit,
+                Card(
+                    modifier = Modifier.weight(1f),
+                    card = selectedCard,
                     onUpdate = { id, value ->
-                        component.selectedCardEditViewModel.onEvent(
-                            CardEditEvent.UpdateCardStat(
-                                id,
-                                value
-                            )
-                        )
+                        onEvent(InitiativePhaseEvent.OnSelectedStatUpdate(id, value))
                     },
-                    onSave = { card ->
-                        component.selectedCardEditViewModel.onEvent(
-                            CardEditEvent.SaveCard(
-                                card
-                            )
-                        )
-                    },
+                    onSave = { onEvent(InitiativePhaseEvent.OnSelectedCardSave(it)) }
                 )
-                Row(
-                    modifier = Modifier.weight(0.1f)
-                ) {
-                    New { component.cardListViewModel.onEvent(CardListEvent.NewCard) }
+                Row {
+                    New { onEvent(InitiativePhaseEvent.OnCardAdd) }
                 }
             }
         },
         bottomContent = {
             Button(onClick = {
-                component.onEvent(InitiativePhaseEvent.StopInitiative)
+                onEvent(InitiativePhaseEvent.StopInitiative)
             }) {
                 Text(
                     "Koniec Inicjatywy"
@@ -159,8 +112,8 @@ fun InitiativePhaseScreen(
         },
         bottomSheet = {
             DebugBottomSheet(
-                isOpen = component.debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
-                viewModel = component.debugViewModel,
+                isOpen = debugViewModel.isDebugSheetOpen.isDebugSheetOpen,
+                viewModel = debugViewModel,
                 modifier = Modifier
             )
         }

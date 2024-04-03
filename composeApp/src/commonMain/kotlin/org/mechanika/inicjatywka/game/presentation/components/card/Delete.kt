@@ -6,12 +6,12 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun Delete(
-    active: Boolean,
+    enabled: Boolean,
     onDelete: () -> Unit
 ) {
     Button(
         onClick = onDelete,
-        enabled = active
+        enabled = enabled
     ) {
         Text("Usuń")
     }

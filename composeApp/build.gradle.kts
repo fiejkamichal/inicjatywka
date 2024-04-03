@@ -1,7 +1,6 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
-val inicjatywkaVersion = "1.8.0"
+val inicjatywkaVersion = "1.9.0"
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kotlinSerialization)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -46,8 +46,6 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.components.resources)
             implementation(libs.sqldelight.coroutines)
             implementation(libs.sqldelight.async)
             implementation(libs.decompose)
@@ -61,6 +59,9 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.appdirs)
         }
+
+        getByName("androidMain").dependsOn(commonMain.get())
+        getByName("desktopMain").dependsOn(commonMain.get())
     }
 }
 
@@ -76,7 +77,7 @@ android {
         applicationId = "org.mechanika.inicjatywka"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 180
+        versionCode = 190
         versionName = inicjatywkaVersion
     }
     packaging {
@@ -122,4 +123,10 @@ compose.desktop {
 dependencies {
     commonMainApi(libs.moko.core)
     commonMainApi(libs.moko.compose)
+    commonMainApi(libs.resources)
+    commonMainApi(libs.resources.compose)
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "org.mechanika.inicjatywka"
 }

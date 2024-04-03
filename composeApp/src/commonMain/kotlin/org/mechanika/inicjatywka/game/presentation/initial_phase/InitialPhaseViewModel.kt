@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
 import org.mechanika.inicjatywka.game.domain.use_case.InicjatywkaUseCases
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEditEvent
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEditViewModel
-import org.mechanika.inicjatywka.game.presentation.components.card.CardListViewModel
+import org.mechanika.inicjatywka.game.presentation.components.card.CardEvent
+import org.mechanika.inicjatywka.game.presentation.components.card.CardViewModel
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugViewModel
 import org.mechanika.inicjatywka.game.presentation.components.undoredo.UndoRedoViewModel
 
@@ -19,8 +18,7 @@ class InitialPhaseViewModel(
     componentContext: ComponentContext,
     val undoRedoViewModel: UndoRedoViewModel,
     val debugViewModel: DebugViewModel,
-    val cardListViewModel: CardListViewModel,
-    val cardEditViewModel: CardEditViewModel,
+    val selectedCardViewModel: CardViewModel,
     private val onNavigateToInitiativePhase: () -> Unit
 ) : ViewModel(), ComponentContext by componentContext {
 
@@ -32,14 +30,13 @@ class InitialPhaseViewModel(
                 }
                 it
             },
-        currentCardId = inicjatywkaUseCases.getCurrentCardId()
-            .onEach { it ->
-                val card = it?.let { it1 -> inicjatywkaUseCases.getCard(it1) }
-                card?.let { it1 ->
-                    cardEditViewModel.onEvent(CardEditEvent.EditCard(it1))
-                }
-            },
+        cards = inicjatywkaUseCases.getCards()
+            .onEach {
+                val card = it.find { card -> card.id == selectedCardViewModel.cardEdit?.id }
+                selectedCardViewModel.onEvent(CardEvent.EditCard(card))
+            }
     )
+
 
     fun onEvent(event: InitialPhaseEvent) {
         when (event) {
@@ -50,7 +47,25 @@ class InitialPhaseViewModel(
 
             is InitialPhaseEvent.Export -> inicjatywkaUseCases.export(event.path)
             is InitialPhaseEvent.Import -> inicjatywkaUseCases.import(event.path)
+
+            is InitialPhaseEvent.OnCardSelect -> selectedCardViewModel.onEvent(
+                CardEvent.EditCard(event.card)
+            )
+
+            is InitialPhaseEvent.OnCardSave -> selectedCardViewModel.onEvent(
+                CardEvent.SaveCard(event.card)
+            )
+
+            is InitialPhaseEvent.OnStatUpdate -> selectedCardViewModel.onEvent(
+                CardEvent.UpdateCardStat(event.id, event.value)
+            )
+
+            is InitialPhaseEvent.OnCardDelete -> {
+                selectedCardViewModel.onEvent(CardEvent.EditCard(null))
+                inicjatywkaUseCases.deleteCard(event.cardId)
+            }
+
+            InitialPhaseEvent.OnCardAdd -> inicjatywkaUseCases.addCard()
         }
     }
 }
-

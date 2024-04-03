@@ -10,13 +10,14 @@ androidx-core-ktx = "1.12.0"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.10.0"
 androidx-test-junit = "1.1.5"
-compose = "1.6.3"
+compose = "1.6.4"
 compose-compiler = "1.5.6"
 compose-plugin = "1.5.11"
 junit = "4.13.2"
 kotlin = "1.9.21"
 moko = "0.16.1"
 mpfilepicker = "3.1.0"
+resourcesGenerator = "0.23.0"
 sqldelight = "2.0.0"
 extensionsComposeJetbrains = "2.1.4-compose-experimental"
 decompose = "2.2.2"
@@ -43,6 +44,9 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 moko-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 moko-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "moko" }
 mpfilepicker = { module = "com.darkrockstudios:mpfilepicker", version.ref = "mpfilepicker" }
+resources = { module = "dev.icerock.moko:resources", version.ref = "resourcesGenerator" }
+resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "resourcesGenerator" }
+resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "resourcesGenerator" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
