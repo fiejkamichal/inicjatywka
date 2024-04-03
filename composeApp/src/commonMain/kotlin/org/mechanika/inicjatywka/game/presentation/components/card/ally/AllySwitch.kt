@@ -16,6 +16,7 @@ import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 fun AllySwitch(
+    modifier: Modifier = Modifier,
     value: Boolean,
     onValueChanged: (Boolean) -> Unit
 ) {
@@ -28,8 +29,8 @@ fun AllySwitch(
     )
 
     Image(
-        modifier = Modifier
-            .size(100.dp)
+        modifier = modifier
+            .size(75.dp)
             .graphicsLayer {
                 rotationY = rotation
                 cameraDistance = 8 * density

@@ -5,14 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -29,9 +30,9 @@ import org.mechanika.inicjatywka.game.presentation.components.card.ally.AllySwit
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CardEdit(
+fun Card(
     modifier: Modifier = Modifier,
-    cardEdit: Card?,
+    card: Card?,
     onUpdate: (id: Card.Stat.Id, value: String) -> Unit,
     onSave: (card: Card) -> Unit,
     onDelete: ((cardId: Long) -> Unit)? = null,
@@ -42,7 +43,7 @@ fun CardEdit(
             .fillMaxSize()
             .background(
                 if (highlight)
-                    if (cardEdit?.getStat(Card.Stat.Id.Ally)?.value.toBoolean())
+                    if (card?.getStat(Card.Stat.Id.Ally)?.value.toBoolean())
                         Color.Green
                     else
                         Color.Red
@@ -53,23 +54,29 @@ fun CardEdit(
         val stateVertical = rememberScrollState(0)
         val stateHorizontal = rememberScrollState(0)
 
-        if (cardEdit != null) {
+        if (card != null) {
             Column(
                 modifier = Modifier
                     .background(
-                        if (cardEdit.getStat(Card.Stat.Id.Ally).value.toBoolean()) Color(
+                        if (card.getStat(Card.Stat.Id.Ally).value.toBoolean()) Color(
                             0xFF94DF1A
                         ) else Color(0xFFDF291E)
                     )
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
-                FlowRow {
-                    cardEdit.getStats().forEach {
-                        StatEdit(
-                            it,
-                            onValueChanged = onUpdate
-                        )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Save {
+                        onSave(card)
+                    }
+                    onDelete?.let { delete ->
+                        Delete(
+                            card.id != null
+                        ) { card.id?.let { delete(it) } }
                     }
                 }
                 Row(
@@ -77,12 +84,103 @@ fun CardEdit(
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Save { onSave(cardEdit) }
-                    onDelete?.let { delete ->
-                        Delete(
-                            cardEdit.id != null
-                        ) { cardEdit.id?.let { delete(it) } }
+                    StatEdit(
+                        stat = card.getStat(Card.Stat.Id.Initiative),
+                        onValueChanged = onUpdate
+                    )
+                    StatEdit(
+                        modifier = Modifier.weight(1f),
+                        stat = card.getStat(Card.Stat.Id.Name),
+                        onValueChanged = onUpdate
+                    )
+                    StatEdit(
+                        stat = card.getStat(Card.Stat.Id.Ally),
+                        onValueChanged = onUpdate
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight(),
+                        verticalArrangement = Arrangement.Top,
+                    ) {
+                        Row(
+                            modifier = Modifier,
+                            horizontalArrangement = Arrangement.Start,
+                        ) {
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.HitPoints),
+                                onValueChanged = onUpdate
+                            )
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.MaxHitPoints),
+                                onValueChanged = onUpdate
+                            )
+                        }
+                        Row(
+                            modifier = Modifier,
+                            horizontalArrangement = Arrangement.Start,
+                        ) {
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.Mana),
+                                onValueChanged = onUpdate
+                            )
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.MaxMana),
+                                onValueChanged = onUpdate
+                            )
+                        }
+                        Row(
+                            modifier = Modifier,
+                            horizontalArrangement = Arrangement.Start,
+                        ) {
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.Resilience),
+                                onValueChanged = onUpdate
+                            )
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.MaxResilience),
+                                onValueChanged = onUpdate
+                            )
+                        }
+                        Row(
+                            modifier = Modifier,
+                            horizontalArrangement = Arrangement.Start,
+                        ) {
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.Concentration),
+                                onValueChanged = onUpdate
+                            )
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.MaxConcentration),
+                                onValueChanged = onUpdate
+                            )
+                        }
+                        Row(
+                            modifier = Modifier,
+                            horizontalArrangement = Arrangement.Start,
+                        ) {
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.MovePoints),
+                                onValueChanged = onUpdate
+                            )
+                            StatEdit(
+                                stat = card.getStat(Card.Stat.Id.Steps),
+                                onValueChanged = onUpdate
+                            )
+                        }
                     }
+                    StatEdit(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        stat = card.getStat(Card.Stat.Id.States),
+                        onValueChanged = onUpdate
+                    )
                 }
             }
         }
@@ -107,6 +205,7 @@ fun CardEdit(
 
 @Composable
 fun StatEdit(
+    modifier: Modifier = Modifier,
     stat: Card.Stat,
     onValueChanged: (Card.Stat.Id, String) -> Unit
 ) {
@@ -114,8 +213,9 @@ fun StatEdit(
         Card.Stat.Id.Null -> {}
         Card.Stat.Id.Name,
         Card.Stat.Id.States -> StatTextField(
+            modifier = modifier,
             value = stat.value,
-            placeholder = stat.name,
+            label = stat.name,
             onValueChanged = {
                 onValueChanged(stat.id, it)
             }
@@ -132,6 +232,7 @@ fun StatEdit(
         Card.Stat.Id.MaxConcentration,
         Card.Stat.Id.MovePoints,
         Card.Stat.Id.Steps -> StatLongField(
+            modifier = modifier,
             value = stat.value.toLong(),
             fieldName = stat.name,
             onValueChanged = {
@@ -140,6 +241,7 @@ fun StatEdit(
         )
 
         Card.Stat.Id.Ally -> AllySwitch(
+            modifier = modifier,
             value = stat.value.toBoolean(),
             onValueChanged = {
                 onValueChanged(stat.id, it.toString())
@@ -150,37 +252,33 @@ fun StatEdit(
 
 @Composable
 private fun StatTextField(
+    modifier: Modifier = Modifier,
     value: String,
-    placeholder: String,
+    label: String,
     onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
+        modifier = modifier
+            .widthIn(200.dp, 300.dp),
         value = value,
-        placeholder = {
-            Text(text = placeholder)
-        },
+        label = { Text(label) },
         onValueChange = onValueChanged
     )
 }
 
 @Composable
 fun StatLongField(
+    modifier: Modifier = Modifier,
     value: Long,
     fieldName: String,
     onValueChanged: (Long) -> Unit
 ) {
     val pattern = remember { Regex("^-?\\d*\$") }
     OutlinedTextField(
-        modifier = Modifier
-            .padding(0.dp)
-            .width(100.dp),
-        label = {
-            Text(
-                text = fieldName,
-                modifier = Modifier
-                    .background(color = Color.LightGray)
-            )
-        },
+        modifier = modifier
+            .width(100.dp)
+            .padding(0.dp),
+        label = { Text(fieldName) },
         value = value.toString(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         onValueChange = {

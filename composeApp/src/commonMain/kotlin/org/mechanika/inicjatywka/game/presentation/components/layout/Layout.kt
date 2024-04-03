@@ -39,7 +39,6 @@ fun Layout(
         ) {
             TopBar(
                 modifier = Modifier
-                    .weight(0.1f)
                     .fillMaxWidth(),
                 leftText = topLeftText,
                 rightText = topRightText,
@@ -47,7 +46,7 @@ fun Layout(
             )
             MiddleBar (
                 modifier = Modifier
-                    .weight(0.8f)
+                    .weight(1f)
                     .fillMaxWidth(),
                 leftContent = middleLeftContent,
                 middleContent = middleMiddleContent,
@@ -55,7 +54,6 @@ fun Layout(
             )
             Box(
                 modifier = Modifier
-                    .weight(0.1f)
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {

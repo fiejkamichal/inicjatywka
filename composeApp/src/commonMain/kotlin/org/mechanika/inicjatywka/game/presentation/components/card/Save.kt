@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun Save(
+    enabled: Boolean = true,
     onSave: () -> Unit
 ) {
     Button(
+        enabled = enabled,
         onClick = onSave,
     ) {
         Text("Zapisz")

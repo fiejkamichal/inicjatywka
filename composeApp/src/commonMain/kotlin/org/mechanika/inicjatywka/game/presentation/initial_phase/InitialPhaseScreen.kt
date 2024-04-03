@@ -10,7 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import org.mechanika.inicjatywka.game.domain.model.card.Card
 import org.mechanika.inicjatywka.game.domain.model.engine.Engine
-import org.mechanika.inicjatywka.game.presentation.components.card.CardEdit
+import org.mechanika.inicjatywka.game.presentation.components.card.Card
 import org.mechanika.inicjatywka.game.presentation.components.card.InitiativeCardList
 import org.mechanika.inicjatywka.game.presentation.components.card.New
 import org.mechanika.inicjatywka.game.presentation.components.debug.DebugBottomSheet
@@ -59,18 +59,16 @@ fun InitialPhaseScreen(
             Column(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                CardEdit(
-                    modifier = Modifier.weight(0.9f),
-                    cardEdit = selectedCard,
+                Card(
+                    modifier = Modifier.weight(1f),
+                    card = selectedCard,
                     onUpdate = { id, value ->
                         onEvent(InitialPhaseEvent.OnStatUpdate(id, value))
                     },
                     onSave = { onEvent(InitialPhaseEvent.OnCardSave(it)) },
                     onDelete = { cardId -> onEvent(InitialPhaseEvent.OnCardDelete(cardId)) }
                 )
-                Row(
-                    modifier = Modifier.weight(0.1f)
-                ) {
+                Row {
                     New { onEvent(InitialPhaseEvent.OnCardAdd) }
                 }
             }

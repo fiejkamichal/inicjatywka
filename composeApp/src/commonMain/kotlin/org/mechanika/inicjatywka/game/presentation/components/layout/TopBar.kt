@@ -3,7 +3,6 @@ package org.mechanika.inicjatywka.game.presentation.components.layout
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ fun TopBar(
             text = leftText,
             modifier = Modifier
                 .weight(40f)
-                .fillMaxHeight()
                 .border(1.dp, Color.Black)
                 .padding(1.dp),
             textAlign = TextAlign.Center,
@@ -37,7 +35,6 @@ fun TopBar(
         Row(
             modifier = Modifier
                 .weight(20f)
-                .fillMaxHeight()
                 .border(1.dp, Color.Black)
                 .padding(1.dp),
             horizontalArrangement = Arrangement.Center,
@@ -49,7 +46,6 @@ fun TopBar(
             text = rightText,
             modifier = Modifier
                 .weight(40f)
-                .fillMaxHeight()
                 .border(1.dp, Color.Black)
                 .padding(1.dp),
             textAlign = TextAlign.Center,
