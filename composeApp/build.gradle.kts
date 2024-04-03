@@ -12,6 +12,7 @@ plugins {
 }
 
 kotlin {
+    task("testClasses")
 
     sqldelight {
         databases {
